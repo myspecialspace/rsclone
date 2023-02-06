@@ -1,0 +1,19 @@
+.layout {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+
+.header {
+  height: 60px;
+  background-color: #ddd;
+}
+
+.router {
+  flex-grow: 1;
+}
+
+.footer {
+  height: 100px;
+  background-color: bisque;
+}

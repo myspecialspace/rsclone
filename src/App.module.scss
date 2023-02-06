@@ -1,0 +1,7 @@
+.error {
+  background-color: red;
+
+  & .test {
+    color: green;
+  }
+}
