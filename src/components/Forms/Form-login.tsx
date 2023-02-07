@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginPageContentRu } from '../../components/Constants/constant';
+import { LoginPageContentRu } from '../Constants/constant';
 import { Link } from 'react-router-dom';
 import styles from './Form.module.scss';
 
@@ -7,7 +7,7 @@ interface FormProps {
   className: string;
 }
 
-export default class Form extends React.Component {
+export default class FormLogin extends React.Component {
   constructor(props: FormProps) {
     super(props);
     this.state = {value: ''};

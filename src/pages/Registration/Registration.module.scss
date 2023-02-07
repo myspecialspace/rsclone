@@ -1,0 +1,32 @@
+@import '../../styles/index';
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: $color-grey;
+  @extend %font-prim;
+  @include font($size: 1.8rem, $height: 2.6rem, $weight: 600);
+}
+
+.wrapper_img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -2;
+  width: 98vw;
+  height: 100vh;
+  background: url(../../assets/img/background-login-2.png) right bottom, url(../../assets/img/background-login-1.png) left bottom;
+  background-repeat: no-repeat;
+  @media screen and (max-width: 1200px) {
+    background: url(../../assets/img/background-login-2.png) right bottom;
+    background-repeat: no-repeat;
+  }
+  @media screen and (max-width: 520px) {
+    background: none;
+  }
+}
+
+.main__wrapper {
+  display: flex;
+  justify-content: center;
+}

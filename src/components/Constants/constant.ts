@@ -17,4 +17,13 @@ export enum LoginPageContentRu {
   REGISTER = 'Зарегистрировать аккаунт',
 }
 
+export enum SignUpPageContentRu {
+  SIGN_UP_TITLE = 'Регистрация аккаунта',
+  INPUT_EMAIL = 'Укажите адрес электронной почты',
+  INPUT_PASSWORD = 'Введите пароль',
+  SIGN_UP = 'Продолжить',
+  HAVE_ACCOUNT = 'Уже есть аккаунт?',
+  LOGIN = 'Войти',
+}
+
 export const mainPageContent = MainPageContentRu;
