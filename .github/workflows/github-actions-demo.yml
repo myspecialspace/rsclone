@@ -1,0 +1,21 @@
+name: GitHub Actions
+run-name: Deploy by @${{ github.actor }}
+on: [push]
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 15.x, 16.x, 18.x,]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install modules
+        run: npm install
+      - name: build project
+        run: npm run build --if-present
+      - name: lint code
+        run: npm run lint
