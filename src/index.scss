@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "Cabin";
+  src: url(../src/assets/fonts/Cabin-Regular.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Cabin";
+  src: url(../src/assets/fonts/Cabin-Medium.ttf);
+  font-weight: 600;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

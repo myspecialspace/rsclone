@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
+import { mainPageContent } from '../Constants/constant';
 
 interface HeaderProps {
   className: string;
@@ -9,15 +10,39 @@ interface HeaderProps {
 
 export default function Header(props: HeaderProps) {
   return (
-
     <div className={classNames(props.className, styles.header)}>
-      <Link to="/login">
-        <Button type="link">Login</Button>
-      </Link>
-
-      <Link to="/registration">
-        <Button type="link" >Registration</Button>
-      </Link>
+      <div className={styles.header__wrapper}>
+        <div className={styles.logo}>
+          <a href="#!" className={styles.logo_link}>
+            <div className={styles.logo__img}></div>
+            <div className={styles.logo__text}>
+              <p className={styles.logo__title}>RSClone</p>
+              <h1>Trello</h1>
+            </div>
+          </a>
+        </div>
+        <div className={styles.buttons_container}>
+          <form className={styles.len}>
+            <select className={styles.len__select}>
+              <option className={styles.len__options} value="" hidden disabled selected>{mainPageContent.LEN_BUTTON}</option>
+              <option className={styles.len__options}>{mainPageContent.LEN_BUTTON}</option>
+              <option className={styles.len__options}>{mainPageContent.CHANGE_LEN}</option>
+            </select>
+          </form>
+          <Link to="/login">
+            <Button className={styles.login__button} type="link">{mainPageContent.LOG_IN_BUTTON}</Button>
+          </Link>
+        </div> 
+      </div>
     </div>
   )
 }
+
+      /* <Link to="/login">
+        <Button type="link">Login</Button>
+      </Link>
+            <Link to="/registration">
+        <Button type="link" >Registration</Button>
+      </Link>
+
+      <button class="log-in__button">${mainPageContent.LOG_IN_BUTTON}</button> */
