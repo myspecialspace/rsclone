@@ -1,11 +1,5 @@
 @import '../../styles/index';
 
-//.header {
-  //display: flex;
-  //justify-content: flex-end;
-  //align-items: center;
-//}
-
 .header__wrapper {
   display: flex;
   align-items: center;
@@ -54,6 +48,7 @@
   @include font($size: 1.8rem, $height: 2.4rem, $weight: normal);
   color: $color-light;
   text-decoration: none;
+  border-radius: 0;
   background-color: $color-header-button;
   border: 1px solid $color-header-button;
   &:hover{

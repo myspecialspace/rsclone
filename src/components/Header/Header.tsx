@@ -38,11 +38,7 @@ export default function Header(props: HeaderProps) {
   )
 }
 
-      /* <Link to="/login">
-        <Button type="link">Login</Button>
-      </Link>
-            <Link to="/registration">
-        <Button type="link" >Registration</Button>
-      </Link>
 
-      <button class="log-in__button">${mainPageContent.LOG_IN_BUTTON}</button> */
+      /* <Link to="/registration">
+        <Button type="link" >Registration</Button>
+      </Link> */

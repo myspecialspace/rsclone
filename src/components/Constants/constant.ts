@@ -12,7 +12,6 @@ export enum LoginPageContentRu {
   LOGIN_TITLE = 'Вход в Trello',
   INPUT_EMAIL = 'Укажите адрес электронной почты',
   INPUT_PASSWORD = 'Введите пароль',
-  FORGOT = 'Забыли пароль?',
   LOGIN = 'Войти',
   HAVE_ACCOUNT = 'Не удается войти?',
   REGISTER = 'Зарегистрировать аккаунт',

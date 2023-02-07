@@ -1,0 +1,93 @@
+@import '../../styles/index';
+
+.login__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 40px;
+  padding: 0;
+  width: 320px;
+}
+
+.form__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.form {
+  width: 100%;
+}
+
+.form__input {
+  width: 100%;
+  height: 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 6px rgba(95, 13, 111, 0.08), 0px 2px 3px rgba(206, 127, 214, 0.16);
+  border-radius: 5px;
+  border: 1px solid #cfd3e2;
+  @extend %font-prim;
+  @include font($size: 1.6rem, $height: 20.6rem, $weight: 400);
+  margin-bottom: 4px;
+  padding: 6px;
+}
+
+
+.login__line_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+
+.login__line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(72, 16, 104, 0.5);
+  position: absolute;
+  top: 50%;
+  z-index: 7;
+}
+
+.login__button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  gap: 15px;
+  width: 100%;
+  box-shadow: 0px 0px 3px rgba(95, 13, 111, 0.08), 0px 2px 3px rgba(206, 127, 214, 0.16);
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  background-color: $color-login-button;
+  color: $color-light;
+  @extend %font-prim;
+  @include font($size: 1.8rem, $height: 1.6rem, $weight: 400);
+  box-shadow: 0px 4px 6px rgba(95, 13, 111, 0.08), 0px 2px 3px rgba(206, 127, 214, 0.16);
+  &:hover {
+    background-color: $color-login-button-hover;
+  }
+} 
+
+.register {
+  @extend %font-prim;
+  @include font($size: 1.3rem, $height: 1.5rem, $weight: 400);
+  text-decoration-line: underline;
+  color: $color-login-button-hover;
+  text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.16);
+  margin-bottom: 19px;
+}
+
+.question {
+  @extend %font-prim;
+  @include font($size: 1.3rem, $height: 1.5rem, $weight: 400);
+  color: #6e7693;
+  text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.16);
+  margin-bottom: 23px;
+  margin-top: 6px;
+}
