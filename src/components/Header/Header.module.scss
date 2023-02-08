@@ -1,5 +1,89 @@
-.header {
+@import '../../styles/index';
+
+.header__wrapper {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: space-between;
+}
+
+//logo
+.logo_link {
+  display: flex;
+  align-items: flex-end;
+  text-decoration: none;
+  margin-left: 20px;
+  padding-top: 8px;
+  color: #0052cc;
+  cursor: pointer;
+  @extend %transition;
+}
+
+.logo__img {
+  width: 32px;
+  height: 32px;
+  margin: 6px;
+  background: url(../../assets/svg/trello_logo.svg);
+  background-size: cover;
+}
+
+.logo__title {
+  margin-bottom: -4px;
+  @extend %font-logo;
+  @include font($size: 1.4rem, $height: 1.4rem, $weight: 700);
+}
+
+.buttons_container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.login__button {
+  width: 276px;
+  height: 70px;
+  margin-right: 0px;
+  padding: 22px 10px;
+  text-transform: uppercase;
+  @extend %font-prim;
+  @include font($size: 1.8rem, $height: 2.4rem, $weight: normal);
+  color: $color-light;
+  text-decoration: none;
+  border-radius: 0;
+  background-color: $color-header-button;
+  border: 1px solid $color-header-button;
+  &:hover{
+    background-color: #17253e;
+    color: $color-light;
+  }
+}
+
+.len {
+  padding: 4px;
+  margin-right: 20px;
+  @extend %font-prim;
+  @include font($size: 1.6rem, $height: 2rem, $weight: normal);
+  color: $color-header-button;
+  border: none;
+}
+
+.len__select {
+  width: 126px;
+  height: 30px;
+  @extend %font-prim;
+  @include font($size: 1.6rem, $height: 2rem, $weight: normal);
+  color: $color-header-button;
+  cursor: pointer;
+  outline:none;
+  border: none;
+}
+
+.len__options {
+  width: 100%;
+  height: 100%;
+  outline:none;
+  border: none;
+  padding: 4px;
+  @extend %font-prim;
+  @include font($size: 1.6rem, $height: 2rem, $weight: normal);
+  color: $color-header-button;
 }
