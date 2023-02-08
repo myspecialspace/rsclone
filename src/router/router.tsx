@@ -1,8 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
-import Layout from "../components/Layout/Layout";
-import LoginPage from "../pages/Login/Login";
-import NotFoundPage from "../pages/NotFound/NotFound";
-import RegistrationPage from "../pages/Registration/Registration";
+import { createBrowserRouter } from 'react-router-dom';
+import Layout from '../components/Layout/Layout';
+import LoginPage from '../pages/Login/Login';
+import NotFoundPage from '../pages/NotFound/NotFound';
+import RegistrationPage from '../pages/Registration/Registration';
+import AboutPage from '../pages/About/About';
 
 export default createBrowserRouter([
   {
@@ -11,8 +12,8 @@ export default createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       {
-        path: '',
-        element: <LoginPage />,
+        path: "about",
+        element: <AboutPage />,
       },
       {
         path: "login",
