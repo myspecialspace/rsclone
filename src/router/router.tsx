@@ -12,6 +12,10 @@ export default createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       {
+        path: '',
+        element: <AboutPage />,
+      },
+      {
         path: "about",
         element: <AboutPage />,
       },

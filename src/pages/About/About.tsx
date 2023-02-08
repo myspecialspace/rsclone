@@ -1,5 +1,6 @@
 import styles from './About.module.scss';
 import { mainPageContent } from '../../components/Constants/constant';
+import image from '../../assets/img/TrelloUICollage.jpg';
 
 export default function AboutPage() {
   return (
@@ -16,7 +17,7 @@ export default function AboutPage() {
             </form>
           </div>
           <div className={styles.img__container}>
-            <img src="./assets/img/TrelloUICollage.jpg" alt="College" className={styles.about__img} />
+            <img src={image} alt="College" className={styles.about__img} />
           </div>
         </div>
       </div>

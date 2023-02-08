@@ -61,10 +61,13 @@
 }
 
 .img__container {
-  max-width: 960px;
+  width: 960px;
 }
 
 .about__img {
   display: block;
-  max-width: 960px;
+  width: 960px;
+  @media screen and (max-width: $content-tablet-width) {
+    display: none;
+  }
 }
