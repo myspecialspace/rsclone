@@ -13,13 +13,14 @@ export default function Header(props: HeaderProps) {
     <div className={classNames(props.className, styles.header)}>
       <div className={styles.header__wrapper}>
         <div className={styles.logo}>
-          <a href="#!" className={styles.logo_link}>
+          <Link to="/about" className={styles.logo_link}>
+          
             <div className={styles.logo__img}></div>
             <div className={styles.logo__text}>
               <p className={styles.logo__title}>RSClone</p>
               <h1>Trello</h1>
             </div>
-          </a>
+          </Link>
         </div>
         <div className={styles.buttons_container}>
           <form className={styles.len}>

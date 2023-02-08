@@ -1,0 +1,73 @@
+@import '../../styles/index.scss';
+
+.about {
+  background: url(../../assets/svg/background.svg) center bottom -0.5px / 100% 24% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto no-repeat scroll padding-box border-box rgb(82, 67, 170);
+  background-blend-mode: normal, normal;
+  color: rgb(255, 255, 255);
+}
+  
+.about__container{
+  @include columns($width: 48%);
+}
+  
+.about__title{
+  padding-top: 16%;
+  @extend %font-logo;
+  @include font($size: 3rem, $height: 3.6rem);
+  margin-bottom: 8px;
+}
+
+.about__text {
+  @extend %font-prim;
+  @include font($size: 2rem, $height: 2.6rem);
+  margin-bottom: 40px;
+}
+  
+.sign__form {
+  padding-bottom: 32%;
+}
+
+.sign__field {
+  max-width: 300px;
+  transition: all 250ms ease-out 0s;
+  width: 376px;
+  @extend %font-prim;
+  @include font($size: 1.6rem, $height: 2.6rem);
+  margin-right: 20px;
+  margin-bottom: 10px;
+  padding: 14px 10px;
+  border: 1px solid rgb(223, 225, 230);
+  border-radius: 5px;
+}
+  
+.sign__submit {
+  color: $color-light;
+  background-color: $color-button;
+  border: 1px solid $color-button;
+  max-width: 300px;
+  @extend %font-prim;
+  @include font($size: 1.6rem, $height: 2.6rem);
+  transition: all 250ms ease-out 0s;
+  width: 376px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  padding: 14px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-button-hover;
+    border: 1px solid $color-button-hover;
+  }
+}
+
+.img__container {
+  width: 960px;
+}
+
+.about__img {
+  display: block;
+  width: 960px;
+  @media screen and (max-width: $content-tablet-width) {
+    display: none;
+  }
+}
