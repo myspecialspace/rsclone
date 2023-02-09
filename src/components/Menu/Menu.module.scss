@@ -1,0 +1,27 @@
+@import '../../styles/index';
+
+.container {
+  position: relative;
+  width: 256px;
+  height: 100%;
+  margin-left: 10px;
+  background-color: rgb(250, 247, 247);
+  transform: translateX(0);
+}
+
+.hidden {
+  transform: translateX(-100px);
+}
+
+.title {
+  padding: 20px;
+  @extend %font-logo;
+  @include font($size: 1.8rem, $height: 2rem, $weight: 500);
+}
+
+.item_ico {
+  position: absolute;
+  top: 200 px;
+  right: 5px;
+}
+

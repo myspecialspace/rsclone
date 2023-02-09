@@ -26,4 +26,14 @@ export enum SignUpPageContentRu {
   LOGIN = 'Войти',
 }
 
+enum MenuContentRu {
+  MENU_TITLE = ' Workspace',
+  MENU_ITEM_BOARDS = '  Доски',
+  MENU_ITEM_MEMBERS = 'Участники',
+  MENU_ITEM_SETTINGS = 'Настройки',
+  SETTING = 'Настройки рабочего пространства',
+  MENU_SUBTITLE = 'Мои доски',
+}
+
 export const mainPageContent = MainPageContentRu;
+export const MenuContent = MenuContentRu;
