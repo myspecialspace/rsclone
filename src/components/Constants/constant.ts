@@ -35,5 +35,11 @@ enum MenuContentRu {
   MENU_SUBTITLE = 'Мои доски',
 }
 
+enum WorkspaceContentRu {
+  BOARDS_TITLE = 'Доски',
+}
+
 export const mainPageContent = MainPageContentRu;
 export const MenuContent = MenuContentRu;
+export const WorkspaceName = MenuContentRu.MENU_TITLE;
+export const WorkspaceContent = WorkspaceContentRu;

@@ -38,8 +38,3 @@ export default function Header(props: HeaderProps) {
     </div>
   )
 }
-
-
-      /* <Link to="/registration">
-        <Button type="link" >Registration</Button>
-      </Link> */
