@@ -4,10 +4,11 @@ import LoginPage from '../pages/Login/Login';
 import NotFoundPage from '../pages/NotFound/NotFound';
 import RegistrationPage from '../pages/Registration/Registration';
 import AboutPage from '../pages/About/About';
+import Boards from '../pages/Boards/Boards';
 
 export default createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     errorElement: <NotFoundPage />,
     children: [
@@ -16,16 +17,20 @@ export default createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path: "about",
+        path: 'about',
         element: <AboutPage />,
       },
       {
-        path: "login",
+        path: 'login',
         element: <LoginPage />,
       },
       {
-        path: "registration",
+        path: 'registration',
         element: <RegistrationPage />,
+      },
+      {
+        path: 'boards',
+        element: <Boards />,
       },
     ],
   },
