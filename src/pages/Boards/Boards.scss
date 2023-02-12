@@ -1,0 +1,108 @@
+@import '../../styles/index.scss';
+.boards-page {
+  &__wrapper {
+    background-color: $color-grey;
+  }
+}
+.boards {
+  &__content {
+    display: grid;
+  }
+
+  &__header {
+  }
+}
+.header-boards {
+  max-height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  &__button {
+    display: flex;
+    gap: 5px;
+    position: relative;
+  }
+
+  &__name {
+  }
+
+  &__input {
+    display: none;
+    position: absolute;
+  }
+  &__input._active {
+    display: block;
+  }
+
+  &__user {
+  }
+
+  &__body {
+    height: 550px;
+    background-color: $color-login-button;
+  }
+}
+.user {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  &__avatar {
+    border-radius: 50%;
+    width: 100%;
+    max-width: 50px;
+    max-height: 50px;
+  }
+  &__name {
+    color: $color-light;
+    font-size: 16px;
+    &.hide {
+      color: rebeccapurple;
+    }
+  }
+}
+
+.board-header-btn.mod-board-name {
+  background: #0000;
+  cursor: default;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 32px;
+  max-width: calc(100% - 24px);
+  overflow: hidden;
+  padding: 0;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.board-header-btn.mod-board-name .board-header-btn-text {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 32px;
+  padding: 0 12px;
+}
+.board-header-btn.mod-board-name.is-editing .board-name-input {
+  display: block;
+}
+.board-header-btn.mod-board-name.is-editing .board-header-btn-text {
+  display: none;
+}
+.board-header-btn.inline-rename-board.is-editing:hover {
+  background: inherit;
+  cursor: default;
+}
+.board-header-btn .board-name-input {
+  background-color: var(--ds-background-input, #fff);
+  border: 0;
+  display: none;
+  font-size: 18px;
+  font-weight: 700;
+  height: 32px;
+  margin: 0;
+  padding: 0 12px;
+}
+.board-header-btn .board-name-input:focus {
+  background-color: var(--ds-background-input, #fff);
+  box-shadow: inset 0 0 0 2px var(--ds-border-focused, #0079bf);
+}
