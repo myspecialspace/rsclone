@@ -5,13 +5,11 @@ import { useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import Api from '../../http/index';
 
-// interface FormProps {
-//   className: string;
-// }
 interface IUser {
   username: string;
   email: string;
   password: string;
+  identifier: string;
 }
 const FormSignUp = () => {
   const navigate = useNavigate();
@@ -32,7 +30,6 @@ const FormSignUp = () => {
     );
     setUser({ username: '', email: '', password: '' });
   };
-
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
