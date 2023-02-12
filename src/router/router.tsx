@@ -4,6 +4,7 @@ import LoginPage from '../pages/Login/Login';
 import NotFoundPage from '../pages/NotFound/NotFound';
 import RegistrationPage from '../pages/Registration/Registration';
 import AboutPage from '../pages/About/About';
+import WorkspacePage from '../pages/Workspace/Workspace';
 
 export default createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export default createBrowserRouter([
       {
         path: "registration",
         element: <RegistrationPage />,
+      },
+      {
+        path: "workspace",
+        element: <WorkspacePage />,
       },
     ],
   },

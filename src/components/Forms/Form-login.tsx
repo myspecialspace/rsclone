@@ -30,7 +30,7 @@ export default class FormLogin extends React.Component {
           <div className={styles.form__container}>
             <input className={styles.form__input} type="text" placeholder={LoginPageContentRu.INPUT_PASSWORD} name="Password" id="password" required />
           </div>
-          <input type="submit" value={LoginPageContentRu.LOGIN} id="sign-in" className={styles.login__button} />                
+          <input type="submit" value={LoginPageContentRu.LOGIN} id="sign-in" className={styles.login__button} />           
         </form>
         <div className={styles.login__line_container}>
           <span className={styles.login__line}></span>
