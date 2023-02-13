@@ -10,6 +10,7 @@ interface IUser {
   email: string;
   password: string;
   identifier: string;
+  id: string | null;
 }
 const FormLogin = () => {
   const navigate = useNavigate();
@@ -18,8 +19,8 @@ const FormLogin = () => {
     // console.log('Success:', values);
     Api.postlogin(values).then(
       (data) => {
-        // console.log('Success:', values);
-        // console.log(data);
+        localStorage.setItem('jwt', data.jwt);
+        localStorage.setItem('userId', data.user.id);
         // выполнение
         navigate(`/boards`);
       },
@@ -72,7 +73,7 @@ const FormLogin = () => {
           </Form.Item>
         </div>
         <Button htmlType='submit' id='sign-in' className={styles.login__button}>
-          {LoginPageContentRu.HAVE_ACCOUNT}
+          {LoginPageContentRu.LOGIN}
         </Button>
       </Form>
       <div className={styles.login__line_container}>
@@ -80,7 +81,7 @@ const FormLogin = () => {
       </div>
       <div className={styles.question}>
         <span className={styles.question_has}>
-          {LoginPageContentRu.HAVE_ACCOUNT}{' '}
+          {LoginPageContentRu.HAVE_ACCOUNT}
         </span>
         <Link to='/registration' className={styles.register}>
           {LoginPageContentRu.REGISTER}

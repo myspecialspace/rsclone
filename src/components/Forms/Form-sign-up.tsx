@@ -10,6 +10,7 @@ interface IUser {
   email: string;
   password: string;
   identifier: string;
+  id: string | null;
 }
 const FormSignUp = () => {
   const navigate = useNavigate();
@@ -18,8 +19,9 @@ const FormSignUp = () => {
     // console.log('Success:', values);
     Api.postRegister(values).then(
       (data) => {
-        console.log('Success:', values);
-        console.log(data);
+        // console.log('Success:', values);
+        localStorage.setItem('jwt', data.jwt);
+        localStorage.setItem('userId', data.user.id);
         // выполнение
         navigate(`/boards`);
       },
