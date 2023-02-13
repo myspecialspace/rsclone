@@ -1,0 +1,29 @@
+@import "../../styles/index.scss";
+
+.header.login__button {
+  display: none;
+}
+
+.main {
+  display: flex;
+  margin-top: 20px;
+}
+
+.main__content {
+    margin-left: 60px;
+}
+
+.current__workspace {
+  display: flex;
+  align-self: center;
+}
+
+.title {
+  padding: 20px;
+  @extend %font-logo;
+  @include font($size: 2.6rem, $height: 2.8rem, $weight: 500);
+}
+
+.column {
+  @include columns($width: 21%);
+}

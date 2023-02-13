@@ -38,12 +38,18 @@
   flex-wrap: wrap;
 }
 
+.link {
+  text-decoration: none;
+}
+
 .login__button {
+  display: block;
   width: 276px;
   height: 70px;
   margin-right: 0px;
   padding: 22px 10px;
   text-transform: uppercase;
+  text-align: center;
   @extend %font-prim;
   @include font($size: 1.8rem, $height: 2.4rem, $weight: normal);
   color: $color-light;

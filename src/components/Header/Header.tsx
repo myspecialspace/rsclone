@@ -1,4 +1,3 @@
-import { Button } from 'antd';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
@@ -25,21 +24,16 @@ export default function Header(props: HeaderProps) {
         <div className={styles.buttons_container}>
           <form className={styles.len}>
             <select className={styles.len__select}>
-              <option className={styles.len__options} value="" hidden disabled selected>{mainPageContent.LEN_BUTTON}</option>
+              <option className={styles.len__options} defaultValue="" hidden disabled selected>{mainPageContent.LEN_BUTTON}</option>
               <option className={styles.len__options}>{mainPageContent.LEN_BUTTON}</option>
               <option className={styles.len__options}>{mainPageContent.CHANGE_LEN}</option>
             </select>
           </form>
-          <Link to="/login">
-            <Button className={styles.login__button} type="link">{mainPageContent.LOG_IN_BUTTON}</Button>
+          <Link to="/login" className={styles.link}>
+            <div className={styles.login__button}>{mainPageContent.LOG_IN_BUTTON}</div>
           </Link>
         </div> 
       </div>
     </div>
   )
 }
-
-
-      /* <Link to="/registration">
-        <Button type="link" >Registration</Button>
-      </Link> */

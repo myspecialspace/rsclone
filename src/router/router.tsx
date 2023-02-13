@@ -5,6 +5,7 @@ import NotFoundPage from '../pages/NotFound/NotFound';
 import RegistrationPage from '../pages/Registration/Registration';
 import AboutPage from '../pages/About/About';
 import Boards from '../pages/Boards/Boards';
+import WorkspacePage from '../pages/Workspace/Workspace';
 
 export default createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export default createBrowserRouter([
       {
         path: 'boards',
         element: <Boards />,
+      },
+      {
+        path: 'workspace',
+        element: <WorkspacePage />,
       },
     ],
   },
