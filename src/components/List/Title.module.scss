@@ -1,0 +1,26 @@
+@import '../../styles/index';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px;
+}
+
+.change {
+  border: none;
+  @extend %font-logo;
+  @include font($size: 2rem, $height: 2rem, $weight: 500);
+  &:focus {
+    border: 1px solid $color-light-grey;
+  }
+}
+
+.list__title {
+  @extend %font-logo;
+  @include font($size: 2rem, $height: 2rem, $weight: 500);
+}
+
+.more {
+  transform: rotate(90deg);
+}
