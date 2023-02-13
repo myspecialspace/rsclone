@@ -6,7 +6,6 @@ interface IUser {
   email: string;
   password: string;
   identifier: string;
-  id: string | null;
 }
 export const REACT_APP_API_URL = `http://localhost:1337/api/`;
 export let jwt: string | null = localStorage.getItem('jwt');
@@ -58,7 +57,7 @@ export default class Api {
       });
     return workspacesAll;
   }
-  static getWorkspacesId(id: IUser) {
+  static getWorkspacesId(id: string | null) {
     const workspacesId = instance
       .get('workspaces/' + id)
       .then(function (response) {
@@ -84,7 +83,7 @@ export default class Api {
       });
     return boardsAll;
   }
-  static getBoardsId(id: IUser) {
+  static getBoardsId(id: string | null) {
     const boardsId = instance
       .get('boards' + id)
       .then(function (response) {
@@ -110,7 +109,7 @@ export default class Api {
       });
     return listsAll;
   }
-  static getListsId(id: IUser) {
+  static getListsId(id: string | null) {
     const listsId = instance
       .get('lists' + id)
       .then(function (response) {
@@ -136,7 +135,7 @@ export default class Api {
       });
     return tasksAll;
   }
-  static getTasksId(id: IUser) {
+  static getTasksId(id: string | null) {
     const listsId = instance
       .get('tasks' + id)
       .then(function (response) {
