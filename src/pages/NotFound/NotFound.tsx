@@ -3,19 +3,6 @@ import styles from './NotFound.module.scss';
 
 export default function NotFoundPage() {
   return (
-    // <div id='container' classNameName={styles.container}>
-    //   <div classNameName={styles.content}>
-    //     <h2>404</h2>
-    //     <h4>Opps! Page not found</h4>
-    //     <p>
-    //       The page you were looking for doesn't exist. You may have mistyped the
-    //       address or the page may have moved.
-    //     </p>
-    //     <Link to='/' classNameName={styles.register}>
-    //       Back To Home
-    //     </Link>
-    //   </div>
-    // </div>
     <div className={styles.page}>
       <div className={styles.page__title}>
         <h1>404</h1>
