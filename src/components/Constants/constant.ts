@@ -1,4 +1,3 @@
-
 enum MainPageContentRu {
   TITLE = 'Trello помогает собрать всех сотрудников, задачи и инструменты в одном месте',
   TEXT = 'Объедините все в одном месте, даже если участники вашей команды рассеяны по миру.',
@@ -19,6 +18,7 @@ export enum LoginPageContentRu {
 
 export enum SignUpPageContentRu {
   SIGN_UP_TITLE = 'Регистрация аккаунта',
+  INPUT_NAME = 'Укажите ваше имя',
   INPUT_EMAIL = 'Укажите адрес электронной почты',
   INPUT_PASSWORD = 'Введите пароль',
   SIGN_UP = 'Продолжить',

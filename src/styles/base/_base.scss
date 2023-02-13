@@ -22,6 +22,15 @@ h1 {
   @include font($size: 4rem, $height: 4.2rem, $weight: 700);
 }
 
+h2,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+  @extend %font-logo;
+  @include font($size: 2rem, $height: 2rem, $weight: 500);
+}
 img {
   max-width: 100%;
   height: auto;
