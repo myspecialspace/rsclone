@@ -6,16 +6,19 @@ interface IUser {
   email: string;
   password: string;
   identifier: string;
+  id: string | null;
 }
-export const REACT_APP_API_URL = `http://localhost:1337/`;
+export const REACT_APP_API_URL = `http://localhost:1337/api/`;
+export let jwt: string | null = localStorage.getItem('jwt');
 const instance = axios.create({
   baseURL: REACT_APP_API_URL,
+  headers: { Authorization: `Bearer ` + jwt },
 });
 
 export default class Api {
   static postRegister(values: IUser) {
     const register = instance
-      .post('/api/auth/local/register', {
+      .post('auth/local/register', {
         username: values.username,
         email: values.email,
         password: values.password,
@@ -29,8 +32,8 @@ export default class Api {
     return register;
   }
   static postlogin(values: IUser) {
-    const register = instance
-      .post('/api/auth/local', {
+    const login = instance
+      .post('auth/local', {
         identifier: values.identifier,
         password: values.password,
       })
@@ -40,6 +43,110 @@ export default class Api {
         return data.data;
       });
 
-    return register;
+    return login;
+  }
+  static getWorkspacesAll() {
+    const workspacesAll = instance
+      .get('workspaces')
+      .then(function (response) {
+        // обработка успешного запроса
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // обработка ошибки
+        console.log(error);
+      });
+    return workspacesAll;
+  }
+  static getWorkspacesId(id: IUser) {
+    const workspacesId = instance
+      .get('workspaces/' + id)
+      .then(function (response) {
+        // обработка успешного запроса
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // обработка ошибки
+        console.log(error);
+      });
+    return workspacesId;
+  }
+  static getBoardsAll() {
+    const boardsAll = instance
+      .get('boards')
+      .then(function (response) {
+        // обработка успешного запроса
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // обработка ошибки
+        console.log(error);
+      });
+    return boardsAll;
+  }
+  static getBoardsId(id: IUser) {
+    const boardsId = instance
+      .get('boards' + id)
+      .then(function (response) {
+        // обработка успешного запроса
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // обработка ошибки
+        console.log(error);
+      });
+    return boardsId;
+  }
+  static getListsAll() {
+    const listsAll = instance
+      .get('lists')
+      .then(function (response) {
+        // обработка успешного запроса
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // обработка ошибки
+        console.log(error);
+      });
+    return listsAll;
+  }
+  static getListsId(id: IUser) {
+    const listsId = instance
+      .get('lists' + id)
+      .then(function (response) {
+        // обработка успешного запроса
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // обработка ошибки
+        console.log(error);
+      });
+    return listsId;
+  }
+  static getTasksAll() {
+    const tasksAll = instance
+      .get('tasks', {})
+      .then(function (response) {
+        // обработка успешного запроса
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // обработка ошибки
+        console.log(error);
+      });
+    return tasksAll;
+  }
+  static getTasksId(id: IUser) {
+    const listsId = instance
+      .get('tasks' + id)
+      .then(function (response) {
+        // обработка успешного запроса
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // обработка ошибки
+        console.log(error);
+      });
+    return listsId;
   }
 }
