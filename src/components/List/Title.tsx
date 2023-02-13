@@ -12,7 +12,11 @@ export default function Title() {
     <div>
       {open ? (
         <div>
-          <Input className={styles.change} placeholder="title"  value={title}  onBlur={() => setOpen(!open)}/>
+          <Input className={styles.change}
+            autoFocus
+            placeholder="title"
+            value={title}
+            onBlur={() => setOpen(!open)}/>
         </div>
       ) : (
         <div className={styles.container}>

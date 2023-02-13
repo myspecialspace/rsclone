@@ -39,7 +39,20 @@ enum WorkspaceContentRu {
   BOARDS_TITLE = 'Доски',
 }
 
+enum BoardContentRu {
+  ADD_TASK = 'Добавить карточку',
+  INPUT_TITLE = 'Ввести заголовок для этой карточки',
+}
+
+enum BoardContentEn {
+  ADD_TASK = 'Add a card',
+  INPUT_TITLE = '',
+}
+
+console.log(BoardContentEn);
+
 export const mainPageContent = MainPageContentRu;
 export const MenuContent = MenuContentRu;
 export const WorkspaceName = MenuContentRu.MENU_TITLE;
 export const WorkspaceContent = WorkspaceContentRu;
+export const BoardContent = BoardContentRu;
