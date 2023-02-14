@@ -1,3 +1,4 @@
+import InputContainer from '../input/Input-container';
 import List from './List';
 
 const dataTasks =  {
@@ -140,9 +141,10 @@ export default function ListContent() {
     <div>
       {allLists.map((el, index) => {
         const list = allLists[index];
-        return <List list={list} key={index}/>
+        return <List list={list} key={index + 1}/>
         }
-      )} 
+      )}
+      <InputContainer type=''></InputContainer>
     </div>
   )
 }

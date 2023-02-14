@@ -19,7 +19,7 @@ export default function List({list}: any) {  //указать тип данны�
       <Card className={styles.list}>
         <Title title={list.attributes.name}></Title>
         {list.attributes.allTasks.map((task: TaskInterface) => (<Task key={task.id} task={task}/>))}
-        <InputContainer />
+        <InputContainer type='task'/>
       </Card>
     </div>
   )

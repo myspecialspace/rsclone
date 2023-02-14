@@ -41,7 +41,10 @@ enum WorkspaceContentRu {
 
 enum BoardContentRu {
   ADD_TASK = 'Добавить карточку',
+  ADD_LIST = 'Добавить список',
+  ADD_LIST_TEXT = 'Добавьте еще одну колонку',
   INPUT_TITLE = 'Ввести заголовок для этой карточки',
+  INPUT_LIST_NAME = 'Ввести заголовок списка'
 }
 
 enum BoardContentEn {
