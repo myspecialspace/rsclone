@@ -3,10 +3,11 @@ import { Typography } from "antd";
 import { Input } from 'antd';
 import { MoreOutlined } from '@ant-design/icons';
 import styles from './Title.module.scss';
+interface TitleProps {
+  title: string;
+}
 
-const title = "To do";
-
-export default function Title() {
+export default function Title(props: TitleProps) {
   const [open, setOpen] = useState(false);
   return (
     <div>
@@ -15,12 +16,12 @@ export default function Title() {
           <Input className={styles.change}
             autoFocus
             placeholder="title"
-            value={title}
+            value={props.title}
             onBlur={() => setOpen(!open)}/>
         </div>
       ) : (
         <div className={styles.container}>
-          <Typography onClick={() => setOpen(!open)} className={styles.list__title}>{title}</Typography>
+          <Typography onClick={() => setOpen(!open)} className={styles.list__title}>{props.title}</Typography>
           <MoreOutlined className={styles.more}/>
         </div>
       )} 
