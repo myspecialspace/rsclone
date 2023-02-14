@@ -5,36 +5,21 @@ import styles from './Input.module.scss';
 
 const { TextArea } = Input;
 
+interface InputTaskProps {
+  setOpen : React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-export default function InputTask({ setOpen }: any) {
+
+export default function InputTask(props: InputTaskProps) {
   return (
     <div>
       <div className={styles.task}>
-        <TextArea rows={2} placeholder={BoardContent.INPUT_TITLE}/>
+        <TextArea rows={2} placeholder={BoardContent.INPUT_TITLE} onBlur={() => props.setOpen(false)} />
       </div>
       <div className={styles.buttons__container}>
-      <Button className={styles.button} type="primary" onClick={() => setOpen(false)} >{BoardContent.ADD_TASK}</Button>
-      <Button className={styles.button} icon={<CloseOutlined />} onClick={() => setOpen(false)} ></Button>
+      <Button className={styles.button} type="primary" onClick={() => props.setOpen(false)} >{BoardContent.ADD_TASK}</Button>
+      <Button className={styles.button} icon={<CloseOutlined />} onClick={() => props.setOpen(false)} ></Button>
       </div>
     </div>
   )
 }
-
-
-
-/*const InputTask: React.FC = () => (
-  <>
-    <TextArea rows={4} />
-    
-  </>
-);
-
-export default InputTask; */
-
-        /* <Input aria-multiline multiple></Input> 
-        
-        <Card size="small">
-          <TextArea rows={3} placeholder={BoardContent.INPUT_TITLE}/>
-        </Card>
-        
-        */

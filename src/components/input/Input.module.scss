@@ -2,6 +2,7 @@
 
 .container {
   display: flex;
+  cursor: pointer;
   &:hover {
     background-color: $color-light-grey;
   }
@@ -12,9 +13,7 @@
 }
 
 .task {
-  // width: 280px;
   margin: 10px 5px;
-  // margin-left: -20px;
   border: none;
 }
 
