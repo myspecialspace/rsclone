@@ -6,6 +6,8 @@ import RegistrationPage from '../pages/Registration/Registration';
 import AboutPage from '../pages/About/About';
 import Boards from '../pages/Boards/Boards';
 import WorkspacePage from '../pages/Workspace/Workspace';
+import MeLayout from '../components/MeLayout/MeLayout';
+import BoardPage from '../pages/Board/Board';
 
 export default createBrowserRouter([
   {
@@ -33,10 +35,21 @@ export default createBrowserRouter([
         path: 'boards',
         element: <Boards />,
       },
-      {
-        path: 'workspace',
-        element: <WorkspacePage />,
-      },
     ],
   },
+  //meLayout для авторизованных пользователей (зона авторизации)
+  {
+    path: 'me',
+    element: <MeLayout />,
+    children: [
+      {
+        path: 'workspace/:id',
+        element: <WorkspacePage />,
+      },
+      {
+        path: 'boards/:boardId',
+        element: <BoardPage />,
+      },
+    ],
+  }
 ]);
