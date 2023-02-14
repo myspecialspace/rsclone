@@ -46,7 +46,7 @@ enum BoardContentRu {
 
 enum BoardContentEn {
   ADD_TASK = 'Add a card',
-  INPUT_TITLE = '',
+  INPUT_TITLE = 'Enter a title of this card',
 }
 
 console.log(BoardContentEn);
