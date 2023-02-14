@@ -1,4 +1,4 @@
-import { Card, Input, Button } from 'antd';
+import { Input, Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { BoardContent } from '../Constants/constant';
 import styles from './Input.module.scss';
@@ -13,8 +13,8 @@ export default function InputTask({ setOpen }: any) {
         <TextArea rows={2} placeholder={BoardContent.INPUT_TITLE}/>
       </div>
       <div className={styles.buttons__container}>
-      <Button className={styles.button} type="primary" onClick={() => setOpen(true)}>{BoardContent.ADD_TASK}</Button>
-      <Button className={styles.button} icon={<CloseOutlined />}></Button>
+      <Button className={styles.button} type="primary" onClick={() => setOpen(false)} >{BoardContent.ADD_TASK}</Button>
+      <Button className={styles.button} icon={<CloseOutlined />} onClick={() => setOpen(false)} ></Button>
       </div>
     </div>
   )
