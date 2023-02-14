@@ -1,0 +1,23 @@
+@import '../../styles/index';
+
+.container {
+  display: flex;
+  &:hover {
+    background-color: $color-light-grey;
+  }
+}
+
+.ico {
+  margin-right: 10px;
+}
+
+.task {
+  // width: 280px;
+  margin: 10px 5px;
+  // margin-left: -20px;
+  border: none;
+}
+
+.button {
+  margin: 10px 5px;
+}

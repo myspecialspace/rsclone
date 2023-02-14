@@ -24,7 +24,7 @@ export default function Header(props: HeaderProps) {
         <div className={styles.buttons_container}>
           <form className={styles.len}>
             <select className={styles.len__select}>
-              <option className={styles.len__options} defaultValue="" hidden disabled selected>{mainPageContent.LEN_BUTTON}</option>
+              <option className={styles.len__options} defaultValue="" hidden disabled>{mainPageContent.LEN_BUTTON}</option>
               <option className={styles.len__options}>{mainPageContent.LEN_BUTTON}</option>
               <option className={styles.len__options}>{mainPageContent.CHANGE_LEN}</option>
             </select>
