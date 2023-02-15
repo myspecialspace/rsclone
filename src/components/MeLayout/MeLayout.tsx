@@ -90,8 +90,8 @@ export default function MeLayout() {
           </Button>
         </Dropdown>
         <div className={styles.right}>
-          <div className={styles.user}>userName</div>
           {/* <Button type="primary" shape="circle" style={{ 'backgroundColor': userColor }}>{userChar}</Button> */}
+          <Button type="primary" shape="circle" style={{ 'backgroundColor': 'fc0' }}>K</Button>
         </div>
       </header>
       <div className={styles.wrapper}>
