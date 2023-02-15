@@ -1,5 +1,9 @@
-import InputContainer from '../input/Input-container';
+// import InputContainer from '../input/Input-container';
 import List from './List';
+import styles from './List-content.module.scss';
+// import {v4 as uuid} from 'uuid'; /c41850cd-41eb-4c3f-99e7-b6f464c95633
+// import { ListInterface } from '../Interfaces/List-interface';
+ // import { Card } from 'antd';
 
 const dataTasks =  {
   "data": [
@@ -134,19 +138,40 @@ const dataLists =  {
 
 const allLists = dataLists.data;
 
+/* interface ListContentProps {
+  list: ListInterface;
+  // listId: number,
+} */
 
 
-export default function ListContent() {
+export default function ListContent(/*props: ListContentProps*/) {
+  const addMoreTask = (name: string, id: number) => {
+    console.log(name, id);
+    const newTaskId = 7 //uuid;
+    const newTask = {
+      id: newTaskId,
+      name,
+    }
+    // const list = allLists.lists/*[index]*/.[id]
+    // list.tasks = [...list.tasks, newTask]
+  } 
+
+  console.log(addMoreTask('test', 2));
+
   return (
-    <div>
+    <div className={styles.list__container}>
       {allLists.map((el, index) => {
         const list = allLists[index];
-        return <List list={list} key={index + 1}/>
+        return <List list={list} key={index + 1} />
         }
       )}
-      <InputContainer type=''></InputContainer>
+      
     </div>
   )
 }
+
+
+// <InputContainer type='list' ></InputContainer>
+//listId={props.list.id}
 
 

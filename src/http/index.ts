@@ -148,4 +148,17 @@ export default class Api {
       });
     return listsId;
   }
+  static postTasksId() {
+    const register = instance
+    .post('name/id/listId', {
+
+    })
+    .then((data) => {
+      console.log(data.data.jwt);
+      console.log(data.data.name);
+      return data.data;
+    });
+
+  return register;
+  }
 }

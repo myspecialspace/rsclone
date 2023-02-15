@@ -8,6 +8,15 @@
   }
 }
 
+.container_list {
+  width: 300px;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-light-grey;
+  }
+}
+
 .ico {
   margin-right: 10px;
 }
@@ -15,6 +24,13 @@
 .task {
   margin: 10px 5px;
   border: none;
+}
+
+.list {
+  width: 300px;
+  border: none;
+  margin-left: 12px;
+  background-color: $color-list;
 }
 
 .button {

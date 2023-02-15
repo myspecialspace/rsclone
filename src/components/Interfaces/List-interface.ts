@@ -9,9 +9,6 @@ export interface ListInterface {
         publishedAt: string;
         description: null;
         order: null;
-        board: {
-            data: null;
-        };
         allTasks: Array<TaskInterface>;
   }
 } 

@@ -4,6 +4,7 @@ import TaskInterface from '../../components/Interfaces/Task-interface';
 
 interface TaskProps {
   task : TaskInterface;
+  listId: number;
 }
 
 export default function Task(props: TaskProps) {
