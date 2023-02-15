@@ -4,7 +4,6 @@ import styles from './Board.module.scss';
 
 export default function BoardPage() {
   const params = useParams();
-
   console.log('params', params);
 
   // const boardId = parseInt(params.boardId || '');
