@@ -53,6 +53,7 @@ export default function WorkspaceNav({ className }: WorkspaceNavProps) {
 
   const onOpenChange = (...args: []) => {
     // TODO
+
   };
 
   return (

@@ -3,10 +3,25 @@ import { DownOutlined, TeamOutlined, AppstoreOutlined } from '@ant-design/icons'
 import { Outlet } from 'react-router-dom';
 import styles from './MeLayout.module.scss';
 import WorkspaceNav from '../WorkspaceNav/WorkspaceNav';
-
-
+import { useSelector } from 'react-redux';
+import { AppState, useAppDispatch } from '../../store';
+import { authActions } from '../../store/auth';
+import { useEffect } from 'react';
+import { useWorkspaces } from '../../store/workspaces/thunks';
+import { useBoards } from '../../store/boards/thunks';
 
 export default function MeLayout() {
+  const user = useSelector((state: AppState) => state.auth.user);
+  const dispatch = useAppDispatch();
+  const workspaces = useWorkspaces();
+  const boards = useBoards();
+  console.log('user', user);
+  console.log('workspaces', workspaces);
+  console.log('boards', boards);
+
+
+  const userChar = user.username ? user.username[0].toUpperCase() : '';
+  const userColor = user.backgroundColor || '#fff';
 
   //for dropdown menu items => current & all workspaces
   const workspaceItems: MenuProps['items'] = [
@@ -25,10 +40,10 @@ export default function MeLayout() {
       type: 'group',
       key: 'workspaces',
       label: 'Workspaces',
-      // children: workspaces.data.map((workspace) => ({
-      //   label: workspace.name,
-      //   key: workspace.id
-      // })),
+      children: workspaces.data.map((workspace) => ({
+        label: workspace.name,
+        key: workspace.id
+      })),
     },
   ];
   //обработчик
@@ -71,6 +86,27 @@ export default function MeLayout() {
 
   };
 
+  console.log('dispatch set user');
+
+
+  useEffect(() => {
+    dispatch(authActions.setUser({
+      user: {
+        "id": 3,
+        "username": "heelo2",
+        "email": "test2@test.com",
+        "provider": "local",
+        "confirmed": true,
+        "blocked": false,
+        "createdAt": "2023-02-08T18:17:54.286Z",
+        "updatedAt": "2023-02-08T18:17:54.286Z",
+        "backgroundColor": '#fc0',
+        "theme": 'system',
+      },
+      jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjc2MTk4MDM3LCJleHAiOjE2Nzg3OTAwMzd9.9drJBGZ2Cvq0kpeWAX5tK4hcPd6rgzkXSI8XB7Kdecc',
+    }));
+  }, [dispatch]);
+
   return (
     <div className={styles.root}>
       <header className={styles.header}>
@@ -90,8 +126,7 @@ export default function MeLayout() {
           </Button>
         </Dropdown>
         <div className={styles.right}>
-          {/* <Button type="primary" shape="circle" style={{ 'backgroundColor': userColor }}>{userChar}</Button> */}
-          <Button type="primary" shape="circle" style={{ 'backgroundColor': 'fc0' }}>K</Button>
+          <Button type="primary" shape="circle" style={{ 'backgroundColor': userColor }}>{userChar}</Button>
         </div>
       </header>
       <div className={styles.wrapper}>

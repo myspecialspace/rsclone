@@ -1,15 +1,13 @@
 import styles from './Workspace.module.scss';
-// import { MenuContainer, MenuShowButton } from '../../components/Menu/Menu';
 import { WorkspaceContent, WorkspaceName } from '../../components/Constants/constant';
 import { UserAddOutlined } from '@ant-design/icons';
 import { Button, Space} from 'antd';
 
 
 export default function WorkspacePage() {
+
     return (
       <div className={styles.main}>
-        {/* <MenuContainer />
-        <MenuShowButton /> */}
         <div className={styles.main__content}>
           <div className={styles.current__workspace}>
             <h2 className={styles.title}>{WorkspaceName}</h2>
@@ -17,7 +15,7 @@ export default function WorkspacePage() {
               <Button type="primary" icon={<UserAddOutlined />}>Invite Workspace members</Button>
             </Space>
           </div>
-          <hr className='horizontal' />
+          <hr className='horizontal'/>
 
           <div className={styles.boards}>
             <h2 className={styles.title}>{WorkspaceContent.WORKSPACE_TITLE}</h2>
