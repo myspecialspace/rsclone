@@ -6,16 +6,15 @@
 
 .main {
   display: flex;
-  margin-top: 20px;
-}
-
-.main__content {
-    margin-left: 60px;
+  flex-direction: column;
+  padding: 32px;
+  position: relative;
+  width: 100%;
 }
 
 .current__workspace {
   display: flex;
-  align-self: center;
+  justify-content: space-between;
 }
 
 .title {
@@ -26,4 +25,10 @@
 
 .column {
   @include columns($width: 21%);
+}
+
+.horizontal {
+  margin: auto;
+  width: 92.5%;
+  background-color: black;
 }

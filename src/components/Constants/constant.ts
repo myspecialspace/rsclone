@@ -36,6 +36,7 @@ enum MenuContentRu {
 }
 
 enum WorkspaceContentRu {
+  WORKSPACE_TITLE = 'User"s Workspaces',
   BOARDS_TITLE = 'Доски',
 }
 

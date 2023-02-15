@@ -1,7 +1,8 @@
 import { Menu, MenuProps } from 'antd';
-import { AppstoreOutlined, UsergroupAddOutlined, SettingOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, UsergroupAddOutlined, SettingOutlined, PieChartOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styles from './WorkspaceNav.module.scss';
+
 
 interface WorkspaceNavProps {
   className: string;
@@ -29,6 +30,7 @@ export default function WorkspaceNav({ className }: WorkspaceNavProps) {
   }
 
   const items: MenuProps['items'] = [
+    getItem('Workspaces', '12', <PieChartOutlined />),
     getItem('Boards', '13', <AppstoreOutlined />),
     getItem('Members', '14', <UsergroupAddOutlined />),
     getItem('Settings', '15', <SettingOutlined />),
