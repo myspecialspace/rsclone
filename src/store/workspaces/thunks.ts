@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api";
-import { API_BASE } from "../../helpers/api";
 import { Workspace } from './types';
 
 

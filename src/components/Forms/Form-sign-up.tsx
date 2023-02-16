@@ -24,11 +24,11 @@ const FormSignUp = () => {
 
   const onFinish = (values: IUser) => {
     setError(null!);
-
+    // по нажатию на форму зарегистрироваться => запрос на регистрацию
     api.register(values)
       .then((data) => {
         const userId = data.user.id;
-
+        // токен + id получаем => токен диспатчим в стейт
         dispatch(authActions.setAuth({
           jwt: data.jwt,
           userId: userId,
