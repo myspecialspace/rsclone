@@ -12,8 +12,8 @@ interface ListProps {
 
 
 export default function List(props: ListProps) {
-  console.log(props.list.attributes.name)
-  console.log(props.list.attributes.allTasks[0].id)
+  // console.log(props.list.attributes.name)
+  // console.log(props.list.attributes.allTasks[0].id)
   return (
     <div>
       <Card className={styles.list}>

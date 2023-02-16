@@ -1,5 +1,6 @@
 // const axios = require('axios').default;
 import axios from 'axios';
+import TaskPostInterface from '../components/Interfaces/Task-post-interface';
 
 interface IUser {
   username: string;
@@ -7,7 +8,7 @@ interface IUser {
   password: string;
   identifier: string;
 }
-export const REACT_APP_API_URL = `http://localhost:1337/api/`;
+export const REACT_APP_API_URL = `http://localhost:1337/api/`; //проверить апи
 export let jwt: string | null = localStorage.getItem('jwt');
 const instance = axios.create({
   baseURL: REACT_APP_API_URL,
@@ -148,17 +149,21 @@ export default class Api {
       });
     return listsId;
   }
-  static postTasksId() {
-    const register = instance
-    .post('name/id/listId', {
-
+  static postTask(task: TaskPostInterface) {
+    const taskCreate = instance
+    .post('tasks', {
+      data: {
+        name: "my example task",
+        list: 1
+        //order: task.attributes.order,
+      }
     })
     .then((data) => {
-      console.log(data.data.jwt);
-      console.log(data.data.name);
+      console.log("task", data.data.jwt);
+      console.log("task", data.data.name);
       return data.data;
     });
 
-  return register;
+  return taskCreate;
   }
 }

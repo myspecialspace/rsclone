@@ -16,7 +16,7 @@ export default function InputContainer(props: InputContainerProps) {
     <div>
       {open ? (
       <div>
-        <InputTask setOpen={setOpen} type={props.type} listId={props.listId}/>
+        <InputTask setOpen={setOpen} type={props.type} listId={props.listId} />
       </div>
       ) : (
       <div >

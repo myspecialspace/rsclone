@@ -1,9 +1,8 @@
-// import InputContainer from '../input/Input-container';
+import InputContainer from '../input/Input-container';
 import List from './List';
 import styles from './List-content.module.scss';
-// import {v4 as uuid} from 'uuid'; /c41850cd-41eb-4c3f-99e7-b6f464c95633
-// import { ListInterface } from '../Interfaces/List-interface';
- // import { Card } from 'antd';
+// import { useState } from 'react';
+
 
 const dataTasks =  {
   "data": [
@@ -143,20 +142,53 @@ const allLists = dataLists.data;
   // listId: number,
 } */
 
+ /* const AddMoreTask = (name: string, id: number) => {
+  const [task, setTask] = useState({id: '', attributes: {name: '', list: {data: {id: ''}}}})
+  console.log(name, id);
+  const newTaskId = allLists.length + 1;
+  console.log(newTaskId);
+
+ const newTask = {
+    id: newTaskId,
+    attributes: {
+      name: name,
+      createdAt: '',
+      updatedAt: '',
+      publishedAt: '',
+      description: null,
+      backgroundColor: null,
+      isCompleted: false,
+      date_to_complete: null,
+      order: null,
+      list: {
+        data: {
+          id: id,
+          "attributes": {
+            "name": "my example list",
+            "createdAt": "2023-02-13T13:16:46.590Z",
+            "updatedAt": "2023-02-13T13:16:46.590Z",
+            "publishedAt": "2023-02-13T13:16:46.574Z",
+            "description": null,
+            "order": null
+          }
+        }
+      }
+    }
+  }; 
+}*/
+
 
 export default function ListContent(/*props: ListContentProps*/) {
-  const addMoreTask = (name: string, id: number) => {
-    console.log(name, id);
-    const newTaskId = 7 //uuid;
-    const newTask = {
-      id: newTaskId,
-      name,
-    }
-    // const list = allLists.lists/*[index]*/.[id]
-    // list.tasks = [...list.tasks, newTask]
-  } 
+  console.log(allLists.length);
 
-  console.log(addMoreTask('test', 2));
+  /* const AddMoreTask = (name: string, id: number) => {
+    const [task, setTask] = useState({data: {name: '', list: 0 /*order: 0, }})
+    console.log(name, id);
+
+    setTask({data: {name: name, list: id /*order: 0, }});
+    Api.postTask(task);
+    //Api.getListsAll();
+  }*/
 
   return (
     <div className={styles.list__container}>
@@ -165,13 +197,9 @@ export default function ListContent(/*props: ListContentProps*/) {
         return <List list={list} key={index + 1} />
         }
       )}
-      
+    <InputContainer type='list' listId={allLists.length + 1}></InputContainer>
     </div>
   )
 }
-
-
-// <InputContainer type='list' ></InputContainer>
-//listId={props.list.id}
 
 
