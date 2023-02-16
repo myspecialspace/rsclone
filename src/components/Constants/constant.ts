@@ -27,12 +27,27 @@ export enum SignUpPageContentRu {
 }
 
 enum MenuContentRu {
-  MENU_TITLE = ' Workspace',
+  MENU_TITLE = 'Рабочее пространство',
   MENU_ITEM_BOARDS = '  Доски',
   MENU_ITEM_MEMBERS = 'Участники',
   MENU_ITEM_SETTINGS = 'Настройки',
-  SETTING = 'Настройки рабочего пространства',
+  //SETTING = 'Настройки рабочего пространства',
   MENU_SUBTITLE = 'Мои доски',
+  MENU_VIEWS = 'Режимы просмотра рабочего пространства',
+  TABLE_VIEW = 'Таблица',
+  CALENDAR_VIEW = 'Календарь',
+}
+
+enum MenuContentEn {
+  MENU_TITLE = 'Workspaces',
+  MENU_ITEM_BOARDS = 'Boards',
+  MENU_ITEM_MEMBERS = 'Members',
+  MENU_ITEM_SETTINGS = 'Settings',
+  //SETTING = 'Настройки рабочего пространства',
+  MENU_SUBTITLE = 'Your boards',
+  MENU_VIEWS = 'Workspace views',
+  TABLE_VIEW = 'Table',
+  CALENDAR_VIEW = 'Calendar',
 }
 
 enum WorkspaceContentRu {
@@ -53,7 +68,7 @@ enum BoardContentEn {
   INPUT_TITLE = 'Enter a title of this card',
 }
 
-console.log(BoardContentEn);
+console.log(BoardContentEn, MenuContentEn);
 
 export const mainPageContent = MainPageContentRu;
 export const MenuContent = MenuContentRu;

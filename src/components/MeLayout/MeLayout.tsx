@@ -2,7 +2,7 @@ import { Button, Dropdown, MenuProps } from 'antd';
 import { DownOutlined, TeamOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 import styles from './MeLayout.module.scss';
-import WorkspaceNav from '../WorkspaceNav/WorkspaceNav';
+import { WorkspaceNav, MenuShowButton } from '../WorkspaceNav/WorkspaceNav';
 import { useSelector } from 'react-redux';
 import { AppState, useAppDispatch } from '../../store';
 import { authActions, getJWTFromStorage, getUserIdFromStorage } from '../../store/auth';
@@ -120,7 +120,10 @@ export default function MeLayout() {
       </header>
       <div className={styles.wrapper}>
         <WorkspaceNav className={styles.sidebar} />
-        <Outlet />
+        <div>
+          <MenuShowButton/>
+          <Outlet />
+        </div>
       </div>
     </div >
   )
