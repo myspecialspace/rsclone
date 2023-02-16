@@ -3,7 +3,7 @@ import { Input, Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { BoardContent } from '../Constants/constant';
 import styles from './Input.module.scss';
-import Api from '../../http/index';
+import Api from '../../api/index';
 
 // import TaskPostInterface from '../Interfaces/Task-post-interface';
 

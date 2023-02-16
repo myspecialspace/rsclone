@@ -3,7 +3,11 @@ import styles from './Form.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Form, Input } from 'antd';
-import Api from '../../http/index';
+import api from '../../api';
+import * as routerPaths from '../../router/paths';
+import { useAppDispatch } from '../../store';
+import { authActions } from '../../store/auth';
+import { useCurrentWorkspaceId } from '../../store/workspaces/hooks';
 
 interface IUser {
   username: string;
@@ -14,22 +18,26 @@ interface IUser {
 }
 const FormLogin = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({ identifier: '', password: '' });
+  const dispatch = useAppDispatch();
+  const currentWorkspaceId = useCurrentWorkspaceId();
+
+  const [error, setError] = useState<{ message: string }>(null!);
+
   const onFinish = (values: IUser) => {
-    // console.log('Success:', values);
-    Api.postlogin(values).then(
-      (data) => {
-        localStorage.setItem('jwt', data.jwt);
-        localStorage.setItem('userId', data.user.id);
-        // выполнение
-        navigate(`/boards`);
-      },
-      (reason) => {
-        // отклонение
-        navigate(`/registration`);
-      }
-    );
-    setUser({ identifier: '', password: '' });
+    setError(null!);
+
+    api.login(values)
+      .then((data) => {
+        dispatch(authActions.setAuth({
+          jwt: data.jwt,
+          userId: data.user.id,
+        }));
+
+        navigate(routerPaths.workspaces(currentWorkspaceId));
+      })
+      .catch((err) => {
+        setError(err.error);
+      })
   };
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -56,7 +64,7 @@ const FormLogin = () => {
               id='identifier'
               name='identifier'
               required
-              value={user.identifier}
+            // value={user.identifier}
             />
           </Form.Item>
           <Form.Item
@@ -68,10 +76,11 @@ const FormLogin = () => {
               placeholder={LoginPageContentRu.INPUT_PASSWORD}
               name='Password'
               id='password'
-              value={user.password}
+            // value={user.password}
             />
           </Form.Item>
         </div>
+        {!!error && <div style={{ 'color': 'red' }}>{error.message}</div>}
         <Button htmlType='submit' id='sign-in' className={styles.login__button}>
           {LoginPageContentRu.LOGIN}
         </Button>
@@ -83,7 +92,7 @@ const FormLogin = () => {
         <span className={styles.question_has}>
           {LoginPageContentRu.HAVE_ACCOUNT}
         </span>
-        <Link to='/registration' className={styles.register}>
+        <Link to={routerPaths.registration()} className={styles.register}>
           {LoginPageContentRu.REGISTER}
         </Link>
       </div>
