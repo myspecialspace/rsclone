@@ -51,7 +51,7 @@ enum MenuContentEn {
 }
 
 enum WorkspaceContentRu {
-  WORKSPACE_TITLE = 'User"s Workspaces',
+  WORKSPACE_TITLE = `User's Workspaces`,
   BOARDS_TITLE = 'Доски',
 }
 
@@ -65,7 +65,10 @@ enum BoardContentRu {
 
 enum BoardContentEn {
   ADD_TASK = 'Add a card',
+  ADD_LIST = 'Add a list',
+  ADD_LIST_TEXT = 'Add a list',
   INPUT_TITLE = 'Enter a title of this card',
+  INPUT_LIST_NAME = 'Enter a title of this list'
 }
 
 console.log(BoardContentEn, MenuContentEn);
