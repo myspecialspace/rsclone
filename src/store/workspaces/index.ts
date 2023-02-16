@@ -21,11 +21,7 @@ const initialState = (): State => ({
 export const workspacesSlice = createSlice({
   name: 'workspaces',
   initialState,
-  reducers: {
-    load() {
-
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchWorkspaces.pending, (state, action) => {
       state.fetchState = FetchState.PENDING;
@@ -41,3 +37,4 @@ export const workspacesSlice = createSlice({
 });
 
 export default workspacesSlice.reducer;
+

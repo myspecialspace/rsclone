@@ -8,6 +8,7 @@ import Boards from '../pages/Boards/Boards';
 import WorkspacePage from '../pages/Workspace/Workspace';
 import MeLayout from '../components/MeLayout/MeLayout';
 import BoardPage from '../pages/Board/Board';
+import { RoutePath } from './paths';
 
 export default createBrowserRouter([
   {
@@ -20,34 +21,34 @@ export default createBrowserRouter([
         element: <AboutPage />,
       },
       {
-        path: 'about',
+        path: RoutePath.ABOUT,
         element: <AboutPage />,
       },
       {
-        path: 'login',
+        path: RoutePath.LOGIN,
         element: <LoginPage />,
       },
       {
-        path: 'registration',
+        path: RoutePath.REGISTRATION,
         element: <RegistrationPage />,
       },
       {
-        path: 'boards',
+        path: RoutePath.BOARDS,
         element: <Boards />,
       },
     ],
   },
   //meLayout для авторизованных пользователей (зона авторизации)
   {
-    path: 'me',
+    path: RoutePath.ME,
     element: <MeLayout />,
     children: [
       {
-        path: 'workspace/:id',
+        path: `${RoutePath.WORKSPACES}/:id`,
         element: <WorkspacePage />,
       },
       {
-        path: 'boards/:boardId',
+        path: `${RoutePath.BOARDS}/:boardId`,
         element: <BoardPage />,
       },
     ],

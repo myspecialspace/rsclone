@@ -1,5 +1,9 @@
 // const axios = require('axios').default;
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { getMappedResponse } from '../helpers/strapi';
+import * as strapi from "../helpers/strapi-types";
+import { Workspace } from '../store/workspaces/types';
+import * as types from './types';
 
 interface IUser {
   username: string;
@@ -7,16 +11,21 @@ interface IUser {
   password: string;
   identifier: string;
 }
-export const REACT_APP_API_URL = `http://localhost:1337/api/`;
-export let jwt: string | null = localStorage.getItem('jwt');
+export const API_URL = `http://localhost:1337/api/`;
 const instance = axios.create({
-  baseURL: REACT_APP_API_URL,
-  headers: { Authorization: `Bearer ` + jwt },
+  baseURL: API_URL,
 });
 
-export default class Api {
-  static postRegister(values: IUser) {
-    const register = instance
+const handleStrapiError = (error: AxiosError) => {
+  throw error.response?.data;
+};
+
+class Api {
+  setJwt(token: string) {
+    instance.defaults.headers['Authorization'] = `Bearer ${token}`;
+  }
+  register(values: IUser) {
+    return instance
       .post('auth/local/register', {
         username: values.username,
         email: values.email,
@@ -26,12 +35,11 @@ export default class Api {
         // console.log(data.data.jwt);
         // console.log(data.data.user);
         return data.data;
-      });
-
-    return register;
+      })
+      .catch(handleStrapiError);
   }
-  static postlogin(values: IUser) {
-    const login = instance
+  login(values: IUser) {
+    return instance
       .post('auth/local', {
         identifier: values.identifier,
         password: values.password,
@@ -40,11 +48,16 @@ export default class Api {
         // console.log(data.data.jwt);
         // console.log(data.data.user);
         return data.data;
-      });
-
-    return login;
+      })
+      .catch(handleStrapiError);
   }
-  static getWorkspacesAll() {
+  createWorkspace(data: types.CreateWorkspaceData) {
+    return instance
+      .post<strapi.SingleResponse<types.CreateWorkspaceResponse>>('workspaces', { data })
+      .then((response) => getMappedResponse(response.data));
+
+  }
+  getWorkspacesAll() {
     const workspacesAll = instance
       .get('workspaces')
       .then(function (response) {
@@ -57,7 +70,7 @@ export default class Api {
       });
     return workspacesAll;
   }
-  static getWorkspacesId(id: string | null) {
+  getWorkspacesId(id: string | null) {
     const workspacesId = instance
       .get('workspaces/' + id)
       .then(function (response) {
@@ -70,7 +83,12 @@ export default class Api {
       });
     return workspacesId;
   }
-  static getBoardsAll() {
+  getWorkspacesByUserId(userId: string) {
+    return instance
+      .get<strapi.CollectionResponse<Workspace>>(`workspaces/?populate=owner&filters[owner][id][$eq]=${userId}`)
+      .then((response) => getMappedResponse(response.data));
+  }
+  getBoardsAll() {
     const boardsAll = instance
       .get('boards')
       .then(function (response) {
@@ -83,7 +101,7 @@ export default class Api {
       });
     return boardsAll;
   }
-  static getBoardsId(id: string | null) {
+  getBoardsId(id: string | null) {
     const boardsId = instance
       .get('boards' + id)
       .then(function (response) {
@@ -96,7 +114,7 @@ export default class Api {
       });
     return boardsId;
   }
-  static getListsAll() {
+  getListsAll() {
     const listsAll = instance
       .get('lists')
       .then(function (response) {
@@ -109,7 +127,7 @@ export default class Api {
       });
     return listsAll;
   }
-  static getListsId(id: string | null) {
+  getListsId(id: string | null) {
     const listsId = instance
       .get('lists' + id)
       .then(function (response) {
@@ -122,7 +140,7 @@ export default class Api {
       });
     return listsId;
   }
-  static getTasksAll() {
+  getTasksAll() {
     const tasksAll = instance
       .get('tasks', {})
       .then(function (response) {
@@ -135,7 +153,7 @@ export default class Api {
       });
     return tasksAll;
   }
-  static getTasksId(id: string | null) {
+  getTasksId(id: string | null) {
     const listsId = instance
       .get('tasks' + id)
       .then(function (response) {
@@ -149,3 +167,6 @@ export default class Api {
     return listsId;
   }
 }
+
+const api = new Api();
+export default api;

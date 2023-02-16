@@ -3,7 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Form.module.scss';
 import { useState } from 'react';
 import { Button, Form, Input } from 'antd';
-import Api from '../../http/index';
+import api from '../../api';
+import * as routerPaths from '../../router/paths';
+import { authActions } from '../../store/auth';
+import { useAppDispatch } from '../../store';
+import { LSKey } from '../../helpers/ls';
 
 interface IUser {
   username: string;
@@ -14,22 +18,37 @@ interface IUser {
 }
 const FormSignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [user, setUser] = useState({ username: '', email: '', password: '' });
+  const [error, setError] = useState<{ message: string }>(null!);
+
   const onFinish = (values: IUser) => {
-    // console.log('Success:', values);
-    Api.postRegister(values).then(
-      (data) => {
-        // console.log('Success:', values);
-        localStorage.setItem('jwt', data.jwt);
-        localStorage.setItem('userId', data.user.id);
-        // выполнение
-        navigate(`/boards`);
-      },
-      (reason) => {
-        // отклонение
-        navigate(`/`);
-      }
-    );
+    setError(null!);
+
+    api.register(values)
+      .then((data) => {
+        const userId = data.user.id;
+
+        dispatch(authActions.setAuth({
+          jwt: data.jwt,
+          userId: userId,
+        }));
+
+        // create first workspace for navigate
+        return api.createWorkspace({
+          name: 'Untitled workspace',
+          owner: userId,
+          members: [userId],
+        });
+      })
+      .then((workspace) => {
+        localStorage.setItem(LSKey.CURRENT_WORKSPACE_ID, String(workspace.id));
+        navigate(routerPaths.workspaces(workspace.id));
+      })
+      .catch((err) => {
+        setError(err.error);
+      });
+
     setUser({ username: '', email: '', password: '' });
   };
   const onFinishFailed = (errorInfo: any) => {
@@ -87,6 +106,7 @@ const FormSignUp = () => {
             />
           </Form.Item>
         </div>
+        {!!error && <div style={{ 'color': 'red' }}>{error.message}</div>}
         <Button htmlType='submit' id='sign-in' className={styles.login__button}>
           {SignUpPageContentRu.SIGN_UP}
         </Button>
@@ -98,7 +118,7 @@ const FormSignUp = () => {
         <span className={styles.question_has}>
           {SignUpPageContentRu.HAVE_ACCOUNT}{' '}
         </span>
-        <Link to='/login' className={styles.register}>
+        <Link to={routerPaths.login()} className={styles.register}>
           {SignUpPageContentRu.LOGIN}
         </Link>
       </div>
