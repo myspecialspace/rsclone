@@ -1,7 +1,8 @@
 import { Menu, MenuProps } from 'antd';
-import { AppstoreOutlined, UsergroupAddOutlined, SettingOutlined, PieChartOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, UsergroupAddOutlined, SettingOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styles from './WorkspaceNav.module.scss';
+import { MenuContent } from '../Constants/constant';
 
 
 interface WorkspaceNavProps {
@@ -10,7 +11,7 @@ interface WorkspaceNavProps {
 type MenuItem = Required<MenuProps>['items'][number];
 
 
-export default function WorkspaceNav({ className }: WorkspaceNavProps) {
+export function WorkspaceNav({ className }: WorkspaceNavProps) {
 
 
   function getItem(
@@ -30,17 +31,17 @@ export default function WorkspaceNav({ className }: WorkspaceNavProps) {
   }
 
   const items: MenuProps['items'] = [
-    getItem('Workspaces', '12', <PieChartOutlined />),
-    getItem('Boards', '13', <AppstoreOutlined />),
-    getItem('Members', '14', <UsergroupAddOutlined />),
-    getItem('Settings', '15', <SettingOutlined />),
+    //getItem('Workspaces', '12'),
+    getItem(MenuContent.MENU_ITEM_BOARDS, '13', <AppstoreOutlined />),
+    getItem(MenuContent.MENU_ITEM_MEMBERS, '14', <UsergroupAddOutlined />),
+    getItem(MenuContent.MENU_ITEM_SETTINGS, '15', <SettingOutlined />),
 
-    getItem('Workspace views', 'workspace-views', null, [
-      getItem('Table', 'view-table'),
-      getItem('Calendar', 'view-calendar'),
+    getItem(MenuContent.MENU_VIEWS, 'workspace-views', null, [
+      getItem(MenuContent.TABLE_VIEW, 'view-table'),
+      getItem(MenuContent.CALENDAR_VIEW, 'view-calendar'),
     ]),
 
-    getItem('Your boards', 'your-boards', null, [
+    getItem(MenuContent.MENU_SUBTITLE, 'your-boards', null, [
       getItem('Kate', 'board-1'),
       getItem('Programming', 'board-2'),
       getItem('Panthers', 'board-3'),
@@ -57,7 +58,11 @@ export default function WorkspaceNav({ className }: WorkspaceNavProps) {
   };
 
   return (
-    <div className={classNames(styles.root, className)}>
+    <div className={classNames(styles.root, className)} id="menu__container">
+      <div className={styles.header}>
+        <h4 className={styles.title}>{MenuContent.MENU_TITLE}</h4>
+        <div  onClick={onShowButtonClick}><LeftOutlined className={styles.show_ico}/></div> 
+      </div> 
       <Menu
         className={styles.menu}
         onClick={onClick}
@@ -69,3 +74,23 @@ export default function WorkspaceNav({ className }: WorkspaceNavProps) {
     </div>
   )
 }
+
+export function MenuShowButton() {
+  return (
+    <div onClick={onHideButtonClick} className={styles.ico_hidden}><RightOutlined className={styles.show_ico}/></div>
+  )
+}
+
+const onShowButtonClick = () => {
+  const menu = document.getElementById('menu__container') as HTMLElement;
+  console.log("1", menu)
+  menu.style.position='absolute';
+  menu.style.transform='translateX(-266px)';
+};
+
+const onHideButtonClick = () => {
+  const menu = document.getElementById('menu__container') as HTMLElement;
+  console.log("2", menu)
+  menu.style.position='relative';
+  menu.style.transform='translateX(0)';
+};

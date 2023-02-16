@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import ListContent from '../../components/List/List-content';
 // import { useBoard } from '../../store/board/thunks';
 import styles from './Board.module.scss';
 
@@ -13,9 +14,9 @@ export default function BoardPage() {
 
 
   return (
-    <div className={styles.header}>
+    <div className={styles.container}>
       {/* {board.data.name} */}
-      BoardPage
+      <ListContent />
     </div>
   )
 }

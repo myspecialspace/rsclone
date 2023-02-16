@@ -4,6 +4,7 @@ import { getMappedResponse } from '../helpers/strapi';
 import * as strapi from "../helpers/strapi-types";
 import { Workspace } from '../store/workspaces/types';
 import * as types from './types';
+import TaskPostInterface from '../components/Interfaces/Task-post-interface';
 
 interface IUser {
   username: string;
@@ -19,7 +20,6 @@ const instance = axios.create({
 const handleStrapiError = (error: AxiosError) => {
   throw error.response?.data;
 };
-
 class Api {
   setJwt(token: string) {
     instance.defaults.headers['Authorization'] = `Bearer ${token}`;
@@ -165,6 +165,23 @@ class Api {
         console.log(error);
       });
     return listsId;
+  }
+  postTask(task: TaskPostInterface) {
+    const taskCreate = instance
+    .post('tasks', {
+      data: {
+        name: "my example task",
+        list: 1
+        //order: task.attributes.order,
+      }
+    })
+    .then((data) => {
+      console.log("task", data.data.jwt);
+      console.log("task", data.data.name);
+      return data.data;
+    });
+
+  return taskCreate;
   }
 }
 

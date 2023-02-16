@@ -7,6 +7,7 @@ import styles from './Input.module.scss';
 
 interface InputContainerProps {
   type: string;
+  listId: number;
 }
 
 export default function InputContainer(props: InputContainerProps) {
@@ -15,11 +16,11 @@ export default function InputContainer(props: InputContainerProps) {
     <div>
       {open ? (
       <div>
-        <InputTask setOpen={setOpen} type={props.type}/>
+        <InputTask setOpen={setOpen} type={props.type} listId={props.listId} />
       </div>
       ) : (
       <div >
-        <Card className={styles.container} size="small" onClick={()=> setOpen(!open)}>
+        <Card className={props.type === 'task' ? styles.container : styles.container_list} size="small" onClick={()=> setOpen(!open)}>
           <div><PlusOutlined  className={styles.ico}/>
             {props.type === 'task' ? BoardContent.ADD_TASK : BoardContent.ADD_LIST_TEXT}
           </div>

@@ -8,6 +8,17 @@
   }
 }
 
+.container_list {
+  width: 300px;
+  margin-left: 12px;
+  margin-top: 12px;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-light-grey;
+  }
+}
+
 .ico {
   margin-right: 10px;
 }
@@ -17,6 +28,18 @@
   border: none;
 }
 
+.list {
+  width: 300px;
+  border: none;
+  border-radius: 5px;
+  margin: 12px 10px;
+  background-color: $color-list;
+}
+
 .button {
   margin: 10px 5px;
+}
+
+.button_list {
+  margin: 10px;
 }
