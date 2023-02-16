@@ -7,6 +7,15 @@ enum MainPageContentRu {
   CHANGE_LEN = 'Английский',
 }
 
+enum MainPageContentEn {
+  TITLE = 'Trello brings all your tasks, teammates, and tools together',
+  TEXT = 'Keep everything in the same place—even if your team isn’t.',
+  SIGN_UP_BUTTON = 'Sign up - it’s free!',
+  LOG_IN_BUTTON = 'Log in',
+  LEN_BUTTON = 'Russian',
+  CHANGE_LEN = 'English',
+}
+
 export enum LoginPageContentRu {
   LOGIN_TITLE = 'Вход в Trello',
   INPUT_EMAIL = 'Укажите адрес электронной почты',
@@ -14,6 +23,15 @@ export enum LoginPageContentRu {
   LOGIN = 'Войти',
   HAVE_ACCOUNT = 'Не удается войти?',
   REGISTER = 'Зарегистрировать аккаунт',
+}
+
+enum LoginPageContentEN {
+  LOGIN_TITLE = 'Log in to your account',
+  INPUT_EMAIL = 'Input E-mail',
+  FORGOT = 'Forgot Your Password?',
+  LOGIN = 'Sign In',
+  HAVE_ACCOUNT = 'Don’t have an account?',
+  REGISTER = 'Register',
 }
 
 export enum SignUpPageContentRu {
@@ -24,6 +42,16 @@ export enum SignUpPageContentRu {
   SIGN_UP = 'Продолжить',
   HAVE_ACCOUNT = 'Уже есть аккаунт?',
   LOGIN = 'Войти',
+}
+
+export enum SignUpPageContentEn {
+  SIGN_UP_TITLE = 'Sign up for your account',
+  INPUT_NAME = 'Enter your name',
+  INPUT_EMAIL = 'Enter email',
+  INPUT_PASSWORD = 'Enter password',
+  SIGN_UP = 'Continue',
+  HAVE_ACCOUNT = 'Already have an account?',
+  LOGIN = 'Log in',
 }
 
 enum MenuContentRu {
@@ -51,7 +79,7 @@ enum MenuContentEn {
 }
 
 enum WorkspaceContentRu {
-  WORKSPACE_TITLE = `User's Workspaces`,
+  WORKSPACE_TITLE = 'User’s Workspaces',
   BOARDS_TITLE = 'Доски',
 }
 
@@ -71,7 +99,7 @@ enum BoardContentEn {
   INPUT_LIST_NAME = 'Enter a title of this list'
 }
 
-console.log(BoardContentEn, MenuContentEn);
+console.log(BoardContentEn, MenuContentEn, LoginPageContentEN, MainPageContentEn, SignUpPageContentEn);
 
 export const mainPageContent = MainPageContentRu;
 export const MenuContent = MenuContentRu;
