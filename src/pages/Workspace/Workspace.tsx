@@ -1,30 +1,81 @@
 import styles from './Workspace.module.scss';
-import { WorkspaceContent, WorkspaceName } from '../../components/Constants/constant';
+import { WorkspaceContent } from '../../components/Constants/constant';
 import { UserAddOutlined } from '@ant-design/icons';
-import { Button, Space} from 'antd';
-
+import { Button, Input, Modal, Space, Spin } from 'antd';
+import { useWorkspace, useWorkspaceById } from '../../store/workspace/hooks';
+import { useParams } from 'react-router-dom';
+import Member from './Member';
+import Board from './Board';
+import { useState } from 'react';
+import { useAppDispatch } from '../../store';
+import { fetchCreateBoard } from '../../store/workspace/thunks';
+import classNames from 'classnames';
+import { BOARD_BG_COLOR } from '../../helpers/defaults';
 
 export default function WorkspacePage() {
+  const dispatch = useAppDispatch();
+  const params = useParams();
+  const $workspace = useWorkspace();
+  const workspace = $workspace.data;
+  useWorkspaceById(parseInt(params.id!));
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [boardName, setBoardName] = useState('');
+  const [boardBgColor, setBoardBgColor] = useState(BOARD_BG_COLOR);
+
+  if ($workspace.isPending || $workspace.isInitial || !workspace) {
+    return <Spin />;
+  }
+
+  if ($workspace.isError) {
+    return <div>WorkspaceContent.WORKSPACE_ERROR</div>;
+  }
+
+
+  const onCreateBoard = async () => {
+    await dispatch(fetchCreateBoard({
+      name: boardName,
+      backgroundColor: boardBgColor,
+      workspace: workspace.id,
+    }));
+    setIsModalOpen(false);
+    $workspace.refetch();
+  }
 
     return (
       <div className={styles.main}>
         <div className={styles.main__content}>
           <div className={styles.current__workspace}>
-            <h2 className={styles.title}>{WorkspaceName}</h2>
+          <h2 className={styles.title}>#{workspace.id} {workspace.name}</h2>
             <Space align="center">
-              <Button type="primary" icon={<UserAddOutlined />}>Invite Workspace members</Button>
+              <Button type="primary" icon={<UserAddOutlined />}>{WorkspaceContent.WORKSPACE_INVITE}</Button>
             </Space>
           </div>
-          <hr className='horizontal'/>
+        <hr className='horizontal' />
 
+        <div className={styles.block}>
+          <h2 className={styles.title}>{WorkspaceContent.BOARDS_TITLE}</h2>
           <div className={styles.boards}>
-            <h2 className={styles.title}>{WorkspaceContent.WORKSPACE_TITLE}</h2>
-            <div className={styles.column}></div>
-          </div>
+            {workspace.boards.map((board) => <Board key={board.id} board={board} className={styles.board} />)}
+            <div className={classNames(styles.board, styles.create)} onClick={() => setIsModalOpen(true)}>+ {WorkspaceContent.BOARD_CREATE}</div>
+            <Modal title={WorkspaceContent.BOARD_CREATE} open={isModalOpen} onOk={onCreateBoard} onCancel={() => setIsModalOpen(false)}>
+              <Input
+                placeholder={WorkspaceContent.BOARD_NAME}
+                value={boardName}
+                onChange={(e) => setBoardName(e.target.value)}
+              />
+              <div>{WorkspaceContent.BOARD_COLOR}</div>
+              <input type="color" value={boardBgColor} onChange={(e) => setBoardBgColor(e.target.value)} />
+            </Modal>
         </div>
       </div>
 
+        <div className={styles.block}>
+          <h2 className={styles.title}>{WorkspaceContent.MEMBERS_TITLE}</h2>
+          <div>
+            {workspace.members.map((member) => <Member key={member.id} member={member} />)}
+          </div>
+        </div>
+      </div>
+    </div>
     )
-
 }
-

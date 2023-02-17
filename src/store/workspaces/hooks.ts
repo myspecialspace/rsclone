@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch, AppState } from "..";
 import { FetchState, getFetchStatuses } from "../../helpers/fetch-state";
-import { LSKey } from "../../helpers/ls";
 import { fetchWorkspaces } from "./thunks";
 
 export const useWorkspaces = () => {
@@ -24,25 +23,6 @@ export const useWorkspaces = () => {
     ...getFetchStatuses(fetchState),
     data,
     dataDict,
+    refetch: () => dispatch(fetchWorkspaces(userId)),
   };
-};
-
-export const getCurrentWorkspaceIdFromStorage = (): number | null => {
-  try {
-    return JSON.parse(localStorage.getItem(LSKey.CURRENT_WORKSPACE_ID) || 'null');
-  } catch (error) {
-    return null;
-  }
-}
-
-export const useCurrentWorkspaceId = () => {
-  const workspaces = useWorkspaces();
-
-  const idFromStorage = getCurrentWorkspaceIdFromStorage();
-
-  if (idFromStorage) {
-    return idFromStorage;
-  } else {
-    return workspaces.data[0].id;
-  }
 };

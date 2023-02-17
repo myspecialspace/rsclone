@@ -7,7 +7,7 @@ import api from '../../api';
 import * as routerPaths from '../../router/paths';
 import { useAppDispatch } from '../../store';
 import { authActions } from '../../store/auth';
-import { useCurrentWorkspaceId } from '../../store/workspaces/hooks';
+import { useCurrentWorkspaceId } from '../../store/workspace/hooks';
 
 interface IUser {
   username: string;

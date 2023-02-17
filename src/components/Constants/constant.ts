@@ -59,7 +59,7 @@ enum MenuContentRu {
   MENU_ITEM_BOARDS = '  Доски',
   MENU_ITEM_MEMBERS = 'Участники',
   MENU_ITEM_SETTINGS = 'Настройки',
-  //SETTING = 'Настройки рабочего пространства',
+  SETTING = 'Настройки рабочего пространства',
   MENU_SUBTITLE = 'Мои доски',
   MENU_VIEWS = 'Режимы просмотра рабочего пространства',
   TABLE_VIEW = 'Таблица',
@@ -79,8 +79,37 @@ enum MenuContentEn {
 }
 
 enum WorkspaceContentRu {
-  WORKSPACE_TITLE = 'User’s Workspaces',
+  WORKSPACE_TITLE = 'Untitled',
   BOARDS_TITLE = 'Доски',
+  MEMBERS_TITLE = 'Пользователи',
+  BOARD_NAME = 'Название доски',
+  BOARD_CREATE = 'Создать доску',
+  BOARD_COLOR = 'Цвет доски',
+  WORKSPACE_ERROR = 'Ошибка',
+  WORKSPACE_INVITE = 'Пригласить участников рабочего пространства',
+  CREATE = 'Создать',
+  WORKSPACE_TITLES = 'Рабочие пространства',
+  WORKSPACE_CURRENT = 'Текущее',
+  WORKSPACE_CREATE = 'Создать рабочее пространство',
+  WORKSPACE_NAME = 'Название рабочего пространства',
+  WORKSPACE_COLOR = 'Цвет рабочего пространства',
+}
+
+enum WorkspaceContentEn {
+  WORKSPACE_TITLE = 'Untitled',
+  BOARDS_TITLE = 'Boards',
+  MEMBERS_TITLE = 'Members',
+  BOARD_NAME = 'Board Name',
+  BOARD_CREATE = 'Create board',
+  BOARD_COLOR = 'Board colour',
+  WORKSPACE_ERROR = 'Error',
+  WORKSPACE_INVITE = 'Invite Workspace members',
+  CREATE = 'Create',
+  WORKSPACE_TITLES = 'Workspaces',
+  WORKSPACE_CURRENT = 'Current',
+  WORKSPACE_CREATE = 'Create Workspace',
+  WORKSPACE_NAME = 'Workspace Name',
+  WORKSPACE_COLOR = 'Board colour',
 }
 
 enum BoardContentRu {
@@ -99,7 +128,7 @@ enum BoardContentEn {
   INPUT_LIST_NAME = 'Enter a title of this list'
 }
 
-console.log(BoardContentEn, MenuContentEn, LoginPageContentEN, MainPageContentEn, SignUpPageContentEn);
+console.log(BoardContentEn, MenuContentEn, WorkspaceContentEn, LoginPageContentEN, MainPageContentEn, SignUpPageContentEn);
 
 export const mainPageContent = MainPageContentRu;
 export const MenuContent = MenuContentRu;

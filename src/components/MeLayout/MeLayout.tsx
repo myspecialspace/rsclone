@@ -1,6 +1,6 @@
-import { Button, Dropdown, MenuProps } from 'antd';
+import { Button, Dropdown, Input, MenuProps, Modal } from 'antd';
 import { DownOutlined, TeamOutlined, AppstoreOutlined } from '@ant-design/icons';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styles from './MeLayout.module.scss';
 import { WorkspaceNav, MenuShowButton } from '../WorkspaceNav/WorkspaceNav';
 import { useSelector } from 'react-redux';
@@ -8,13 +8,22 @@ import { AppState, useAppDispatch } from '../../store';
 import { authActions, getJWTFromStorage, getUserIdFromStorage } from '../../store/auth';
 import { useWorkspaces } from '../../store/workspaces/hooks';
 import * as routerPaths from '../../router/paths';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { WORKSPACE_BG_COLOR } from '../../helpers/defaults';
+import { fetchWorkspacesCreate } from '../../store/workspaces/thunks';
+import { WorkspaceContent } from '../../components/Constants/constant';
 
 export default function MeLayout() {
   const user = useSelector((state: AppState) => state.auth.user);
-  const workspaces = useWorkspaces();
+  const userId = useSelector((state: AppState) => state.auth.userId);
+  const $workspaces = useWorkspaces();
+  const workspaces = $workspaces.data;
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [workspaceName, setWorkspaceName] = useState('');
+  const [workspaceBgColor, setWorkspaceBgColor] = useState(WORKSPACE_BG_COLOR);
 
   useEffect(() => {
     const userId = getUserIdFromStorage();
@@ -38,7 +47,7 @@ export default function MeLayout() {
     {
       type: 'group',
       key: 'current',
-      label: 'Current',
+      label: WorkspaceContent.WORKSPACE_CURRENT,
       children: [
         {
           label: 'Workspace 1',
@@ -49,11 +58,14 @@ export default function MeLayout() {
     {
       type: 'group',
       key: 'workspaces',
-      label: 'Workspaces',
-      children: workspaces.data.map((workspace) => ({
-        label: workspace.name,
+      label: WorkspaceContent.WORKSPACE_TITLES,
+      children: workspaces.map((workspace) => {
+        const label = <Link to={routerPaths.workspaces(workspace.id)}>{workspace.name}</Link>
+        return {
+          label,
         key: workspace.id
-      })),
+        };
+      }),
     },
   ];
   //обработчик
@@ -65,36 +77,39 @@ export default function MeLayout() {
     {
       label: (
         <a target="_blank" rel="noopener noreferrer" href="https://ant.design/">
-          Create Board
+          {WorkspaceContent.BOARD_CREATE}
         </a>
       ),
       key: 'board',
       icon: <AppstoreOutlined />,
     },
     {
-      label: 'A board is made up of cards ordered on lists.',
-      key: 'workspace',
-      disabled: true,
-    },
-    {
       label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://ant.design/">
-          Create Workspace
-        </a>
+        <Button type="ghost" rel="noopener noreferrer" onClick={() => setIsModalOpen(true)}>
+          {WorkspaceContent.WORKSPACE_CREATE}
+        </Button>
       ),
       key: 'workspace',
       icon: <TeamOutlined />,
     },
-    {
-      label: 'A Workspace is a group of boards and people. Organize your company, family, or friends.',
-      key: 'workspace',
-      disabled: true,
-    },
   ];
 
   const onCreateClick = () => {
-
   };
+
+  const onCreateWorkspace = async () => {
+    console.log(' create workspace', { workspaceName, workspaceBgColor });
+
+    await dispatch(fetchWorkspacesCreate({
+      owner: userId,
+      members: [userId],
+      backgroundColor: workspaceBgColor,
+      name: workspaceName,
+    }));
+
+    $workspaces.refetch();
+    setIsModalOpen(false);
+  }
 
   return (
     <div className={styles.root}>
@@ -104,14 +119,14 @@ export default function MeLayout() {
 
         <Dropdown className={styles.workspaceSelector} menu={{ items: workspaceItems, onClick: onWorkspaceClick }}>
           <Button ghost>
-            Workspaces
+            {WorkspaceContent.WORKSPACE_TITLES}
             <DownOutlined />
           </Button>
         </Dropdown>
 
         <Dropdown className={styles.createSelector} menu={{ items: createItems, onClick: onCreateClick }}>
           <Button ghost>
-            Create
+            {WorkspaceContent.CREATE}
           </Button>
         </Dropdown>
         <div className={styles.right}>
@@ -125,6 +140,15 @@ export default function MeLayout() {
           <Outlet />
         </div>
       </div>
+      <Modal title={WorkspaceContent.WORKSPACE_CREATE} open={isModalOpen} onOk={onCreateWorkspace} onCancel={() => setIsModalOpen(false)}>
+        <Input
+          placeholder={WorkspaceContent.WORKSPACE_NAME}
+          value={workspaceName}
+          onChange={(e) => setWorkspaceName(e.target.value)}
+        />
+        <div>{WorkspaceContent.WORKSPACE_COLOR }</div>
+        <input type="color" value={workspaceBgColor} onChange={(e) => setWorkspaceBgColor(e.target.value)} />
+      </Modal>
     </div >
   )
 }
