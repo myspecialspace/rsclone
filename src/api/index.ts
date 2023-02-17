@@ -5,6 +5,7 @@ import * as strapi from "../helpers/strapi-types";
 import { Workspace } from '../store/workspaces/types';
 import * as types from './types';
 import TaskPostInterface from '../components/Interfaces/Task-post-interface';
+import ListPostInterface from '../components/Interfaces/List-post-interface';
 
 interface IUser {
   username: string;
@@ -170,18 +171,32 @@ class Api {
     const taskCreate = instance
     .post('tasks', {
       data: {
-        name: "my example task",
-        list: 1
-        //order: task.attributes.order,
+        name: task.data.name,
+        list: task.data.list,
+        order: task.data.order,
       }
     })
     .then((data) => {
-      console.log("task", data.data.jwt);
-      console.log("task", data.data.name);
       return data.data;
     });
 
   return taskCreate;
+  }
+  postList(list: ListPostInterface) {
+    const listCreate = instance
+    .post('lists', {
+      data: {
+        name: list.data.name,
+        description: list.data.description,
+        order: list.data.order,
+        board: list.data.board,
+      }
+    })
+    .then((data) => {
+      return data.data;
+    });
+
+  return listCreate;
   }
 }
 

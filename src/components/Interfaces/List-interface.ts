@@ -1,6 +1,6 @@
 import TaskInterface from './Task-interface';
 
-export interface ListInterface {
+export default interface ListInterface {
     id: number;
     attributes: {
         name: string;

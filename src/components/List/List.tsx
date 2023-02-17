@@ -3,7 +3,7 @@ import Title from './Title';
 import styles from './List.module.scss';
 import Task from '../Task/Task';
 import InputContainer from '../input/Input-container';
-import { ListInterface } from '../../components/Interfaces/List-interface';
+import ListInterface from '../../components/Interfaces/List-interface';
 import TaskInterface from '../../components/Interfaces/Task-interface';
 
 interface ListProps {

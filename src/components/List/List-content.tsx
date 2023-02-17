@@ -1,7 +1,6 @@
 import InputContainer from '../input/Input-container';
 import List from './List';
 import styles from './List-content.module.scss';
-// import { useState } from 'react';
 
 
 const dataTasks =  {
@@ -137,50 +136,10 @@ const dataLists =  {
 
 const allLists = dataLists.data;
 
-/* interface ListContentProps {
-  list: ListInterface;
-  // listId: number,
-} */
-
- /* const AddMoreTask = (name: string, id: number) => {
-  const [task, setTask] = useState({id: '', attributes: {name: '', list: {data: {id: ''}}}})
-  console.log(name, id);
-  const newTaskId = allLists.length + 1;
-  console.log(newTaskId);
-
- const newTask = {
-    id: newTaskId,
-    attributes: {
-      name: name,
-      createdAt: '',
-      updatedAt: '',
-      publishedAt: '',
-      description: null,
-      backgroundColor: null,
-      isCompleted: false,
-      date_to_complete: null,
-      order: null,
-      list: {
-        data: {
-          id: id,
-          "attributes": {
-            "name": "my example list",
-            "createdAt": "2023-02-13T13:16:46.590Z",
-            "updatedAt": "2023-02-13T13:16:46.590Z",
-            "publishedAt": "2023-02-13T13:16:46.574Z",
-            "description": null,
-            "order": null
-          }
-        }
-      }
-    }
-  }; 
-}*/
-
-
 export default function ListContent(/*props: ListContentProps*/) {
-  console.log(allLists.length);
 
+  //console.log(allLists.length);
+  
   /* const AddMoreTask = (name: string, id: number) => {
     const [task, setTask] = useState({data: {name: '', list: 0 /*order: 0, }})
     console.log(name, id);
