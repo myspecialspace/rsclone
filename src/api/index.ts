@@ -20,7 +20,13 @@ const instance = axios.create({
 const handleStrapiError = (error: AxiosError) => {
   throw error.response?.data;
 };
+
 class Api {
+
+  getInstance() {
+    return instance;
+  }
+
   setJwt(token: string) {
     instance.defaults.headers['Authorization'] = `Bearer ${token}`;
   }
@@ -83,7 +89,7 @@ class Api {
       });
     return workspacesId;
   }
-  getWorkspacesByUserId(userId: string) {
+  getWorkspacesByUserId(userId: number) {
     return instance
       .get<strapi.CollectionResponse<Workspace>>(`workspaces/?populate=owner&filters[owner][id][$eq]=${userId}`)
       .then((response) => getMappedResponse(response.data));
