@@ -31,7 +31,7 @@ export function WorkspaceNav({ className }: WorkspaceNavProps) {
   }
 
   const items: MenuProps['items'] = [
-    //getItem('Workspaces', '12'),
+
     getItem(MenuContent.MENU_ITEM_BOARDS, '13', <AppstoreOutlined />),
     getItem(MenuContent.MENU_ITEM_MEMBERS, '14', <UsergroupAddOutlined />),
     getItem(MenuContent.MENU_ITEM_SETTINGS, '15', <SettingOutlined />),
@@ -61,8 +61,8 @@ export function WorkspaceNav({ className }: WorkspaceNavProps) {
     <div className={classNames(styles.root, className)} id="menu__container">
       <div className={styles.header}>
         <h4 className={styles.title}>{MenuContent.MENU_TITLE}</h4>
-        <div  onClick={onShowButtonClick}><LeftOutlined className={styles.show_ico}/></div> 
-      </div> 
+        <div  onClick={onShowButtonClick}><LeftOutlined className={styles.show_ico}/></div>
+      </div>
       <Menu
         className={styles.menu}
         onClick={onClick}

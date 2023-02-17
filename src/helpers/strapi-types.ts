@@ -21,7 +21,7 @@ export interface MetaPagination {
   total: 1;
 }
 
-export type TAttrsBase = Record<string, unknown>;
+export type TAttrsBase = { id: number } & Record<string, unknown>;
 
 export interface Item<TAttrs extends TAttrsBase> {
   id: number;

@@ -7,13 +7,13 @@ import { fetchWorkspaces } from './thunks';
 import { FetchState } from '../../helpers/fetch-state';
 
 
-const workspacesAdapter = createEntityAdapter<Workspace>({
+const adapter = createEntityAdapter<Workspace>({
   selectId: (item) => item.id,
   sortComparer: (a, b) => a.id - b.id,
 });
 
 const initialState = (): State => ({
-  ...workspacesAdapter.getInitialState(),
+  ...adapter.getInitialState(),
   fetchState: FetchState.INITIAL,
   selectedId: -1,
 });
@@ -31,10 +31,11 @@ export const workspacesSlice = createSlice({
     });
     builder.addCase(fetchWorkspaces.fulfilled, (state, action) => {
       state.fetchState = FetchState.SUCCESS;
-      workspacesAdapter.setAll(state, action.payload);
+      adapter.setAll(state, action.payload);
     });
   }
 });
 
 export default workspacesSlice.reducer;
 
+export const workspacesSelectors = adapter.getSelectors();

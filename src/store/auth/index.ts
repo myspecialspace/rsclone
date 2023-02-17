@@ -3,31 +3,13 @@ import {
 } from '@reduxjs/toolkit';
 import api from '../../api';
 import { LSKey } from '../../helpers/ls';
+import { User } from '../../types/user';
 
 export interface AuthState {
   user: User;
   jwt: string;
-  userId: string;
+  userId: number;
   // state:pending/loaded
-}
-
-enum Theme {
-  SYSTEM = 'system',
-  LIGHT = 'light',
-  DARK = 'dark',
-}
-
-interface User {
-  id: number;
-  username: string;
-  email: string;
-  provider: string;
-  confirmed: boolean;
-  blocked: boolean;
-  createdAt: string;
-  updatedAt: string;
-  backgroundColor?: string;
-  theme: Theme;
 }
 
 export const getJWTFromStorage = (): string => {
@@ -40,7 +22,7 @@ export const getUserIdFromStorage = (): string => {
 // what data get from server - user & jwt
 const initialState: AuthState = {
   jwt: '',
-  userId: '',
+  userId: null!,
   user: {} as User,
 };
 
@@ -54,7 +36,7 @@ export const authSlice = createSlice({
       localStorage.setItem(LSKey.JWT, payload.jwt);
       api.setJwt(payload.jwt);
 
-      state.userId = payload.userId;
+      state.userId = parseInt(payload.userId);
       localStorage.setItem(LSKey.USER_ID, payload.userId);
     },
     setUser(state, { payload }) {
