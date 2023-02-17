@@ -10,14 +10,13 @@ interface ListProps {
   list : ListInterface;  //дополнить тип данных в List
 }
 
-
 export default function List(props: ListProps) {
   // console.log(props.list.attributes.name)
   // console.log(props.list.attributes.allTasks[0].id)
   return (
     <div>
       <Card className={styles.list}>
-        <Title title={props.list.attributes.name}></Title>
+        <Title title={props.list.attributes.name} listId={props.list.id}></Title>
         {props.list.attributes.allTasks
         .map((task: TaskInterface) => (<Task key={task.id} task={task} listId={props.list.id}/>))}
         <InputContainer type='task' listId={props.list.id}/>

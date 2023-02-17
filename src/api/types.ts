@@ -11,3 +11,20 @@ export interface CreateWorkspaceResponse extends TAttrsBase {
   name: string;
   // ...
 }
+
+export interface ListPostInterface {
+  data: {
+    name: string,
+    description?: string,
+    board?: number,
+    order?: number
+  }
+}
+
+export interface TaskPostInterface {
+  data: {
+    name: string,
+    list: number,
+    order: number
+  }
+}

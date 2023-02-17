@@ -4,8 +4,8 @@ import { getMappedResponse } from '../helpers/strapi';
 import * as strapi from "../helpers/strapi-types";
 import { Workspace } from '../store/workspaces/types';
 import * as types from './types';
-import TaskPostInterface from '../components/Interfaces/Task-post-interface';
-import ListPostInterface from '../components/Interfaces/List-post-interface';
+import { TaskPostInterface } from './types';
+import { ListPostInterface } from './types';
 
 interface IUser {
   username: string;
@@ -204,6 +204,22 @@ class Api {
 
   return listCreate;
   }
+  updateList(list: ListPostInterface) {
+    const listUpdate = instance
+    .put('lists', {
+      data: {
+        name: list.data.name,
+        //description: list.data.description,
+        //order: list.data.order,
+        //board: list.data.board,
+      }
+    })
+    .then((data) => {
+      return data.data;
+    });
+    return listUpdate;
+  }
+  
 }
 
 const api = new Api();
