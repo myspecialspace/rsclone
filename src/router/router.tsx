@@ -48,7 +48,7 @@ export default createBrowserRouter([
         element: <WorkspacePage />,
       },
       {
-        path: `${RoutePath.BOARDS}/:boardId`,
+        path: `${RoutePath.BOARDS}/:id`,
         element: <BoardPage />,
       },
     ],

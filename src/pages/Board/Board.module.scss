@@ -1,5 +1,11 @@
+@import '../../styles/index';
+
 .container {
   width: 100%;
   background-color: #acc3d4;
   overflow-y: auto;
+}
+
+.list__container {
+  display: flex;
 }

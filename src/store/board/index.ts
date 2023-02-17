@@ -15,6 +15,10 @@ export const slice = createSlice({
   name: 'board',
   initialState,
   reducers: {
+    setId(state, { payload }) {
+      state.id = payload;
+      state.fetchState = FetchState.INITIAL;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBoard.pending, (state, action) => {
@@ -31,3 +35,4 @@ export const slice = createSlice({
 });
 
 export default slice.reducer;
+export const boardActions = slice.actions;
