@@ -1,16 +1,17 @@
-import images from '../../assets/img/icon_user.webp';
 import { useState } from 'react';
 import {
   StarOutlined,
   EditOutlined,
   LockOutlined,
   UnlockOutlined,
-  AntDesignOutlined,
-  UserOutlined,
 } from '@ant-design/icons';
 import styles from './BoardsHeader.module.scss';
 import type { MenuProps } from 'antd';
 import { Menu, Avatar, Tooltip } from 'antd';
+import Member from '../../pages/Workspace/Member';
+import { AppState } from '../../store';
+import { useSelector } from 'react-redux';
+import { WorkspaceContent } from '../Constants/constant';
 
 const items: MenuProps['items'] = [
   {
@@ -45,6 +46,9 @@ const BoardsHeader: React.FC = () => {
   const [current, setCurrent] = useState('mail');
   const id: string | null = localStorage.getItem('userId');
 
+  const userMembers = useSelector(
+    (state: AppState) => state.workspace.workspace.members
+  );
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
     console.log(id);
@@ -62,24 +66,20 @@ const BoardsHeader: React.FC = () => {
                 selectedKeys={[current]}
                 mode='horizontal'
                 items={items}
-                theme='dark'
+                // theme='dark'
               />
               <Avatar.Group
                 maxCount={2}
                 maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
               >
-                <Avatar src={images} />
-                <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
-                <Tooltip title='Ant User' placement='top'>
-                  <Avatar
-                    style={{ backgroundColor: '#87d068' }}
-                    icon={<UserOutlined />}
-                  />
-                </Tooltip>
-                <Avatar
-                  style={{ backgroundColor: '#1890ff' }}
-                  icon={<AntDesignOutlined />}
-                />
+                {userMembers.map((member) => (
+                  <Tooltip
+                    title={WorkspaceContent.MEMBERS_TITLE}
+                    placement='top'
+                  >
+                    <Member key={member.id} member={member} />{' '}
+                  </Tooltip>
+                ))}
               </Avatar.Group>
             </div>
           </div>
