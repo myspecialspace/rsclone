@@ -1,0 +1,60 @@
+.root {
+  height: 100%;
+  background-color: aliceblue;
+}
+
+.header {
+  height: 50px;
+  background-color: #404e59;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.sidebar {
+  position: relative;
+  width: 256px;
+  height: 100%;
+  background-color: #516270;
+  transition: all 0.3s ease-out;
+  z-index: 5;
+}
+
+.wrapper {
+  height: calc(100% - 50px);
+  display: flex;
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+  background: url(../../assets/svg/trello_logo.svg);
+  background-size: cover;
+}
+
+.name {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.workspaceSelector,
+.createSelector {
+  margin-left: 8px;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.user {
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=MeLayout.module.css.map */
