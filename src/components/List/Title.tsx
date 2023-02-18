@@ -11,10 +11,10 @@ interface TitleProps {
 
 export default function Title(props: TitleProps) {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState(props.title);
+  const [listName, setListName] = useState(props.title);
 
   const handleOnChange = (e: React.ChangeEvent) => {
-    setName((e.target as HTMLInputElement).value);
+    setListName((e.target as HTMLInputElement).value);
   }
 
   const updateListTitle = (listTitle: string) => {
@@ -22,7 +22,7 @@ export default function Title(props: TitleProps) {
   }
 
   const handleOnBlur = () => {
-    updateListTitle(name);
+    updateListTitle(listName);
     setOpen(!open);
   }
 
@@ -34,7 +34,7 @@ export default function Title(props: TitleProps) {
             onChange={handleOnChange}
             autoFocus
             placeholder="title"
-            value={name}
+            value={listName}
             onBlur={handleOnBlur}/>
         </div>
       ) : (

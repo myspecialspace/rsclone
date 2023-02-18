@@ -103,7 +103,6 @@ export default function InputTask({ listId, type, onSubmit, onCancel }: InputTas
 
         <Button className={type === InputTaskType.TASK ? styles.button : styles.button_list} type="primary" onClick={() => handleButtonConfirm()} >
           {type === InputTaskType.TASK ? BoardContent.ADD_TASK : BoardContent.ADD_LIST}
-          'test'
         </Button>
         <Button className={styles.button} icon={<CloseOutlined />} onClick={onCancel} ></Button>
 

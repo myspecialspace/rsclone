@@ -14,12 +14,13 @@ import { SubmitData } from '../../components/input/Input-task';
 import { useSelector } from 'react-redux';
 import { listsActions } from '../../store/lists';
 import { boardActions } from '../../store/board';
+import InputContainer from '../../components/input/Input-container';
 
 export default function BoardPage() {
   const params = useParams();
   const boardId = useSelector((state: AppState) => state.board.id);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [listName, setListName] = useState('');
+  //const [listName, setListName] = useState('');
   const [listBgColor, setListBgColor] = useState(BOARD_BG_COLOR);
   const $lists = useLists();
   const lists = $lists.data;
@@ -35,11 +36,11 @@ export default function BoardPage() {
     dispatch(boardActions.setId(boardId));
   }, [dispatch, params.id]);
 
-  const onCreateList = async () => {
+  const onCreateList = async (data: SubmitData) => {
     await dispatch(listsThunks.fetchCreate({
       board: boardId,
       description: '',
-      name: listName,
+      name: data.taskName,
       order: lists.length || 0,
     }));
 
@@ -77,8 +78,19 @@ export default function BoardPage() {
             <List list={list} tasks={listTasks} onCreateTask={onCreateTask} />
           </div>
         })}
+        
+        <InputContainer type='list' listId={lists.length + 1} onCreateList={onCreateList}></InputContainer>
 
-        <Button type="primary" onClick={() => setIsModalOpen(true)}>+ Create list</Button>
+        
+
+      </div>
+    </div>
+  )
+}
+
+//<Button type="primary" onClick={() => setIsModalOpen(true)}>+ Create list</Button>
+
+/*
         <Modal title={'Создание списка'} open={isModalOpen} onOk={onCreateList} onCancel={() => setIsModalOpen(false)}>
           <Input
             placeholder={'Название списка'}
@@ -88,7 +100,4 @@ export default function BoardPage() {
           <div>{'Цвет списка'}</div>
           <input type="color" value={listBgColor} onChange={(e) => setListBgColor(e.target.value)} />
         </Modal>
-      </div>
-    </div>
-  )
-}
+*/
