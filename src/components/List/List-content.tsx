@@ -1,6 +1,7 @@
-import InputContainer from '../input/Input-container';
-import List from './List';
 import styles from './List-content.module.scss';
+/*import InputContainer from '../input/Input-container';
+import List from './List';
+
 
 
 const dataTasks =  {
@@ -136,7 +137,7 @@ const dataLists =  {
 
 const allLists = dataLists.data;
 
-export default function ListContent(/*props: ListContentProps*/) {
+export default function ListContent(/*props: ListContentProps) {
 
   //console.log(allLists.length);
   
@@ -147,7 +148,7 @@ export default function ListContent(/*props: ListContentProps*/) {
     setTask({data: {name: name, list: id /*order: 0, }});
     Api.postTask(task);
     //Api.getListsAll();
-  }*/
+  }
 
   return (
     <div className={styles.list__container}>
@@ -159,6 +160,6 @@ export default function ListContent(/*props: ListContentProps*/) {
     <InputContainer type='list' listId={allLists.length + 1}></InputContainer>
     </div>
   )
-}
-
+} 
+*/
 
