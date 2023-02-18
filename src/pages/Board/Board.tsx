@@ -1,9 +1,9 @@
-import { Button, Input, Modal, Spin } from 'antd';
-import { useEffect, useState } from 'react';
+import { /*Button, Input, Modal,*/ Spin } from 'antd';
+import { useEffect, /*useState */} from 'react';
 import { useParams } from 'react-router-dom';
 import ErrorLine from '../../components/ErrorLine/ErrorLine';
 import List from '../../components/List/List';
-import { BOARD_BG_COLOR } from '../../helpers/defaults';
+//import { BOARD_BG_COLOR } from '../../helpers/defaults';
 import { AppState, useAppDispatch } from '../../store';
 import { useLists } from '../../store/lists/hooks';
 import styles from './Board.module.scss';
@@ -19,9 +19,9 @@ import InputContainer from '../../components/input/Input-container';
 export default function BoardPage() {
   const params = useParams();
   const boardId = useSelector((state: AppState) => state.board.id);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [isModalOpen, setIsModalOpen] = useState(false);
   //const [listName, setListName] = useState('');
-  const [listBgColor, setListBgColor] = useState(BOARD_BG_COLOR);
+  //const [listBgColor, setListBgColor] = useState(BOARD_BG_COLOR);
   const $lists = useLists();
   const lists = $lists.data;
   const dispatch = useAppDispatch();
@@ -45,7 +45,7 @@ export default function BoardPage() {
     }));
 
     $lists.refetch();
-    setIsModalOpen(false);
+    //setIsModalOpen(false);
   };
 
   if ($lists.isPending || $lists.isInitial) {
