@@ -83,14 +83,12 @@ export function MenuShowButton() {
 
 const onShowButtonClick = () => {
   const menu = document.getElementById('menu__container') as HTMLElement;
-  console.log("1", menu)
   menu.style.position='absolute';
   menu.style.transform='translateX(-266px)';
 };
 
 const onHideButtonClick = () => {
   const menu = document.getElementById('menu__container') as HTMLElement;
-  console.log("2", menu)
   menu.style.position='relative';
   menu.style.transform='translateX(0)';
 };

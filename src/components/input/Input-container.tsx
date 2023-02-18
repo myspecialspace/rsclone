@@ -9,14 +9,20 @@ import styles from './Input.module.scss';
 interface InputContainerProps {
   type: `${InputTaskType}`;
   listId?: number;
-  onCreateTask: (data: SubmitData) => any;
+  onCreateTask?: (data: SubmitData) => any;
+  onCreateList?: (data: SubmitData) => any;
 }
 
-export default function InputContainer({ type, listId, onCreateTask }: InputContainerProps) {
+export default function InputContainer({ type, listId, onCreateTask, onCreateList }: InputContainerProps) {
   const [open, setOpen] = useState(false);
 
   const onSubmit = (data: SubmitData) => {
-    onCreateTask(data);
+    if (type === "task" && onCreateTask !== undefined) {
+      onCreateTask(data);
+    } else if (onCreateList !== undefined) {
+      onCreateList(data);
+    }
+    
     setOpen(false);
   };
 
