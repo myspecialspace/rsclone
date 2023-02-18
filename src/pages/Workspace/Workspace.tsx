@@ -2,25 +2,32 @@ import styles from './Workspace.module.scss';
 import { WorkspaceContent } from '../../components/Constants/constant';
 import { UserAddOutlined } from '@ant-design/icons';
 import { Button, Input, Modal, Space, Spin } from 'antd';
-import { useWorkspace, useWorkspaceById } from '../../store/workspace/hooks';
-import { useParams } from 'react-router-dom';
+import { useWorkspace } from '../../store/workspace/hooks';
+import { Link, useParams } from 'react-router-dom';
 import Member from './Member';
 import Board from './Board';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../store';
 import { fetchCreateBoard } from '../../store/workspace/thunks';
 import classNames from 'classnames';
 import { BOARD_BG_COLOR } from '../../helpers/defaults';
+import * as routerPaths from '../../router/paths';
+import { workspaceActions } from '../../store/workspace';
 
 export default function WorkspacePage() {
   const dispatch = useAppDispatch();
   const params = useParams();
   const $workspace = useWorkspace();
   const workspace = $workspace.data;
-  useWorkspaceById(parseInt(params.id!));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [boardName, setBoardName] = useState('');
   const [boardBgColor, setBoardBgColor] = useState(BOARD_BG_COLOR);
+
+  useEffect(() => {
+    dispatch(workspaceActions.setId(
+      parseInt(params.id!)
+    ));
+  }, [dispatch, params.id]);
 
   if ($workspace.isPending || $workspace.isInitial || !workspace) {
     return <Spin />;
@@ -41,21 +48,21 @@ export default function WorkspacePage() {
     $workspace.refetch();
   }
 
-    return (
-      <div className={styles.main}>
-        <div className={styles.main__content}>
-          <div className={styles.current__workspace}>
+  return (
+    <div className={styles.main}>
+      <div className={styles.main__content}>
+        <div className={styles.current__workspace}>
           <h2 className={styles.title}>#{workspace.id} {workspace.name}</h2>
-            <Space align="center">
-              <Button type="primary" icon={<UserAddOutlined />}>{WorkspaceContent.WORKSPACE_INVITE}</Button>
-            </Space>
-          </div>
+          <Space align="center">
+            <Button type="primary" icon={<UserAddOutlined />}>{WorkspaceContent.WORKSPACE_INVITE}</Button>
+          </Space>
+        </div>
         <hr className='horizontal' />
 
         <div className={styles.block}>
           <h2 className={styles.title}>{WorkspaceContent.BOARDS_TITLE}</h2>
           <div className={styles.boards}>
-            {workspace.boards.map((board) => <Board key={board.id} board={board} className={styles.board} />)}
+            {workspace.boards.map((board) => <Link to={routerPaths.boards(board.id)} key={board.id}><Board board={board} className={styles.board} /></Link>)}
             <div className={classNames(styles.board, styles.create)} onClick={() => setIsModalOpen(true)}>+ {WorkspaceContent.BOARD_CREATE}</div>
             <Modal title={WorkspaceContent.BOARD_CREATE} open={isModalOpen} onOk={onCreateBoard} onCancel={() => setIsModalOpen(false)}>
               <Input
@@ -66,8 +73,8 @@ export default function WorkspacePage() {
               <div>{WorkspaceContent.BOARD_COLOR}</div>
               <input type="color" value={boardBgColor} onChange={(e) => setBoardBgColor(e.target.value)} />
             </Modal>
+          </div>
         </div>
-      </div>
 
         <div className={styles.block}>
           <h2 className={styles.title}>{WorkspaceContent.MEMBERS_TITLE}</h2>
@@ -77,5 +84,5 @@ export default function WorkspacePage() {
         </div>
       </div>
     </div>
-    )
+  )
 }

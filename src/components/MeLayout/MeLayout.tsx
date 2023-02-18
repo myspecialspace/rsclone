@@ -63,7 +63,7 @@ export default function MeLayout() {
         const label = <Link to={routerPaths.workspaces(workspace.id)}>{workspace.name}</Link>
         return {
           label,
-        key: workspace.id
+          key: workspace.id
         };
       }),
     },
@@ -136,7 +136,7 @@ export default function MeLayout() {
       <div className={styles.wrapper}>
         <WorkspaceNav className={styles.sidebar} />
         <div>
-          <MenuShowButton/>
+          <MenuShowButton />
           <Outlet />
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function MeLayout() {
           value={workspaceName}
           onChange={(e) => setWorkspaceName(e.target.value)}
         />
-        <div>{WorkspaceContent.WORKSPACE_COLOR }</div>
+        <div>{WorkspaceContent.WORKSPACE_COLOR}</div>
         <input type="color" value={workspaceBgColor} onChange={(e) => setWorkspaceBgColor(e.target.value)} />
       </Modal>
     </div >

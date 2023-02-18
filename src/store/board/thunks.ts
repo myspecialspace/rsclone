@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppState, useAppDispatch } from "..";
 import { API_BASE } from "../../helpers/api";
+import { isIdSelected } from "../../helpers/etc";
 import { FetchState, getFetchStatuses } from "../../helpers/fetch-state";
 import { getMappedResponse } from "../../helpers/strapi";
 import * as strapi from "../../helpers/strapi-types";
@@ -28,7 +29,7 @@ export const useBoard = (boardId: number) => {
   const data = useSelector((state: AppState) => state.board.board);
 
   useEffect(() => {
-    if (fetchState === FetchState.INITIAL && boardId) {
+    if (fetchState === FetchState.INITIAL && isIdSelected(boardId)) {
       dispatch(fetchBoard(boardId));
     }
   }, [fetchState, boardId, dispatch]);

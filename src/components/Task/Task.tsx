@@ -1,17 +1,17 @@
 import Card from 'antd/es/card/Card';
 import styles from './Task.module.scss';
-import TaskInterface from '../../components/Interfaces/Task-interface';
+import { Task as ITask } from '../../store/tasks/types';
 
 interface TaskProps {
-  task : TaskInterface;
+  task: ITask;
   listId: number;
 }
 
-export default function Task(props: TaskProps) {
+export default function Task({ task }: TaskProps) {
   return (
     <div>
       <Card className={styles.task}>
-        {props.task.attributes.name}
+        {task.name}
       </Card>
     </div>
   )

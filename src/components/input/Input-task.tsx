@@ -3,63 +3,51 @@ import { Input, Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { BoardContent } from '../Constants/constant';
 import styles from './Input.module.scss';
-import Api from '../../api/index';
-
-// import TaskPostInterface from '../Interfaces/Task-post-interface';
 
 const { TextArea } = Input;
 
+export enum InputTaskType {
+  TASK = 'task',
+  LIST = 'list',
+}
+
+export interface SubmitData {
+  taskName: string;
+  listId: number;
+}
+
 interface InputTaskProps {
-  setOpen : React.Dispatch<React.SetStateAction<boolean>>,
-  type: string,
+  type: `${InputTaskType}`;
   listId: number,
-  //AddMoreTask(name: string, id: number): void;
+  onSubmit: (data: SubmitData) => any;
+  onCancel: () => any;
 }
 
 
-export default function InputTask(props: InputTaskProps) {
+export default function InputTask({ listId, type, onSubmit, onCancel }: InputTaskProps) {
   const [taskName, setTaskName] = useState('');
-  const handleOnChange = (e: React.ChangeEvent) => {
-    console.log((e.target as HTMLTextAreaElement).value)
-    setTaskName((e.target as HTMLTextAreaElement).value);
-  };
-
-  const id = props.listId;
-
-
-  const AddMoreTask = (name: string, id: number) => {
-    const [task, setTask] = useState({data: {name: '', list: 0 /*order: 0,*/ }})
-    console.log(name, id);
-
-    setTask({data: {name: name, list: id /*order: 0,*/ }});
-    Api.postTask(task);
-    //Api.getListsAll();
-  }
-
-
 
   const handleButtonConfirm = () => {
-    if (props.type === 'task') {
-      AddMoreTask(taskName, id);
-    }
-    props.setOpen(false)
-  }
- return (
+    console.log('handleButtonConfirm', taskName, listId);
+    onSubmit({ taskName, listId });
+  };
+
+  return (
     <div>
-      <div className={props.type === 'task' ? styles.task : styles.list}>
+      <div className={type === InputTaskType.TASK ? styles.task : styles.list}>
         <TextArea
-          onChange={handleOnChange}
+          onChange={(e) => setTaskName(e.target.value)}
           value={taskName}
-          placeholder={props.type === 'task' ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
-          onBlur={() => props.setOpen(false)}
+          placeholder={type === InputTaskType.TASK ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
           autoSize={{ minRows: 2, maxRows: 6 }}
         />
       </div>
       <div className={styles.buttons__container}>
-      <Button className={props.type === 'task' ? styles.button : styles.button_list} type="primary" onClick={() => handleButtonConfirm} >
-        {props.type === 'task' ? BoardContent.ADD_TASK : BoardContent.ADD_LIST}
-      </Button>
-      <Button className={styles.button} icon={<CloseOutlined />} onClick={() => props.setOpen(false)} ></Button>
+        <Button className={type === InputTaskType.TASK ? styles.button : styles.button_list} type="primary" onClick={() => handleButtonConfirm()} >
+          {type === InputTaskType.TASK ? BoardContent.ADD_TASK : BoardContent.ADD_LIST}
+          'test'
+        </Button>
+        <Button className={styles.button} icon={<CloseOutlined />} onClick={onCancel} ></Button>
       </div>
     </div>
   )
