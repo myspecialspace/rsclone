@@ -34,9 +34,11 @@ export default function BoardPage() {
   }, [dispatch, params.id]);
 
   useEffect(() => {
-    dispatch(workspaceActions.setId(
-      board.workspace.id
-    ));
+    if (board?.workspace?.id) {
+      dispatch(workspaceActions.setId(
+        board.workspace.id
+      ));
+    }
   }, [dispatch, board]);
 
   if ($board.isPending || $board.isInitial) {
