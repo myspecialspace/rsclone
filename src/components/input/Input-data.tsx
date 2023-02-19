@@ -5,11 +5,6 @@ import { BoardContent } from '../Constants/constant';
 import styles from './Input.module.scss';
 import { List } from '../../types/list';
 
-//import api from '../../api/index';
-
-// import TaskPostInterface from '../Interfaces/Task-post-interface';
-
-
 const { TextArea } = Input;
 
 export enum InputDataType {
@@ -55,20 +50,6 @@ interface InputDataProps {
       console.log(list)
       api.postList({data: {name: name, description: '', order: order, board: board }});
     }
-  
-    const boardId = 1;
-    const listOrder = 0;
-  
-    const handleButtonConfirm = () => {
-      if (props.type === 'task') {
-        AddMoreTask(name, id);
-      } else {
-        AddMoreList(name, listOrder, boardId);
-      }
-      props.setOpen(false);
-    }
-  
-   return (
   */
   onSubmit: (data: SubmitData) => any;
   onCancel: () => any;
@@ -78,30 +59,39 @@ interface InputDataProps {
 export default function InputData({ list, type, onSubmit, onCancel }: InputDataProps) {
   const [name, setName] = useState('');
 
+  const handleOnChange = (e: React.ChangeEvent) => {
+    if ((e.target as HTMLTextAreaElement).value.length !== 0) {
+      setName((e.target as HTMLTextAreaElement).value);
+    } 
+  };
+
   const handleButtonConfirm = () => {
-    onSubmit({ name, list: list! });
+    /*if (name.length === 0) {
+      e.preventDefault();
+    } else {*/
+      onSubmit({ name, list: list! });
+    //}
   };
 
   return (
-
     <div>
       <div className={type === InputDataType.TASK ? styles.task : styles.list}>
         <TextArea
           /*
-                    onChange={handleOnChange}
-                    value={name}
                     placeholder={props.type === 'task' ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
                     onBlur={() => props.setOpen(false)}
           */
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleOnChange}
+          onBlur={onCancel}
           value={name}
           placeholder={type === InputDataType.TASK ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
           autoSize={{ minRows: 2, maxRows: 6 }}
+          autoFocus
         />
       </div>
       <div className={styles.buttons__container}>
 
-        <Button className={type === InputDataType.TASK ? styles.button : styles.button_list} type="primary" onClick={() => handleButtonConfirm()} >
+        <Button className={type === InputDataType.TASK ? styles.button : styles.button_list} type="primary" onMouseDown={() => handleButtonConfirm()} >
           {type === InputDataType.TASK ? BoardContent.ADD_TASK : BoardContent.ADD_LIST}
         </Button>
         <Button className={styles.button} icon={<CloseOutlined />} onClick={onCancel} ></Button>
