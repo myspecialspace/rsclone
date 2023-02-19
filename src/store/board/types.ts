@@ -1,7 +1,15 @@
 import { FetchState } from "../../helpers/fetch-state";
-import { Board as _Board } from "../boards/types";
+import { Board as BaseBoard } from "../../types/board";
+import { List as BaseList } from '../../types/list';
+import { Task as BaseTask } from '../../types/task';
 
-export type Board = _Board;
+
+interface List extends BaseList {
+  tasks: BaseTask[];
+}
+export interface Board extends BaseBoard {
+  lists: List[];
+}
 
 export interface State {
   fetchState: FetchState;

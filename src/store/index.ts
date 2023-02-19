@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux';
 
-import authReducer, { AuthState } from './auth';
+import authReducer from './auth';
 import workspacesReducer from './workspaces';
 import workspaceReducer from './workspace';
 import boardsReducer from './boards';
@@ -9,6 +9,7 @@ import boardReducer from './board';
 import listsReducer from './lists';
 import tasksReducer from './tasks';
 
+import { State as AuthState } from './auth/types';
 import { State as WorkspacesState } from './workspaces/types';
 import { State as WorkspaceState } from './workspace/types';
 import { State as BoardsState } from './boards/types';
@@ -37,8 +38,6 @@ export interface AppState {
   lists: ListsState;
   tasks: TasksState;
 }
-
-export default store;
 
 export type AppDispatch = typeof store.dispatch;
 

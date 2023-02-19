@@ -1,18 +1,3 @@
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  provider: string;
-  confirmed: boolean;
-  blocked: boolean;
-  createdAt: string;
-  updatedAt: string;
-  backgroundColor?: string;
-  theme: Theme;
-}
+import * as base from './base';
 
-export enum Theme {
-  SYSTEM = 'system',
-  LIGHT = 'light',
-  DARK = 'dark',
-}
+export interface User extends base.User { }

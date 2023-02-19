@@ -23,6 +23,7 @@ interface CreateData {
   order: number;
   board: number;
   list: number;
+  owner: number;
 }
 
 export const fetchCreate = createAsyncThunk<Task, CreateData>(

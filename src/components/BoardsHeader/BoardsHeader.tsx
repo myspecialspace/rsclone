@@ -44,11 +44,11 @@ const items: MenuProps['items'] = [
 
 const BoardsHeader: React.FC = () => {
   const [current, setCurrent] = useState('mail');
-  const id: string | null = localStorage.getItem('userId');
+  const id: string | null = localStorage.getItem('userId'); // TODO from state.auth.userId
 
   const userMembers = useSelector(
-    (state: AppState) => state.workspace.workspace.members
-  );
+    (state: AppState) => state.board.board.members
+  ) || [];
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
     console.log(id);
@@ -66,7 +66,7 @@ const BoardsHeader: React.FC = () => {
                 selectedKeys={[current]}
                 mode='horizontal'
                 items={items}
-                // theme='dark'
+              // theme='dark'
               />
               <Avatar.Group
                 maxCount={2}

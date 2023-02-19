@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Typography } from "antd";
-import { Input } from 'antd';
+import { Typography, Input } from "antd";
 import { MoreOutlined } from '@ant-design/icons';
 import styles from './Title.module.scss';
 import api from '../../api/index';
@@ -18,7 +17,7 @@ export default function Title(props: TitleProps) {
   }
 
   const updateListTitle = (listTitle: string) => {
-    api.updateList({data: { name: listTitle}})
+    api.updateList({ data: { name: listTitle } })
   }
 
   const handleOnBlur = () => {
@@ -35,14 +34,14 @@ export default function Title(props: TitleProps) {
             autoFocus
             placeholder="title"
             value={listName}
-            onBlur={handleOnBlur}/>
+            onBlur={handleOnBlur} />
         </div>
       ) : (
         <div className={styles.container}>
           <Typography onClick={() => setOpen(!open)} className={styles.list__title}>{props.title}</Typography>
-          <MoreOutlined className={styles.more}/>
+          <MoreOutlined className={styles.more} />
         </div>
-      )} 
+      )}
     </div>
   );
 }

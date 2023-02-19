@@ -1,5 +1,5 @@
 import { Card, Typography } from "antd";
-import { Board as IBoard } from "../../store/boards/types";
+import { Board as IBoard } from "../../types/board";
 import styles from './Workspace.module.scss';
 
 interface Props {
@@ -9,9 +9,9 @@ interface Props {
 
 const Board = ({ board, className }: Props) => {
   return (
-    <Card 
-    className={className}
-    style={{ backgroundColor: board.backgroundColor }}
+    <Card
+      className={className}
+      style={{ backgroundColor: board.backgroundColor }}
     >
       <Typography className={styles.title_board}>{board.name}</Typography>
     </Card>
@@ -20,6 +20,6 @@ const Board = ({ board, className }: Props) => {
 
 export default Board;
  /*<div
-    className={className}
-    style={{ backgroundColor: board.backgroundColor }}
-  >{board.name}</div>*/
+   className={className}
+   style={{ backgroundColor: board.backgroundColor }}
+ >{board.name}</div>*/
