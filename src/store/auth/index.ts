@@ -1,6 +1,7 @@
 import {
   createSlice
 } from '@reduxjs/toolkit';
+import { AppState } from '..';
 import api from '../../api';
 import { LSKey } from '../../helpers/ls';
 import { User } from '../../types/user';
@@ -49,3 +50,6 @@ export const authSlice = createSlice({
 export const authActions = authSlice.actions;
 
 export default authSlice.reducer;
+export const authSelectors = {
+  userId: (state: AppState) => state.auth.userId,
+}

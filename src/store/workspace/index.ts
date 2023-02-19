@@ -33,7 +33,7 @@ export const slice = createSlice({
       state.fetchState = FetchState.ERROR;
     });
     builder.addCase(fetchWorkspace.fulfilled, (state, action) => {
-      state.workspace = action.payload;
+      state.workspace = {...action.payload};
       state.fetchState = FetchState.SUCCESS;
     });
   }

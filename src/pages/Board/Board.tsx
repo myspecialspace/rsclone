@@ -14,6 +14,7 @@ import { boardActions } from '../../store/board';
 import InputContainer from '../../components/input/Input-container';
 import BoardsHeader from '../../components/BoardsHeader/BoardsHeader';
 import { useBoard } from '../../store/board/hooks';
+import { workspaceActions } from '../../store/workspace';
 
 export default function BoardPage() {
   const params = useParams();
@@ -22,12 +23,21 @@ export default function BoardPage() {
   const $board = useBoard();
   const dispatch = useAppDispatch();
 
+  const board = $board?.data;
+  const lists = board?.lists || [];
+
   useEffect(() => {
     const boardId = parseInt(params.id!);
 
     dispatch(listsActions.setBoardId(boardId));
     dispatch(boardActions.setId(boardId));
   }, [dispatch, params.id]);
+
+  useEffect(() => {
+    dispatch(workspaceActions.setId(
+      board.workspace.id
+    ));
+  }, [dispatch, board]);
 
   if ($board.isPending || $board.isInitial) {
     return <Spin />;
@@ -36,9 +46,6 @@ export default function BoardPage() {
   if ($board.isError) {
     return <ErrorLine />;
   }
-
-  const board = $board.data;
-  const lists = board.lists || [];
 
   const onCreateList = async (data: SubmitData) => {
     await dispatch(

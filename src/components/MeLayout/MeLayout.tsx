@@ -12,12 +12,15 @@ import { useEffect, useState } from 'react';
 import { WORKSPACE_BG_COLOR } from '../../helpers/defaults';
 import { fetchWorkspacesCreate } from '../../store/workspaces/thunks';
 import { WorkspaceContent } from '../../components/Constants/constant';
+import { Workspace } from '../../store/workspaces/types';
+import { useCurrentWorkspace } from '../../store/workspace/hooks';
 
 export default function MeLayout() {
   const user = useSelector((state: AppState) => state.auth.user);
   const userId = useSelector((state: AppState) => state.auth.userId);
   const $workspaces = useWorkspaces();
   const workspaces = $workspaces.data;
+  const currentWorkspace = useCurrentWorkspace();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -42,6 +45,14 @@ export default function MeLayout() {
   const userChar = user.username ? user.username[0].toUpperCase() : '';
   const userColor = user.backgroundColor || '#fff';
 
+  const getWorkspaceItem = (workspace: Workspace) => {
+    const label = <Link to={routerPaths.workspaces(workspace.id)}>{workspace.name}</Link>;
+
+    return {
+      label,
+      key: workspace.id
+    };
+  };
   //for dropdown menu items => current & all workspaces
   const workspaceItems: MenuProps['items'] = [
     {
@@ -49,23 +60,14 @@ export default function MeLayout() {
       key: 'current',
       label: WorkspaceContent.WORKSPACE_CURRENT,
       children: [
-        {
-          label: 'Workspace 1',
-          key: 'current 1',
-        },
+        currentWorkspace ? getWorkspaceItem(currentWorkspace) : null,
       ],
     },
     {
       type: 'group',
       key: 'workspaces',
       label: WorkspaceContent.WORKSPACE_TITLES,
-      children: workspaces.map((workspace) => {
-        const label = <Link to={routerPaths.workspaces(workspace.id)}>{workspace.name}</Link>
-        return {
-          label,
-          key: workspace.id
-        };
-      }),
+      children: workspaces.map((workspace) => getWorkspaceItem(workspace)),
     },
   ];
   //обработчик

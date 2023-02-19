@@ -11,7 +11,7 @@ export interface Board extends TAttrsBase {
   isClosed: boolean;
   backgroundColor: string;
   isPrivate: boolean;
-  workspaces: Workspace[];
+  workspace: Workspace;
   lists: List[];
   members: User[];
 }

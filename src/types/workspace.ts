@@ -1,4 +1,5 @@
 import { TAttrsBase } from "../helpers/strapi-types";
+import { Board } from "./board";
 import { List } from "./list";
 import { User } from "./user";
 
@@ -14,4 +15,5 @@ export interface Workspace extends TAttrsBase {
   workspaces: Workspace[];
   lists: List[];
   members: User[];
+  boards: Board[];
 }

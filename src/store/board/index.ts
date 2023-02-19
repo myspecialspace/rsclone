@@ -1,5 +1,5 @@
 import {
-  createSlice
+  createSlice,
 } from '@reduxjs/toolkit';
 import { State, Board } from './types';
 import { FetchState } from '../../helpers/fetch-state';
@@ -29,7 +29,7 @@ export const slice = createSlice({
     });
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
       state.fetchState = FetchState.SUCCESS;
-      state.board = action.payload;
+      state.board = {...action.payload};
     });
   }
 });

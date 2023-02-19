@@ -1,13 +1,14 @@
 import { LoginPageContentRu } from '../Constants/constant';
 import styles from './Form.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import api from '../../api';
 import * as routerPaths from '../../router/paths';
 import { useAppDispatch } from '../../store';
-import { authActions } from '../../store/auth';
+import { authActions, authSelectors } from '../../store/auth';
 import { useCurrentWorkspaceId } from '../../store/workspace/hooks';
+import { useSelector } from 'react-redux';
 
 interface IUser {
   username: string;
@@ -20,6 +21,7 @@ const FormLogin = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentWorkspaceId = useCurrentWorkspaceId();
+  const userId = useSelector(authSelectors.userId);
 
   const [error, setError] = useState<{ message: string }>(null!);
 
@@ -32,13 +34,19 @@ const FormLogin = () => {
           jwt: data.jwt,
           userId: data.user.id,
         }));
-
-        navigate(routerPaths.workspaces(currentWorkspaceId));
       })
       .catch((err) => {
         setError(err.error);
       })
   };
+
+
+  useEffect(() => {
+    if (userId && currentWorkspaceId) {
+      navigate(routerPaths.workspaces(currentWorkspaceId));
+    }
+  }, [currentWorkspaceId, userId, navigate]);
+
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
