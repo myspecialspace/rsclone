@@ -4,8 +4,7 @@ import { getMappedResponse } from '../helpers/strapi';
 import * as strapi from "../helpers/strapi-types";
 import { Workspace } from '../store/workspaces/types';
 import * as types from './types';
-import { TaskPostInterface } from './types';
-import { ListPostInterface } from './types';
+import { TaskPostInterface, ListPostInterface } from './types';
 
 interface IUser {
   username: string;
@@ -175,51 +174,51 @@ class Api {
   }
   postTask(task: TaskPostInterface) {
     const taskCreate = instance
-    .post('tasks', {
-      data: {
-        name: task.data.name,
-        list: task.data.list,
-        order: task.data.order,
-      }
-    })
-    .then((data) => {
-      return data.data;
-    });
+      .post('tasks', {
+        data: {
+          name: task.data.name,
+          list: task.data.list,
+          order: task.data.order,
+        }
+      })
+      .then((data) => {
+        return data.data;
+      });
 
-  return taskCreate;
+    return taskCreate;
   }
   postList(list: ListPostInterface) {
     const listCreate = instance
-    .post('lists', {
-      data: {
-        name: list.data.name,
-        description: list.data.description,
-        order: list.data.order,
-        board: list.data.board,
-      }
-    })
-    .then((data) => {
-      return data.data;
-    });
+      .post('lists', {
+        data: {
+          name: list.data.name,
+          description: list.data.description,
+          order: list.data.order,
+          board: list.data.board,
+        }
+      })
+      .then((data) => {
+        return data.data;
+      });
 
-  return listCreate;
+    return listCreate;
   }
   updateList(list: ListPostInterface) {
     const listUpdate = instance
-    .put('lists', {
-      data: {
-        name: list.data.name,
-        //description: list.data.description,
-        //order: list.data.order,
-        //board: list.data.board,
-      }
-    })
-    .then((data) => {
-      return data.data;
-    });
+      .put('lists', {
+        data: {
+          name: list.data.name,
+          //description: list.data.description,
+          //order: list.data.order,
+          //board: list.data.board,
+        }
+      })
+      .then((data) => {
+        return data.data;
+      });
     return listUpdate;
   }
-  
+
 }
 
 const api = new Api();

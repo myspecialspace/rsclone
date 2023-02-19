@@ -14,9 +14,11 @@ import { fetchWorkspacesCreate } from '../../store/workspaces/thunks';
 import { WorkspaceContent } from '../../components/Constants/constant';
 import { Workspace } from '../../store/workspaces/types';
 import { useCurrentWorkspace } from '../../store/workspace/hooks';
+import { useUser } from '../../store/auth/hooks';
+import { getBgColor, getFirstChar } from '../../helpers/user';
 
 export default function MeLayout() {
-  const user = useSelector((state: AppState) => state.auth.user);
+  const $user = useUser()
   const userId = useSelector((state: AppState) => state.auth.userId);
   const $workspaces = useWorkspaces();
   const workspaces = $workspaces.data;
@@ -41,9 +43,9 @@ export default function MeLayout() {
   }, [dispatch, navigate]);
 
 
-
-  const userChar = user.username ? user.username[0].toUpperCase() : '';
-  const userColor = user.backgroundColor || '#fff';
+  const user = $user.data;
+  const userChar = getFirstChar(user);
+  const userColor = getBgColor(user);
 
   const getWorkspaceItem = (workspace: Workspace) => {
     const label = <Link to={routerPaths.workspaces(workspace.id)}>{workspace.name}</Link>;

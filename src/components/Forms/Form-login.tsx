@@ -6,7 +6,8 @@ import { Button, Form, Input } from 'antd';
 import api from '../../api';
 import * as routerPaths from '../../router/paths';
 import { useAppDispatch } from '../../store';
-import { authActions, authSelectors } from '../../store/auth';
+import { authActions } from '../../store/auth';
+import { authSelectors } from '../../store/auth/selectors';
 import { useCurrentWorkspaceId } from '../../store/workspace/hooks';
 import { useSelector } from 'react-redux';
 

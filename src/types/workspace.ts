@@ -1,16 +1,9 @@
-import { TAttrsBase } from "../helpers/strapi-types";
 import { Board } from "./board";
 import { List } from "./list";
 import { User } from "./user";
+import * as base from './base';
 
-export interface Workspace extends TAttrsBase {
-  name: string;
-  publishedAt: string;
-  description: string;
-  isFavorite: boolean;
-  isClosed: boolean;
-  backgroundColor: string;
-  isPrivate: boolean;
+export interface Workspace extends base.Workspace {
   owner: User;
   workspaces: Workspace[];
   lists: List[];

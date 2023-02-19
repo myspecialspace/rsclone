@@ -1,13 +1,13 @@
 import {
   createSlice,
 } from '@reduxjs/toolkit';
-import { State, Board } from './types';
-import { FetchState } from '../../helpers/fetch-state';
+import { State } from './types';
 import { fetchBoard } from './thunks';
+import { FetchState } from '../../helpers/fetch-state';
 
 const initialState = (): State => ({
   fetchState: FetchState.INITIAL,
-  board: {} as Board,
+  board: null!,
   id: -1,
 });
 
@@ -29,7 +29,7 @@ export const slice = createSlice({
     });
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
       state.fetchState = FetchState.SUCCESS;
-      state.board = {...action.payload};
+      state.board = action.payload;
     });
   }
 });

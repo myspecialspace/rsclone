@@ -1,17 +1,12 @@
 import {
   createSlice
 } from '@reduxjs/toolkit';
-import { AppState } from '..';
 import api from '../../api';
+import { FetchState } from '../../helpers/fetch-state';
 import { LSKey } from '../../helpers/ls';
-import { User } from '../../types/user';
+import { fetchUser } from './thunks';
+import { State } from './types';
 
-export interface AuthState {
-  user: User;
-  jwt: string;
-  userId: number;
-  // state:pending/loaded
-}
 
 export const getJWTFromStorage = (): string => {
   return localStorage.getItem(LSKey.JWT) || '';
@@ -21,10 +16,11 @@ export const getUserIdFromStorage = (): string => {
   return localStorage.getItem(LSKey.USER_ID) || '';
 };
 // what data get from server - user & jwt
-const initialState: AuthState = {
+const initialState: State = {
   jwt: '',
   userId: null!,
-  user: {} as User,
+  user: null!,
+  fetchState: FetchState.INITIAL,
 };
 
 // https://redux-toolkit.js.org/tutorials/typescript
@@ -45,11 +41,20 @@ export const authSlice = createSlice({
       state.user = payload.user;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchUser.pending, (state, action) => {
+      state.fetchState = FetchState.PENDING;
+    });
+    builder.addCase(fetchUser.rejected, (state, action) => {
+      state.fetchState = FetchState.ERROR;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.fetchState = FetchState.SUCCESS;
+      state.user = action.payload;
+    });
+  }
 });
 
 export const authActions = authSlice.actions;
 
 export default authSlice.reducer;
-export const authSelectors = {
-  userId: (state: AppState) => state.auth.userId,
-}

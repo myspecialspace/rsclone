@@ -1,9 +1,6 @@
-import { TAttrsBase } from "../helpers/strapi-types";
-import { Task } from "./task";
-import { User } from "./user";
+import * as base from './base';
 
-export interface Comment extends TAttrsBase {
-  content: string;
-  task: Task;
-  owner: User;
+export interface Comment extends base.Comment {
+  task: base.Task;
+  owner: base.User;
 }
