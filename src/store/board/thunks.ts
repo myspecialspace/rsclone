@@ -1,11 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { AppState, useAppDispatch } from "..";
-import { API_BASE } from "../../helpers/api";
-import { isIdSelected } from "../../helpers/etc";
-import { FetchState, getFetchStatuses } from "../../helpers/fetch-state";
+import api from "../../api";
 import { getMappedResponse } from "../../helpers/strapi";
 import * as strapi from "../../helpers/strapi-types";
 import { Board } from './types';
@@ -14,7 +8,7 @@ export const fetchBoard = createAsyncThunk<Board, number>(
   "board/fetch",
   async (boardId, { rejectWithValue }) => {
     try {
-      const response = await axios.get<strapi.SingleResponse<Board>>(`${API_BASE}/boards/${boardId}?populate=workspace`);
+      const response = await api.getInstance().get<strapi.SingleResponse<Board>>(`boards/${boardId}?populate=workspace.members,lists.tasks`);
       const data = getMappedResponse(response.data);
       return data;
     } catch (error) {
@@ -22,20 +16,3 @@ export const fetchBoard = createAsyncThunk<Board, number>(
     }
   }
 );
-
-export const useBoard = (boardId: number) => {
-  const dispatch = useAppDispatch();
-  const fetchState = useSelector((state: AppState) => state.boards.fetchState);
-  const data = useSelector((state: AppState) => state.board.board);
-
-  useEffect(() => {
-    if (fetchState === FetchState.INITIAL && isIdSelected(boardId)) {
-      dispatch(fetchBoard(boardId));
-    }
-  }, [fetchState, boardId, dispatch]);
-
-  return {
-    ...getFetchStatuses(fetchState),
-    data,
-  };
-};

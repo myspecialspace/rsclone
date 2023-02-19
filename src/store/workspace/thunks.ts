@@ -23,6 +23,8 @@ interface CreateBoardData {
   name: string;
   workspace: number;
   backgroundColor: string;
+  members: number[];
+  owner: number;
 }
 
 export const fetchCreateBoard = createAsyncThunk<Board, CreateBoardData>(

@@ -7,12 +7,13 @@ import { Link, useParams } from 'react-router-dom';
 import Member from './Member';
 import Board from './Board';
 import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../store';
+import { AppState, useAppDispatch } from '../../store';
 import { fetchCreateBoard } from '../../store/workspace/thunks';
 import classNames from 'classnames';
 import { BOARD_BG_COLOR } from '../../helpers/defaults';
 import * as routerPaths from '../../router/paths';
 import { workspaceActions } from '../../store/workspace';
+import { useSelector } from 'react-redux';
 
 export default function WorkspacePage() {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export default function WorkspacePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [boardName, setBoardName] = useState('');
   const [boardBgColor, setBoardBgColor] = useState(BOARD_BG_COLOR);
+  const userId = useSelector((state: AppState) => state.auth.userId);
 
   useEffect(() => {
     dispatch(workspaceActions.setId(
@@ -43,6 +45,8 @@ export default function WorkspacePage() {
       name: boardName,
       backgroundColor: boardBgColor,
       workspace: workspace.id,
+      members: [userId],
+      owner: userId,
     }));
     setIsModalOpen(false);
     $workspace.refetch();
@@ -62,7 +66,7 @@ export default function WorkspacePage() {
         <div className={styles.block}>
           <h2 className={styles.title}>{WorkspaceContent.BOARDS_TITLE}</h2>
           <div className={styles.boards}>
-          <div className={classNames(styles.board, styles.create)} onClick={() => setIsModalOpen(true)}>{WorkspaceContent.BOARD_CREATE}</div>
+            <div className={classNames(styles.board, styles.create)} onClick={() => setIsModalOpen(true)}>{WorkspaceContent.BOARD_CREATE}</div>
             {workspace.boards.map((board) => <Link to={routerPaths.boards(board.id)} key={board.id}><Board board={board} className={styles.board} /></Link>)}
             <Modal title={WorkspaceContent.BOARD_CREATE} open={isModalOpen} onOk={onCreateBoard} onCancel={() => setIsModalOpen(false)}>
               <Input

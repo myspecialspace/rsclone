@@ -4,16 +4,18 @@ import { PlusOutlined } from '@ant-design/icons';
 import { BoardContent } from '../Constants/constant';
 import InputTask, { InputTaskType, SubmitData } from './Input-task';
 import styles from './Input.module.scss';
+import { List } from '../../types/list';
 
 
 interface InputContainerProps {
   type: `${InputTaskType}`;
-  listId?: number;
+  list?: List;
   onCreateTask?: (data: SubmitData) => any;
   onCreateList?: (data: SubmitData) => any;
 }
 
-export default function InputContainer({ type, listId, onCreateTask, onCreateList }: InputContainerProps) {
+
+export default function InputContainer({ type, list, onCreateTask, onCreateList }: InputContainerProps) {
   const [open, setOpen] = useState(false);
 
   const onSubmit = (data: SubmitData) => {
@@ -22,7 +24,7 @@ export default function InputContainer({ type, listId, onCreateTask, onCreateLis
     } else if (onCreateList !== undefined) {
       onCreateList(data);
     }
-    
+
     setOpen(false);
   };
 
@@ -30,7 +32,7 @@ export default function InputContainer({ type, listId, onCreateTask, onCreateLis
     <div>
       {open ? (
         <div>
-          <InputTask type={type} listId={listId!} onSubmit={onSubmit} onCancel={() => setOpen(false)} />
+          <InputTask type={type} list={list} onSubmit={onSubmit} onCancel={() => setOpen(false)} />
         </div>
       ) : (
         <div >

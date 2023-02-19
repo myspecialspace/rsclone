@@ -3,6 +3,7 @@ import { Input, Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { BoardContent } from '../Constants/constant';
 import styles from './Input.module.scss';
+import { List } from '../../types/list';
 
 //import api from '../../api/index';
 
@@ -18,68 +19,67 @@ export enum InputTaskType {
 
 export interface SubmitData {
   taskName: string;
-  listId: number;
+  list: List;
 }
 
 interface InputTaskProps {
   type: `${InputTaskType}`;
-  listId: number,
-/*
-}
-
-
-export default function InputTask(props: InputTaskProps) {
-  const [name, setName] = useState('');
-  const handleOnChange = (e: React.ChangeEvent) => {
-    setName((e.target as HTMLTextAreaElement).value);
-  };
-
-  const id = props.listId;
-
-  const [task, setTask] = useState({data: {name: '', list: 0, order: 0}})
-  const AddMoreTask = (name: string, id: number) => {
-    //console.log(name, id);
-    //task = {data: {name: name, list: id, order: 0 }}
-    setTask({data: {name: name, list: id, order: 0}});
-    console.log(task)
-    api.postTask({data: {name: name, list: id, order: 0}});
+  list?: List;
+  /*
   }
-
-
-  const [list, setList] = useState({data: {name: '', description: '',  order: 0, board: 0,}});
-
-  const AddMoreList = (name: string, order: number, board: number) => {
-    //console.log(name, order, board);
-    setList({data: {name: name, description: '', order: order, board: board}});
-    console.log(list)
-    api.postList({data: {name: name, description: '', order: order, board: board }});
-  }
-
-  const boardId = 1;
-  const listOrder = 0;
-
-  const handleButtonConfirm = () => {
-    if (props.type === 'task') {
-      AddMoreTask(name, id);
-    } else {
-      AddMoreList(name, listOrder, boardId);
+  
+  
+  export default function InputTask(props: InputTaskProps) {
+    const [name, setName] = useState('');
+    const handleOnChange = (e: React.ChangeEvent) => {
+      setName((e.target as HTMLTextAreaElement).value);
+    };
+  
+    const id = props.listId;
+  
+    const [task, setTask] = useState({data: {name: '', list: 0, order: 0}})
+    const AddMoreTask = (name: string, id: number) => {
+      //console.log(name, id);
+      //task = {data: {name: name, list: id, order: 0 }}
+      setTask({data: {name: name, list: id, order: 0}});
+      console.log(task)
+      api.postTask({data: {name: name, list: id, order: 0}});
     }
-    props.setOpen(false);
-  }
-
- return (
-*/
+  
+  
+    const [list, setList] = useState({data: {name: '', description: '',  order: 0, board: 0,}});
+  
+    const AddMoreList = (name: string, order: number, board: number) => {
+      //console.log(name, order, board);
+      setList({data: {name: name, description: '', order: order, board: board}});
+      console.log(list)
+      api.postList({data: {name: name, description: '', order: order, board: board }});
+    }
+  
+    const boardId = 1;
+    const listOrder = 0;
+  
+    const handleButtonConfirm = () => {
+      if (props.type === 'task') {
+        AddMoreTask(name, id);
+      } else {
+        AddMoreList(name, listOrder, boardId);
+      }
+      props.setOpen(false);
+    }
+  
+   return (
+  */
   onSubmit: (data: SubmitData) => any;
   onCancel: () => any;
 }
 
 
-export default function InputTask({ listId, type, onSubmit, onCancel }: InputTaskProps) {
+export default function InputTask({ list, type, onSubmit, onCancel }: InputTaskProps) {
   const [taskName, setTaskName] = useState('');
 
   const handleButtonConfirm = () => {
-    console.log('handleButtonConfirm', taskName, listId);
-    onSubmit({ taskName, listId });
+    onSubmit({ taskName, list: list! });
   };
 
   return (
@@ -87,12 +87,12 @@ export default function InputTask({ listId, type, onSubmit, onCancel }: InputTas
     <div>
       <div className={type === InputTaskType.TASK ? styles.task : styles.list}>
         <TextArea
-/*
-          onChange={handleOnChange}
-          value={name}
-          placeholder={props.type === 'task' ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
-          onBlur={() => props.setOpen(false)}
-*/
+          /*
+                    onChange={handleOnChange}
+                    value={name}
+                    placeholder={props.type === 'task' ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
+                    onBlur={() => props.setOpen(false)}
+          */
           onChange={(e) => setTaskName(e.target.value)}
           value={taskName}
           placeholder={type === InputTaskType.TASK ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
