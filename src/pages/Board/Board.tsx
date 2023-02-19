@@ -7,7 +7,7 @@ import { AppState, useAppDispatch } from '../../store';
 import styles from './Board.module.scss';
 import * as listsThunks from '../../store/lists/thunks';
 import * as taskThunks from '../../store/tasks/thunks';
-import { SubmitData } from '../../components/input/Input-task';
+import { SubmitData } from '../../components/input/Input-data';
 import { useSelector } from 'react-redux';
 import { listsActions } from '../../store/lists';
 import { boardActions } from '../../store/board';
@@ -54,8 +54,8 @@ export default function BoardPage() {
       listsThunks.fetchCreate({
         board: boardId,
         description: '',
-        name: data.taskName,
-        order: lists.length || 0,
+        name: data.name,
+        order: lists.length + 1  || 1,
         owner: userId,
       })
     );
@@ -68,9 +68,9 @@ export default function BoardPage() {
       taskThunks.fetchCreate({
         board: boardId,
         list: data.list.id,
-        name: data.taskName,
+        name: data.name,
         description: '',
-        order: data.list.tasks.length || 0,
+        order: data.list.tasks.length + 1 || 1,
         owner: userId,
       })
     );

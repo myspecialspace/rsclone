@@ -12,18 +12,18 @@ import { List } from '../../types/list';
 
 const { TextArea } = Input;
 
-export enum InputTaskType {
+export enum InputDataType {
   TASK = 'task',
   LIST = 'list',
 }
 
 export interface SubmitData {
-  taskName: string;
+  name: string;
   list: List;
 }
 
-interface InputTaskProps {
-  type: `${InputTaskType}`;
+interface InputDataProps {
+  type: `${InputDataType}`;
   list?: List;
   /*
   }
@@ -75,17 +75,17 @@ interface InputTaskProps {
 }
 
 
-export default function InputTask({ list, type, onSubmit, onCancel }: InputTaskProps) {
-  const [taskName, setTaskName] = useState('');
+export default function InputData({ list, type, onSubmit, onCancel }: InputDataProps) {
+  const [name, setName] = useState('');
 
   const handleButtonConfirm = () => {
-    onSubmit({ taskName, list: list! });
+    onSubmit({ name, list: list! });
   };
 
   return (
 
     <div>
-      <div className={type === InputTaskType.TASK ? styles.task : styles.list}>
+      <div className={type === InputDataType.TASK ? styles.task : styles.list}>
         <TextArea
           /*
                     onChange={handleOnChange}
@@ -93,16 +93,16 @@ export default function InputTask({ list, type, onSubmit, onCancel }: InputTaskP
                     placeholder={props.type === 'task' ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
                     onBlur={() => props.setOpen(false)}
           */
-          onChange={(e) => setTaskName(e.target.value)}
-          value={taskName}
-          placeholder={type === InputTaskType.TASK ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          placeholder={type === InputDataType.TASK ? BoardContent.INPUT_TITLE : BoardContent.INPUT_LIST_NAME}
           autoSize={{ minRows: 2, maxRows: 6 }}
         />
       </div>
       <div className={styles.buttons__container}>
 
-        <Button className={type === InputTaskType.TASK ? styles.button : styles.button_list} type="primary" onClick={() => handleButtonConfirm()} >
-          {type === InputTaskType.TASK ? BoardContent.ADD_TASK : BoardContent.ADD_LIST}
+        <Button className={type === InputDataType.TASK ? styles.button : styles.button_list} type="primary" onClick={() => handleButtonConfirm()} >
+          {type === InputDataType.TASK ? BoardContent.ADD_TASK : BoardContent.ADD_LIST}
         </Button>
         <Button className={styles.button} icon={<CloseOutlined />} onClick={onCancel} ></Button>
 
