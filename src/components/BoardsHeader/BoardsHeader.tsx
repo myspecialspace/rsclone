@@ -47,13 +47,14 @@ const BoardsHeader: React.FC = () => {
   const id: string | null = localStorage.getItem('userId'); // TODO from state.auth.userId
 
   const userMembers = useSelector(
-    (state: AppState) => state.board.board.members
-  ) || [];
+    (state: AppState) => state.board.board.members || []
+  );
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
     console.log(id);
     setCurrent(e.key);
   };
+  //   console.log(userMembers);
 
   return (
     <>
@@ -66,7 +67,7 @@ const BoardsHeader: React.FC = () => {
                 selectedKeys={[current]}
                 mode='horizontal'
                 items={items}
-              // theme='dark'
+                // theme='dark'
               />
               <Avatar.Group
                 maxCount={2}
@@ -74,10 +75,11 @@ const BoardsHeader: React.FC = () => {
               >
                 {userMembers.map((member) => (
                   <Tooltip
+                    key={member.id}
                     title={WorkspaceContent.MEMBERS_TITLE}
                     placement='top'
                   >
-                    <Member key={member.id} member={member} />{' '}
+                    <Member member={member} />
                   </Tooltip>
                 ))}
               </Avatar.Group>
