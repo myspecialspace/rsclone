@@ -62,8 +62,8 @@ export default function WorkspacePage() {
         <div className={styles.block}>
           <h2 className={styles.title}>{WorkspaceContent.BOARDS_TITLE}</h2>
           <div className={styles.boards}>
+          <div className={classNames(styles.board, styles.create)} onClick={() => setIsModalOpen(true)}>{WorkspaceContent.BOARD_CREATE}</div>
             {workspace.boards.map((board) => <Link to={routerPaths.boards(board.id)} key={board.id}><Board board={board} className={styles.board} /></Link>)}
-            <div className={classNames(styles.board, styles.create)} onClick={() => setIsModalOpen(true)}>+ {WorkspaceContent.BOARD_CREATE}</div>
             <Modal title={WorkspaceContent.BOARD_CREATE} open={isModalOpen} onOk={onCreateBoard} onCancel={() => setIsModalOpen(false)}>
               <Input
                 placeholder={WorkspaceContent.BOARD_NAME}

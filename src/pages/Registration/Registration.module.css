@@ -1,0 +1,102 @@
+h3, .body {
+  font-family: "Roboto", Verdana, sans-serif;
+}
+
+h2,
+h4,
+h5,
+h6, h1 {
+  font-family: "Cabin", Verdana, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+.body {
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+h1 {
+  color: #253858;
+  margin-top: 0;
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 4.2rem;
+}
+
+h2,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  background-size: cover;
+}
+
+button {
+  cursor: pointer;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #6e7693;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.6rem;
+}
+
+.wrapper_img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -2;
+  width: 98vw;
+  height: 100vh;
+  background: url(../../assets/img/background-login-2.png) right bottom, url(../../assets/img/background-login-1.png) left bottom;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 1200px) {
+  .wrapper_img {
+    background: url(../../assets/img/background-login-2.png) right bottom;
+    background-repeat: no-repeat;
+  }
+}
+@media screen and (max-width: 520px) {
+  .wrapper_img {
+    background: none;
+  }
+}
+
+.main__wrapper {
+  display: flex;
+  justify-content: center;
+}/*# sourceMappingURL=Registration.module.css.map */

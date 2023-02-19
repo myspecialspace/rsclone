@@ -1,0 +1,152 @@
+.sign__submit, .sign__field, .about__text, .body {
+  font-family: "Roboto", Verdana, sans-serif;
+}
+
+.about__title, h2,
+h4,
+h5,
+h6, h1 {
+  font-family: "Cabin", Verdana, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+.body {
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+h1 {
+  color: #253858;
+  margin-top: 0;
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 4.2rem;
+}
+
+h2,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  background-size: cover;
+}
+
+button {
+  cursor: pointer;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about {
+  background: url(../../assets/svg/background.svg) center bottom -0.5px/100% 24% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0%/auto no-repeat scroll padding-box border-box rgb(82, 67, 170);
+  background-blend-mode: normal, normal;
+  color: rgb(255, 255, 255);
+}
+
+.about__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.about__container > * {
+  flex-basis: 48%;
+}
+
+.about__title {
+  padding-top: 16%;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 3.6rem;
+  margin-bottom: 8px;
+}
+
+.about__text {
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 2.6rem;
+  margin-bottom: 40px;
+}
+
+.sign__form {
+  padding-bottom: 32%;
+}
+
+.sign__field {
+  max-width: 300px;
+  transition: all 250ms ease-out 0s;
+  width: 376px;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 2.6rem;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  padding: 14px 10px;
+  border: 1px solid rgb(223, 225, 230);
+  border-radius: 5px;
+}
+
+.sign__submit {
+  color: #ffffff;
+  background-color: #0065ff;
+  border: 1px solid #0065ff;
+  max-width: 300px;
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 2.6rem;
+  transition: all 250ms ease-out 0s;
+  width: 376px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  padding: 14px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.sign__submit:hover {
+  background-color: #0747a6;
+  border: 1px solid #0747a6;
+}
+
+.img__container {
+  width: 960px;
+}
+
+.about__img {
+  display: block;
+  width: 960px;
+}
+@media screen and (max-width: 768px) {
+  .about__img {
+    display: none;
+  }
+}/*# sourceMappingURL=About.module.css.map */
