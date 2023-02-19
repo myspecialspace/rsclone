@@ -1,6 +1,6 @@
 import Card from 'antd/es/card/Card';
 import styles from './Task.module.scss';
-import { Task as ITask } from '../../store/tasks/types';
+import { Task as ITask } from '../../types/task';
 
 interface TaskProps {
   task: ITask;

@@ -1,7 +1,7 @@
 import { FetchState } from "../../helpers/fetch-state";
-import { Board as _Board } from "../boards/types";
+import { Board as BaseBoard } from "../../types/board";
 
-export type Board = _Board;
+export interface Board extends BaseBoard { }
 
 export interface State {
   fetchState: FetchState;

@@ -1,13 +1,12 @@
-export interface User {
-  id: number;
+import { TAttrsBase } from "../helpers/strapi-types";
+
+export interface User extends TAttrsBase {
   username: string;
   email: string;
   provider: string;
   confirmed: boolean;
   blocked: boolean;
-  createdAt: string;
-  updatedAt: string;
-  backgroundColor?: string;
+  backgroundColor: string | null;
   theme: Theme;
 }
 
