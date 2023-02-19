@@ -1,5 +1,5 @@
 import { /*Button, Input, Modal,*/ Spin } from 'antd';
-import { useEffect, /*useState */} from 'react';
+import { useEffect /*useState */ } from 'react';
 import { useParams } from 'react-router-dom';
 import ErrorLine from '../../components/ErrorLine/ErrorLine';
 import List from '../../components/List/List';
@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { listsActions } from '../../store/lists';
 import { boardActions } from '../../store/board';
 import InputContainer from '../../components/input/Input-container';
+import BoardsHeader from '../../components/BoardsHeader/BoardsHeader';
 
 export default function BoardPage() {
   const params = useParams();
@@ -28,7 +29,6 @@ export default function BoardPage() {
   const $tasks = useTasks(boardId);
   const tasks = $tasks.data;
 
-
   useEffect(() => {
     const boardId = parseInt(params.id!);
 
@@ -37,19 +37,21 @@ export default function BoardPage() {
   }, [dispatch, params.id]);
 
   const onCreateList = async (data: SubmitData) => {
-    await dispatch(listsThunks.fetchCreate({
-      board: boardId,
-      description: '',
-      name: data.taskName,
-      order: lists.length || 0,
-    }));
+    await dispatch(
+      listsThunks.fetchCreate({
+        board: boardId,
+        description: '',
+        name: data.taskName,
+        order: lists.length || 0,
+      })
+    );
 
     $lists.refetch();
     //setIsModalOpen(false);
   };
 
   if ($lists.isPending || $lists.isInitial) {
-    return <Spin />
+    return <Spin />;
   }
 
   if ($lists.isError) {
@@ -57,35 +59,46 @@ export default function BoardPage() {
   }
 
   const onCreateTask = async (data: SubmitData) => {
-    await dispatch(taskThunks.fetchCreate({
-      board: boardId,
-      list: data.listId,
-      name: data.taskName,
-      description: '',
-      order: tasks.length || 0,
-    }));
+    await dispatch(
+      taskThunks.fetchCreate({
+        board: boardId,
+        list: data.listId,
+        name: data.taskName,
+        description: '',
+        order: tasks.length || 0,
+      })
+    );
 
     $tasks.refetch();
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.list__container}>
-        {lists.map((list) => {
-          const listTasks = tasks.filter((task) => task.list.id === list.id);
+    <>
+      <div className={styles.container}>
+        <BoardsHeader />
+        <div className={styles.list__container}>
+          {lists.map((list) => {
+            const listTasks = tasks.filter((task) => task.list.id === list.id);
 
-          return <div key={list.id}>
-            <List list={list} tasks={listTasks} onCreateTask={onCreateTask} />
-          </div>
-        })}
-        
-        <InputContainer type='list' listId={lists.length + 1} onCreateList={onCreateList}></InputContainer>
-
-        
-
+            return (
+              <div key={list.id}>
+                <List
+                  list={list}
+                  tasks={listTasks}
+                  onCreateTask={onCreateTask}
+                />
+              </div>
+            );
+          })}
+          <InputContainer
+            type='list'
+            listId={lists.length + 1}
+            onCreateList={onCreateList}
+          ></InputContainer>
+        </div>
       </div>
-    </div>
-  )
+    </>
+  );
 }
 
 //<Button type="primary" onClick={() => setIsModalOpen(true)}>+ Create list</Button>
