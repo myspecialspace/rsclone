@@ -55,7 +55,7 @@ export default function MeSettingsPage() {
   const themeOptions = Object.values(UserTheme).map((theme) => ({ label: theme, value: theme }));
 
   return (
-    <div className={styles.root}>
+    <div className={styles.main_settings}>
       {contextHolder}
       <Form
         name="me-settings"

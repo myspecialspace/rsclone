@@ -164,7 +164,7 @@ export default function MeLayout() {
       </header>
       <div className={styles.wrapper}>
         <WorkspaceNav className={styles.sidebar} />
-        <div>
+        <div className={styles.rightside}>
           <MenuShowButton />
           <Outlet />
         </div>
