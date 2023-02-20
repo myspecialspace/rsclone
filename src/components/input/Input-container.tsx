@@ -14,7 +14,6 @@ interface InputContainerProps {
   onCreateList?: (data: SubmitData) => any;
 }
 
-
 export default function InputContainer({ type, list, onCreateTask, onCreateList }: InputContainerProps) {
   const [open, setOpen] = useState(false);
 

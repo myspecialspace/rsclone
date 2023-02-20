@@ -50,32 +50,36 @@ export default function BoardPage() {
   }
 
   const onCreateList = async (data: SubmitData) => {
-    await dispatch(
-      listsThunks.fetchCreate({
-        board: boardId,
-        description: '',
-        name: data.name,
-        order: lists.length + 1  || 1,
-        owner: userId,
-      })
-    );
-
-    $board.refetch();
+    if(data.name.length !== 0) {
+      await dispatch(
+        listsThunks.fetchCreate({
+          board: boardId,
+          description: '',
+          name: data.name,
+          order: lists.length + 1  || 1,
+          owner: userId,
+        })
+      );
+  
+      $board.refetch();
+    }
   };
 
   const onCreateTask = async (data: SubmitData) => {
-    await dispatch(
-      taskThunks.fetchCreate({
-        board: boardId,
-        list: data.list.id,
-        name: data.name,
-        description: '',
-        order: data.list.tasks.length + 1 || 1,
-        owner: userId,
-      })
-    );
-
-    $board.refetch();
+    if(data.name.length !== 0) {
+      await dispatch(
+        taskThunks.fetchCreate({
+          board: boardId,
+          list: data.list.id,
+          name: data.name,
+          description: '',
+          order: data.list.tasks.length + 1 || 1,
+          owner: userId,
+        })
+      );
+  
+      $board.refetch();
+    }
   };
 
   return (
