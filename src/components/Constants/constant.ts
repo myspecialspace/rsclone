@@ -59,7 +59,6 @@ enum MenuContentRu {
   MENU_ITEM_BOARDS = '  Доски',
   MENU_ITEM_MEMBERS = 'Участники',
   MENU_ITEM_SETTINGS = 'Настройки',
-  SETTING = 'Настройки рабочего пространства',
   MENU_SUBTITLE = 'Мои доски',
   MENU_VIEWS = 'Режимы просмотра рабочего пространства',
   TABLE_VIEW = 'Таблица',
@@ -71,7 +70,6 @@ enum MenuContentEn {
   MENU_ITEM_BOARDS = 'Boards',
   MENU_ITEM_MEMBERS = 'Members',
   MENU_ITEM_SETTINGS = 'Settings',
-  //SETTING = 'Настройки рабочего пространства',
   MENU_SUBTITLE = 'Your boards',
   MENU_VIEWS = 'Workspace views',
   TABLE_VIEW = 'Table',
@@ -112,6 +110,28 @@ enum WorkspaceContentEn {
   WORKSPACE_COLOR = 'Board colour',
 }
 
+enum MeSettingsContentRu {
+  SETTINGS_ME = 'Настройки',
+  LOGOUT_ME = 'Выйти',
+  SETTINGS_SAVED = 'Настройки сохранены.',
+  SETTINGS_ERROR = 'Произошла ошибка.',
+  NAME = 'Имя',
+  COLOUR = 'Цвет',
+  THEME = 'Тема',
+  SAVE = 'Сохранить',
+}
+
+enum MeSettingsContentEn {
+  SETTINGS_ME = 'Settings',
+  LOGOUT_ME = 'Exit',
+  SETTINGS_SAVED = 'Settings have been saved.',
+  SETTINGS_ERROR = 'An error has occurred.',
+  NAME = 'Name',
+  COLOUR = 'Colour',
+  THEME = 'theme',
+  SAVE = 'Save',
+}
+
 enum BoardContentRu {
   ADD_TASK = 'Добавить карточку',
   ADD_LIST = 'Добавить список',
@@ -128,10 +148,11 @@ enum BoardContentEn {
   INPUT_LIST_NAME = 'Enter a title of this list'
 }
 
-console.log(BoardContentEn, MenuContentEn, WorkspaceContentEn, LoginPageContentEN, MainPageContentEn, SignUpPageContentEn);
+console.log(BoardContentEn, MenuContentEn, WorkspaceContentEn, LoginPageContentEN, MainPageContentEn, SignUpPageContentEn, MeSettingsContentEn);
 
 export const mainPageContent = MainPageContentRu;
 export const MenuContent = MenuContentRu;
 export const WorkspaceName = MenuContentRu.MENU_TITLE;
 export const WorkspaceContent = WorkspaceContentRu;
 export const BoardContent = BoardContentRu;
+export const MeSettingsContent = MeSettingsContentRu;

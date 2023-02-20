@@ -24,6 +24,9 @@ export const slice = createSlice({
         state.fetchState = FetchState.INITIAL;
       }
     },
+    resetCurrentId() {
+      localStorage.removeItem(LSKey.CURRENT_WORKSPACE_ID);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchWorkspace.pending, (state, action) => {
