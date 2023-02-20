@@ -25,6 +25,8 @@ export interface EditListInterface {
   listId: number;
   patch: {
     name: string;
+    description: string;
     order: number;
+    board: number
   }
 }

@@ -89,7 +89,9 @@ export default function BoardPage() {
           listId: data.listId,
           patch : {
             name: data.patch.name,
+            description: '',
             order: data.patch.order,
+            board: boardId,
           }
         })
       );
