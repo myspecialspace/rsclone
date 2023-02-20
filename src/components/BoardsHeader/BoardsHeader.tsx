@@ -12,49 +12,55 @@ import Member from '../../pages/Workspace/Member';
 import { AppState } from '../../store';
 import { useSelector } from 'react-redux';
 import { WorkspaceContent } from '../Constants/constant';
-
-const items: MenuProps['items'] = [
-  {
-    label: 'Name Board',
-    key: 'board',
-    icon: <EditOutlined />,
-  },
-  {
-    label: 'Featured boards',
-    key: 'featured',
-    icon: <StarOutlined />,
-  },
-  {
-    label: 'Visibility ',
-    key: 'Visibility',
-    children: [
-      {
-        label: 'Private',
-        icon: <LockOutlined />,
-        key: 'Private',
-      },
-      {
-        label: 'Public',
-        icon: <UnlockOutlined />,
-        key: 'Public',
-      },
-    ],
-  },
-];
+import { useBoard } from '../../store/board/hooks';
 
 const BoardsHeader: React.FC = () => {
-  const [current, setCurrent] = useState('mail');
-  const id: string | null = localStorage.getItem('userId'); // TODO from state.auth.userId
+  const [current, setCurrent] = useState('board');
+  const userId = useSelector((state: AppState) => state.auth.userId);
+  const $board = useBoard();
+  const board = $board.data;
+  console.log(board);
 
-  const userMembers = useSelector(
-    (state: AppState) => state.board.board.members || []
-  );
+  const userMembers = board.members || [];
+  //   const userMembers = useSelector(
+  //     (state: AppState) => state.board.board.members || []
+  //   );
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
-    console.log(id);
+    console.log(userId);
     setCurrent(e.key);
   };
-  //   console.log(userMembers);
+  const boardHeaderItems: MenuProps['items'] = [
+    {
+      label: board.name,
+      key: 'board',
+      icon: <EditOutlined />,
+    },
+    {
+      //   label: 'Featured boards',
+      label: board.isFavorite,
+      key: 'featured',
+      icon: <StarOutlined />,
+    },
+    {
+      label: 'Visibility ',
+      key: 'Visibility',
+      children: [
+        {
+          label: board.isClosed,
+          //   label: 'Private',
+          icon: <LockOutlined />,
+          key: 'Private',
+        },
+        {
+          label: board.isClosed,
+          //   label: 'Public',
+          icon: <UnlockOutlined />,
+          key: 'Public',
+        },
+      ],
+    },
+  ];
 
   return (
     <>
@@ -66,7 +72,7 @@ const BoardsHeader: React.FC = () => {
                 onClick={onClick}
                 selectedKeys={[current]}
                 mode='horizontal'
-                items={items}
+                items={boardHeaderItems}
                 // theme='dark'
               />
               <Avatar.Group
