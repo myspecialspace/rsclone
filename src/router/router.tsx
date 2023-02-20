@@ -9,6 +9,7 @@ import WorkspacePage from '../pages/Workspace/Workspace';
 import MeLayout from '../components/MeLayout/MeLayout';
 import BoardPage from '../pages/Board/Board';
 import { RoutePath } from './paths';
+import MeSettingsPage from '../pages/MeSettings/MeSettings';
 
 export default createBrowserRouter([
   {
@@ -50,6 +51,10 @@ export default createBrowserRouter([
       {
         path: `${RoutePath.BOARDS}/:id`,
         element: <BoardPage />,
+      },
+      {
+        path: RoutePath.SETTINGS,
+        element: <MeSettingsPage />,
       },
     ],
   }

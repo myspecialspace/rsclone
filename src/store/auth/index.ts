@@ -4,7 +4,7 @@ import {
 import api from '../../api';
 import { FetchState } from '../../helpers/fetch-state';
 import { LSKey } from '../../helpers/ls';
-import { fetchUser } from './thunks';
+import { editUser, fetchUser } from './thunks';
 import { State } from './types';
 
 
@@ -21,10 +21,11 @@ const initialState: State = {
   userId: null!,
   user: null!,
   fetchState: FetchState.INITIAL,
+  editState: FetchState.INITIAL,
 };
 
 // https://redux-toolkit.js.org/tutorials/typescript
-export const authSlice = createSlice({
+export const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -40,6 +41,18 @@ export const authSlice = createSlice({
       state.jwt = payload.jwt;
       state.user = payload.user;
     },
+    logout(state) {
+      Object.assign(state, {
+        ...slice.getInitialState(),
+        // fetchState: state.fetchState,
+      });
+
+      localStorage.removeItem(LSKey.USER_ID);
+      localStorage.removeItem(LSKey.JWT);
+    },
+    resetEditState(state) {
+      state.editState = FetchState.INITIAL;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.pending, (state, action) => {
@@ -52,9 +65,20 @@ export const authSlice = createSlice({
       state.fetchState = FetchState.SUCCESS;
       state.user = action.payload;
     });
+
+    builder.addCase(editUser.pending, (state, action) => {
+      state.editState = FetchState.PENDING;
+    });
+    builder.addCase(editUser.rejected, (state, action) => {
+      state.editState = FetchState.ERROR;
+    });
+    builder.addCase(editUser.fulfilled, (state, action) => {
+      state.editState = FetchState.SUCCESS;
+      state.user = action.payload;
+    });
   }
 });
 
-export const authActions = authSlice.actions;
+export const authActions = slice.actions;
 
-export default authSlice.reducer;
+export default slice.reducer;

@@ -1,5 +1,5 @@
 import { Button, Dropdown, Input, MenuProps, Modal } from 'antd';
-import { DownOutlined, TeamOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { DownOutlined, TeamOutlined, AppstoreOutlined, SettingOutlined, PoweroffOutlined } from '@ant-design/icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styles from './MeLayout.module.scss';
 import { WorkspaceNav, MenuShowButton } from '../WorkspaceNav/WorkspaceNav';
@@ -11,11 +11,14 @@ import * as routerPaths from '../../router/paths';
 import { useEffect, useState } from 'react';
 import { WORKSPACE_BG_COLOR } from '../../helpers/defaults';
 import { fetchWorkspacesCreate } from '../../store/workspaces/thunks';
-import { WorkspaceContent } from '../../components/Constants/constant';
+import { MeSettingsContent, WorkspaceContent } from '../../components/Constants/constant';
 import { Workspace } from '../../store/workspaces/types';
 import { useCurrentWorkspace } from '../../store/workspace/hooks';
 import { useUser } from '../../store/auth/hooks';
 import { getBgColor, getFirstChar } from '../../helpers/user';
+import { MenuInfo } from 'rc-menu/lib/interface';
+import { UserItemKey } from './types';
+import { workspaceActions } from '../../store/workspace';
 
 export default function MeLayout() {
   const $user = useUser()
@@ -113,7 +116,29 @@ export default function MeLayout() {
 
     $workspaces.refetch();
     setIsModalOpen(false);
+  };
+
+  const userItems: MenuProps['items'] = [
+    {
+      label: (<Link to={routerPaths.meSettings()}>{MeSettingsContent.SETTINGS_ME}</Link>),
+      key: UserItemKey.SETTINGS,
+      icon: <SettingOutlined />,
+    },
+    {
+      label: MeSettingsContent.LOGOUT_ME,
+      key: UserItemKey.LOGOUT,
+      icon: <PoweroffOutlined />,
+    }
+  ];
+
+  const onUserItemClick = (data: MenuInfo) => {
+    if (data.key === UserItemKey.LOGOUT) {
+      dispatch(authActions.logout());
+      dispatch(workspaceActions.resetCurrentId());
+      navigate(routerPaths.login());
+      return;
   }
+  };
 
   return (
     <div className={styles.root}>
@@ -134,12 +159,14 @@ export default function MeLayout() {
           </Button>
         </Dropdown>
         <div className={styles.right}>
-          <Button type="primary" shape="circle" style={{ 'backgroundColor': userColor }}>{userChar}</Button>
+          <Dropdown className={styles.workspaceSelector} menu={{ items: userItems, onClick: (e) => onUserItemClick(e) }}>
+            <Button type="primary" shape="circle" style={{ 'backgroundColor': userColor }}>{userChar}</Button>
+          </Dropdown>
         </div>
       </header>
       <div className={styles.wrapper}>
         <WorkspaceNav className={styles.sidebar} />
-        <div>
+        <div className={styles.rightside}>
           <MenuShowButton />
           <Outlet />
         </div>

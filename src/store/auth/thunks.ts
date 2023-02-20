@@ -13,3 +13,25 @@ export const fetchUser = createAsyncThunk<User, number>(
     }
   }
 );
+
+interface EditUserData {
+  userId: number;
+  patch: {
+    backgroundColor: string;
+    theme: string;
+  }
+}
+
+export const editUser = createAsyncThunk<User, EditUserData>(
+  "auth/user/edit",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await api.getInstance().put<User>(`users/${data.userId}`, data.patch);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+
