@@ -6,6 +6,7 @@ import { useUser } from '../../store/auth/hooks';
 import { editUser } from '../../store/auth/thunks';
 import { UserTheme } from '../../types/base';
 import styles from './MeSettings.module.scss';
+import { MeSettingsContent } from '../../components/Constants/constant';
 
 export default function MeSettingsPage() {
   const $user = useUser();
@@ -39,10 +40,10 @@ export default function MeSettingsPage() {
     const { requestStatus } = res.meta;
 
     if (requestStatus === RequestStatus.FULFILLED) {
-      api.success({ message: 'Настройки сохранены.' });
+      api.success({ message: MeSettingsContent.SETTINGS_SAVED });
     }
     if (requestStatus === RequestStatus.REJECTED) {
-      api.error({ message: 'Произошла ошибка.' });
+      api.error({ message: MeSettingsContent.SETTINGS_ERROR });
     }
   };
 
@@ -67,7 +68,7 @@ export default function MeSettingsPage() {
         autoComplete="off"
       >
         <Form.Item
-          label="Имя"
+          label= {MeSettingsContent.NAME}
           name="username"
         >
           <Input disabled={true} />
@@ -81,14 +82,14 @@ export default function MeSettingsPage() {
         </Form.Item>
 
         <Form.Item
-          label="Цвет"
+          label= {MeSettingsContent.COLOUR}
           name="backgroundColor"
         >
           <Input type="color" />
         </Form.Item>
 
         <Form.Item
-          label="Тема"
+          label= {MeSettingsContent.THEME}
           name="theme"
         >
           <Select
@@ -98,7 +99,7 @@ export default function MeSettingsPage() {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Сохранить
+            {MeSettingsContent.SAVE}
           </Button>
         </Form.Item>
       </Form>

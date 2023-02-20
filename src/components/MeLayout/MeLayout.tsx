@@ -11,7 +11,7 @@ import * as routerPaths from '../../router/paths';
 import { useEffect, useState } from 'react';
 import { WORKSPACE_BG_COLOR } from '../../helpers/defaults';
 import { fetchWorkspacesCreate } from '../../store/workspaces/thunks';
-import { WorkspaceContent } from '../../components/Constants/constant';
+import { MeSettingsContent, WorkspaceContent } from '../../components/Constants/constant';
 import { Workspace } from '../../store/workspaces/types';
 import { useCurrentWorkspace } from '../../store/workspace/hooks';
 import { useUser } from '../../store/auth/hooks';
@@ -120,11 +120,11 @@ export default function MeLayout() {
 
   const userItems: MenuProps['items'] = [
     {
-      label: (<Link to={routerPaths.meSettings()}>Настройки</Link>),
+      label: (<Link to={routerPaths.meSettings()}>{MeSettingsContent.SETTINGS_ME}</Link>),
       key: UserItemKey.SETTINGS,
     },
     {
-      label: 'Выйти',
+      label: MeSettingsContent.LOGOUT_ME,
       key: UserItemKey.LOGOUT,
     }
   ];
