@@ -4,6 +4,7 @@ import { TAttrsBase } from "../../helpers/strapi-types";
 
 export interface State extends EntityState<List> {
   fetchState: FetchState;
+  editState: FetchState;
   selectedId: number;
   boardId: number;
 }
@@ -18,4 +19,12 @@ export interface List extends TAttrsBase {
   "isFavorite": boolean;
   "description": string;
   "order": number;
+}
+
+export interface EditListInterface {
+  listId: number;
+  patch: {
+    name: string;
+    order: number;
+  }
 }

@@ -13,7 +13,6 @@ export default function Header(props: HeaderProps) {
       <div className={styles.header__wrapper}>
         <div className={styles.logo}>
           <Link to="/about" className={styles.logo_link}>
-
             <div className={styles.logo__img}></div>
             <div className={styles.logo__text}>
               <p className={styles.logo__title}>RSClone</p>

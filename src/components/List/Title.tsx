@@ -2,26 +2,33 @@ import React, { useState } from 'react';
 import { Typography, Input } from "antd";
 import { MoreOutlined } from '@ant-design/icons';
 import styles from './Title.module.scss';
-import api from '../../api/index';
+import { List } from '../../types/list';
 interface TitleProps {
   title: string;
+  list: List;
   listId: number;
+  onSubmitUpdate: (data: UpdateData) => any;
+}
+export interface UpdateData {
+  listId: number;
+  patch: {
+    name: string;
+    order: number;
+  }
 }
 
-export default function Title(props: TitleProps) {
+export function Title(props: TitleProps) {
   const [open, setOpen] = useState(false);
   const [listName, setListName] = useState(props.title);
 
   const handleOnChange = (e: React.ChangeEvent) => {
     setListName((e.target as HTMLInputElement).value);
-  }
-
-  const updateListTitle = (listTitle: string) => {
-    api.updateList({ data: { name: listTitle } })
+    console.log("new title", listName)
   }
 
   const handleOnBlur = () => {
-    updateListTitle(listName);
+    console.log("list id", props.listId)
+    props.onSubmitUpdate({ listId: props.listId, patch: { name: listName, order: props.list.order}});
     setOpen(!open);
   }
 

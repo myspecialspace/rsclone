@@ -15,6 +15,7 @@ import InputContainer from '../../components/input/Input-container';
 import BoardsHeader from '../../components/BoardsHeader/BoardsHeader';
 import { useBoard } from '../../store/board/hooks';
 import { workspaceActions } from '../../store/workspace';
+import { UpdateData } from '../../components/List/Title';
 
 export default function BoardPage() {
   const params = useParams();
@@ -28,7 +29,6 @@ export default function BoardPage() {
 
   useEffect(() => {
     const boardId = parseInt(params.id!);
-
     dispatch(listsActions.setBoardId(boardId));
     dispatch(boardActions.setId(boardId));
   }, [dispatch, params.id]);
@@ -82,6 +82,22 @@ export default function BoardPage() {
     }
   };
 
+  const onUpdateList = async (data: UpdateData) => {
+    if(data.patch.name.length !== 0) {
+      await dispatch(
+        listsThunks.editList({
+          listId: data.listId,
+          patch : {
+            name: data.patch.name,
+            order: data.patch.order,
+          }
+        })
+      );
+  
+      $board.refetch();
+    }
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -94,6 +110,7 @@ export default function BoardPage() {
                   list={list}
                   tasks={list.tasks}
                   onCreateTask={onCreateTask}
+                  onUpdateList={onUpdateList}
                 />
               </div>
             );
