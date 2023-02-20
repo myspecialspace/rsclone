@@ -8,4 +8,5 @@ export interface State {
   jwt: string;
   userId: number;
   fetchState: FetchState;
+  editState: FetchState;
 }

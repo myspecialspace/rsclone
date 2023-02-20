@@ -16,6 +16,9 @@ import { Workspace } from '../../store/workspaces/types';
 import { useCurrentWorkspace } from '../../store/workspace/hooks';
 import { useUser } from '../../store/auth/hooks';
 import { getBgColor, getFirstChar } from '../../helpers/user';
+import { MenuInfo } from 'rc-menu/lib/interface';
+import { UserItemKey } from './types';
+import { workspaceActions } from '../../store/workspace';
 
 export default function MeLayout() {
   const $user = useUser()
@@ -113,7 +116,27 @@ export default function MeLayout() {
 
     $workspaces.refetch();
     setIsModalOpen(false);
+  };
+
+  const userItems: MenuProps['items'] = [
+    {
+      label: (<Link to={routerPaths.meSettings()}>Настройки</Link>),
+      key: UserItemKey.SETTINGS,
+    },
+    {
+      label: 'Выйти',
+      key: UserItemKey.LOGOUT,
+    }
+  ];
+
+  const onUserItemClick = (data: MenuInfo) => {
+    if (data.key === UserItemKey.LOGOUT) {
+      dispatch(authActions.logout());
+      dispatch(workspaceActions.resetCurrentId());
+      navigate(routerPaths.login());
+      return;
   }
+  };
 
   return (
     <div className={styles.root}>
@@ -134,7 +157,9 @@ export default function MeLayout() {
           </Button>
         </Dropdown>
         <div className={styles.right}>
-          <Button type="primary" shape="circle" style={{ 'backgroundColor': userColor }}>{userChar}</Button>
+          <Dropdown className={styles.workspaceSelector} menu={{ items: userItems, onClick: (e) => onUserItemClick(e) }}>
+            <Button type="primary" shape="circle" style={{ 'backgroundColor': userColor }}>{userChar}</Button>
+          </Dropdown>
         </div>
       </header>
       <div className={styles.wrapper}>
