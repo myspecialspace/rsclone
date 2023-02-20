@@ -7,7 +7,7 @@ import { AppState, useAppDispatch } from '../../store';
 import styles from './Board.module.scss';
 import * as listsThunks from '../../store/lists/thunks';
 import * as taskThunks from '../../store/tasks/thunks';
-import { SubmitData } from '../../components/input/Input-task';
+import { SubmitData } from '../../components/input/Input-data';
 import { useSelector } from 'react-redux';
 import { listsActions } from '../../store/lists';
 import { boardActions } from '../../store/board';
@@ -50,32 +50,36 @@ export default function BoardPage() {
   }
 
   const onCreateList = async (data: SubmitData) => {
-    await dispatch(
-      listsThunks.fetchCreate({
-        board: boardId,
-        description: '',
-        name: data.taskName,
-        order: lists.length || 0,
-        owner: userId,
-      })
-    );
-
-    $board.refetch();
+    if(data.name.length !== 0) {
+      await dispatch(
+        listsThunks.fetchCreate({
+          board: boardId,
+          description: '',
+          name: data.name,
+          order: lists.length + 1  || 1,
+          owner: userId,
+        })
+      );
+  
+      $board.refetch();
+    }
   };
 
   const onCreateTask = async (data: SubmitData) => {
-    await dispatch(
-      taskThunks.fetchCreate({
-        board: boardId,
-        list: data.list.id,
-        name: data.taskName,
-        description: '',
-        order: data.list.tasks.length || 0,
-        owner: userId,
-      })
-    );
-
-    $board.refetch();
+    if(data.name.length !== 0) {
+      await dispatch(
+        taskThunks.fetchCreate({
+          board: boardId,
+          list: data.list.id,
+          name: data.name,
+          description: '',
+          order: data.list.tasks.length + 1 || 1,
+          owner: userId,
+        })
+      );
+  
+      $board.refetch();
+    }
   };
 
   return (

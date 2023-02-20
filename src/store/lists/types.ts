@@ -17,4 +17,5 @@ export interface List extends TAttrsBase {
   "publishedAt": string;
   "isFavorite": boolean;
   "description": string;
+  "order": number;
 }

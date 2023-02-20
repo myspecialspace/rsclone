@@ -9,7 +9,7 @@ import TaskInterface from '../../components/Interfaces/Task-interface';
 */
 import { List as IList } from '../../types/list';
 import { Task as ITask } from '../../types/task';
-import { SubmitData } from '../input/Input-task';
+import { SubmitData } from '../input/Input-data';
 
 
 interface ListProps {
