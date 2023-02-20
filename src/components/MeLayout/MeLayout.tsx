@@ -1,5 +1,5 @@
 import { Button, Dropdown, Input, MenuProps, Modal } from 'antd';
-import { DownOutlined, TeamOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { DownOutlined, TeamOutlined, AppstoreOutlined, SettingOutlined, PoweroffOutlined } from '@ant-design/icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styles from './MeLayout.module.scss';
 import { WorkspaceNav, MenuShowButton } from '../WorkspaceNav/WorkspaceNav';
@@ -122,10 +122,12 @@ export default function MeLayout() {
     {
       label: (<Link to={routerPaths.meSettings()}>{MeSettingsContent.SETTINGS_ME}</Link>),
       key: UserItemKey.SETTINGS,
+      icon: <SettingOutlined />,
     },
     {
       label: MeSettingsContent.LOGOUT_ME,
       key: UserItemKey.LOGOUT,
+      icon: <PoweroffOutlined />,
     }
   ];
 
