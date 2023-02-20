@@ -2,18 +2,17 @@ import { useState } from 'react';
 import { Card } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { BoardContent } from '../Constants/constant';
-import InputTask, { InputTaskType, SubmitData } from './Input-task';
+import InputData, { InputDataType, SubmitData } from './Input-data';
 import styles from './Input.module.scss';
 import { List } from '../../types/list';
 
 
 interface InputContainerProps {
-  type: `${InputTaskType}`;
+  type: `${InputDataType}`;
   list?: List;
   onCreateTask?: (data: SubmitData) => any;
   onCreateList?: (data: SubmitData) => any;
 }
-
 
 export default function InputContainer({ type, list, onCreateTask, onCreateList }: InputContainerProps) {
   const [open, setOpen] = useState(false);
@@ -32,7 +31,7 @@ export default function InputContainer({ type, list, onCreateTask, onCreateList 
     <div>
       {open ? (
         <div>
-          <InputTask type={type} list={list} onSubmit={onSubmit} onCancel={() => setOpen(false)} />
+          <InputData type={type} list={list} onSubmit={onSubmit} onCancel={() => setOpen(false)} />
         </div>
       ) : (
         <div >
