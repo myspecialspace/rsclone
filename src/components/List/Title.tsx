@@ -11,10 +11,8 @@ interface TitleProps {
 }
 export interface UpdateData {
   listId: number;
-  patch: {
-    name: string;
-    order: number;
-  }
+  name: string;
+  order: number;
 }
 
 export function Title(props: TitleProps) {
@@ -23,12 +21,10 @@ export function Title(props: TitleProps) {
 
   const handleOnChange = (e: React.ChangeEvent) => {
     setListName((e.target as HTMLInputElement).value);
-    console.log("new title", listName)
   }
 
   const handleOnBlur = () => {
-    console.log("list id", props.listId)
-    props.onSubmitUpdate({ listId: props.listId, patch: { name: listName, order: props.list.order}});
+    props.onSubmitUpdate({ listId: props.listId, name: listName, order: props.list.order});
     setOpen(!open);
   }
 
