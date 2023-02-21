@@ -1,5 +1,5 @@
 import { Card } from 'antd';
-import Title from './Title';
+import { Title, UpdateData} from './Title';
 import styles from './List.module.scss';
 import Task from '../Task/Task';
 import InputContainer from '../input/Input-container';
@@ -10,20 +10,25 @@ import TaskInterface from '../../components/Interfaces/Task-interface';
 import { List as IList } from '../../types/list';
 import { Task as ITask } from '../../types/task';
 import { SubmitData } from '../input/Input-data';
-
-
 interface ListProps {
   list: IList;
   tasks: ITask[];
   onCreateTask: (data: SubmitData) => any;
+  onUpdateList: (data: UpdateData) => any;
 }
 
+export default function List({ list, tasks, onCreateTask, onUpdateList }: ListProps) {
 
-export default function List({ list, tasks, onCreateTask }: ListProps) {
+  const onSubmitUpdate = (data: UpdateData) => {
+    if (onUpdateList !== undefined) {
+      onUpdateList(data);
+    }
+  };
+
   return (
     <div>
       <Card className={styles.list}>
-        <Title title={list.name} listId={list.id}></Title>
+        <Title title={list.name} list={list} listId={list.id} onSubmitUpdate={onSubmitUpdate}></Title>
         {tasks.map((task) => (<Task key={task.id} task={task} listId={list.id} />))}
         <InputContainer type='task' list={list} onCreateTask={onCreateTask} />
       </Card>
@@ -32,10 +37,6 @@ export default function List({ list, tasks, onCreateTask }: ListProps) {
 }
 
 /* 
-<<<<<<< HEAD
-export default function List(props: ListProps) {
-  // console.log(props.list.attributes.name)
-  // console.log(props.list.attributes.allTasks[0].id)
   return (
     <div>
       <Card className={styles.list}>

@@ -15,6 +15,7 @@ const adapter = createEntityAdapter<List>({
 const initialState = (): State => ({
   ...adapter.getInitialState(),
   fetchState: FetchState.INITIAL,
+  editState: FetchState.INITIAL,
   selectedId: UNSELECTED_INDEX,
   boardId: UNSELECTED_INDEX,
 });
