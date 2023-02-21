@@ -6,27 +6,28 @@ import {
   UnlockOutlined,
 } from '@ant-design/icons';
 import styles from './BoardsHeader.module.scss';
-import type { MenuProps } from 'antd';
-import { Menu, Avatar, Tooltip } from 'antd';
+import { Button, MenuProps, Menu, Avatar, Tooltip } from 'antd';
 import Member from '../../pages/Workspace/Member';
-import { AppState } from '../../store';
+import { AppState, useAppDispatch } from '../../store';
 import { useSelector } from 'react-redux';
 import { WorkspaceContent } from '../Constants/constant';
-// import { useBoard } from '../../store/board/hooks';
-// import board from '../../store/board';
+import { DeleteBoard } from '../../store/board/types';
+import { useBoard } from '../../store/board/hooks';
+import * as boardThunks from '../../store/board/thunks';
+import { useNavigate } from 'react-router-dom';
+import * as routerPaths from '../../router/paths';
 
 const BoardsHeader: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [current, setCurrent] = useState('board');
   const userId = useSelector((state: AppState) => state.auth.userId);
-  //   const $board = useBoard();
-  //   const board = $board.data;
-  //   console.log(board);
-  //   const userMembers = board.members || [];
+  const $board = useBoard();
+  const navigate = useNavigate();
   const userMembers = useSelector(
     (state: AppState) => state.board.board.members || []
   );
   const userBoard = useSelector((state: AppState) => state.board.board || []);
-  console.log(userBoard);
+  //   console.log(userBoard);
 
   const boardHeaderItems: MenuProps['items'] = [
     {
@@ -63,7 +64,7 @@ const BoardsHeader: React.FC = () => {
     // console.log('click ', e);
     if (e.key === 'board') {
       console.log(userBoard.name);
-      onChangeBoard(userBoard.name);
+      //   onChangeBoard(userBoard.name);
     }
     if (e.key === 'featured') {
       console.log(userBoard.isFavorite);
@@ -77,27 +78,15 @@ const BoardsHeader: React.FC = () => {
     console.log(userId);
     setCurrent(e.key);
   };
-
-  const onChangeBoard = async (values: any) => {
-    // const res = await dispatch(
-    //   changeBoard({
-    //     boardId: userBoard.id,
-    //     patch: {
-    //       name: values.name,
-    //       isFavorite: values.isFavorite,
-    //       isPrivate: values.isPrivate,
-    //     },
-    //   })
-    // );
-    console.log('onChangeBoard');
-
-    // const { requestStatus } = res.meta;
-    // if (requestStatus === RequestStatus.FULFILLED) {
-    //   api.success({ message: MeSettingsContent.SETTINGS_SAVED });
-    // }
-    // if (requestStatus === RequestStatus.REJECTED) {
-    //   api.error({ message: MeSettingsContent.SETTINGS_ERROR });
-    // }
+  const onDeleteBoard = async (boardId: DeleteBoard) => {
+    await dispatch(boardThunks.deleteBoard(boardId));
+    $board.refetch();
+    console.log(`delete ${userBoard.id}`);
+  };
+  const deleteBoard = () => {
+    console.log('board delete', userBoard.id);
+    onDeleteBoard({ boardId: userBoard.id });
+    navigate(routerPaths.workspaces(userBoard.workspace.id));
   };
 
   return (
@@ -113,6 +102,7 @@ const BoardsHeader: React.FC = () => {
                 items={boardHeaderItems}
                 // theme='dark'
               />
+              <Button onClick={deleteBoard}>DELETE</Button>
               <Avatar.Group
                 maxCount={2}
                 maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
@@ -134,5 +124,4 @@ const BoardsHeader: React.FC = () => {
     </>
   );
 };
-
 export default BoardsHeader;
