@@ -205,7 +205,7 @@ class Api {
   }
   updateList(list: ListPostInterface) {
     const listUpdate = instance
-      .put('lists', {
+      .put('lists/', {
         data: {
           name: list.data.name,
           //description: list.data.description,
