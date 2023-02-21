@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { workspaceActions } from ".";
 import { AppState, useAppDispatch } from "..";
 import { UNSELECTED_INDEX } from "../../helpers/etc";
 import { FetchState, getFetchStatuses } from "../../helpers/fetch-state";
@@ -36,7 +38,19 @@ export const useCurrentWorkspace = () => {
   return workspace;
 };
 
+export const useWorkspaceIdParams = () => {
+  const dispatch = useAppDispatch();
+  const params = useParams();
+
+  useEffect(() => {
+    dispatch(workspaceActions.setId(
+      parseInt(params.id!)
+    ));
+  }, [dispatch, params.id]);
+};
+
 export const useWorkspace = () => {
+  useWorkspaceIdParams();
   const dispatch = useAppDispatch();
   const fetchState = useSelector((state: AppState) => state.workspace.fetchState);
   const workspaceId = useSelector((state: AppState) => state.workspace.id);

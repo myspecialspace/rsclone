@@ -3,33 +3,26 @@ import { WorkspaceContent } from '../../components/Constants/constant';
 import { UserAddOutlined } from '@ant-design/icons';
 import { Button, Input, Modal, Space, Spin } from 'antd';
 import { useWorkspace } from '../../store/workspace/hooks';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Member from './Member';
 import Board from './Board';
-import { useEffect, useState } from 'react';
-import { AppState, useAppDispatch } from '../../store';
+import { useState } from 'react';
+import { useAppDispatch } from '../../store';
 import { fetchCreateBoard } from '../../store/workspace/thunks';
 import classNames from 'classnames';
 import { BOARD_BG_COLOR } from '../../helpers/defaults';
 import * as routerPaths from '../../router/paths';
-import { workspaceActions } from '../../store/workspace';
 import { useSelector } from 'react-redux';
+import { authSelectors } from '../../store/auth/selectors';
 
 export default function WorkspacePage() {
   const dispatch = useAppDispatch();
-  const params = useParams();
   const $workspace = useWorkspace();
   const workspace = $workspace.data;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [boardName, setBoardName] = useState('');
   const [boardBgColor, setBoardBgColor] = useState(BOARD_BG_COLOR);
-  const userId = useSelector((state: AppState) => state.auth.userId);
-
-  useEffect(() => {
-    dispatch(workspaceActions.setId(
-      parseInt(params.id!)
-    ));
-  }, [dispatch, params.id]);
+  const userId = useSelector(authSelectors.userId);
 
   if ($workspace.isPending || $workspace.isInitial || !workspace) {
     return <Spin />;
@@ -67,7 +60,7 @@ export default function WorkspacePage() {
           <h2 className={styles.title}>{WorkspaceContent.BOARDS_TITLE}</h2>
           <div className={styles.boards}>
             <div className={classNames(styles.board, styles.create)} onClick={() => setIsModalOpen(true)}>{WorkspaceContent.BOARD_CREATE}</div>
-            {workspace.boards.map((board) => <Link to={routerPaths.boards(board.id)} key={board.id}><Board board={board} className={styles.board} /></Link>)}
+            {workspace.boards.map((board) => <Link to={routerPaths.workspaceBoard(workspace.id, board.id)} key={board.id}><Board board={board} className={styles.board} /></Link>)}
             <Modal title={WorkspaceContent.BOARD_CREATE} open={isModalOpen} onOk={onCreateBoard} onCancel={() => setIsModalOpen(false)}>
               <Input
                 placeholder={WorkspaceContent.BOARD_NAME}

@@ -1,0 +1,19 @@
+.title {
+  font-size: 18px;
+}
+
+.memberTiles {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+}
+
+.memberTile {
+  width: 25%;
+
+  & .body {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+}

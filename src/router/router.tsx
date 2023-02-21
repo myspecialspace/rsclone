@@ -10,6 +10,10 @@ import MeLayout from '../components/MeLayout/MeLayout';
 import BoardPage from '../pages/Board/Board';
 import { RoutePath } from './paths';
 import MeSettingsPage from '../pages/MeSettings/MeSettings';
+import { RouterId } from './ids';
+import { Redirect } from './Redirect';
+import WorkspaceMembersPage from '../pages/WorkspaceMembers/WorkspaceMembers';
+import WorkspaceSettingsPage from '../pages/WorkspaceSettings/WorkspaceSettings';
 
 export default createBrowserRouter([
   {
@@ -46,14 +50,30 @@ export default createBrowserRouter([
     children: [
       {
         path: `${RoutePath.WORKSPACES}/:id`,
+        element: <Redirect to={RoutePath.BOARDS} />,
+      },
+      {
+        path: `${RoutePath.WORKSPACES}/:id/${RoutePath.BOARDS}`,
         element: <WorkspacePage />,
+        id: RouterId.WORKSPACE_BOARDS,
       },
       {
-        path: `${RoutePath.BOARDS}/:id`,
+        path: `${RoutePath.WORKSPACES}/:id/${RoutePath.MEMBERS}`,
+        element: <WorkspaceMembersPage />,
+        id: RouterId.WORKSPACE_MEMBERS,
+      },
+      {
+        path: `${RoutePath.WORKSPACES}/:id/${RoutePath.SETTINGS}`,
+        element: <WorkspaceSettingsPage />,
+        id: RouterId.WORKSPACE_SETTINGS,
+      },
+      {
+        path: `${RoutePath.WORKSPACES}/:id/${RoutePath.BOARDS}/:id`,
         element: <BoardPage />,
+        id: RouterId.WORKSPACE_BOARD,
       },
       {
-        path: RoutePath.SETTINGS,
+        path: `${RoutePath.SETTINGS}`,
         element: <MeSettingsPage />,
       },
     ],
