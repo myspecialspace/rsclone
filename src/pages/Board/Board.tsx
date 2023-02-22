@@ -83,16 +83,14 @@ export default function BoardPage() {
   };
 
   const onUpdateList = async (data: UpdateData) => {
-    if(data.patch.name.length !== 0) {
+    if(data.name.length !== 0) {
       await dispatch(
         listsThunks.editList({
           listId: data.listId,
-          patch : {
-            name: data.patch.name,
-            description: '',
-            order: data.patch.order,
-            board: boardId,
-          }
+          name: data.name,
+          //description: '',
+          order: data.order,
+          board: boardId,
         })
       );
 
