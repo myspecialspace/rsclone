@@ -203,9 +203,9 @@ class Api {
 
     return listCreate;
   }
-  updateList(list: ListPostInterface) {
+  /*updateList(list: ListPostInterface) {
     const listUpdate = instance
-      .put('lists/', {
+      .put('lists', {
         data: {
           name: list.data.name,
           //description: list.data.description,
@@ -217,7 +217,7 @@ class Api {
         return data.data;
       });
     return listUpdate;
-  }
+  }*/
 
 }
 

@@ -24,7 +24,12 @@ export interface List extends TAttrsBase {
 export interface EditListInterface {
   listId: number;
   name: string;
-  //description: string;
+  description: string;
   order: number;
   board: number
+}
+
+export interface EditListOrderInterface {
+  listId: number;
+  order: number;
 }

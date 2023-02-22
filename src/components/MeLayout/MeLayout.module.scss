@@ -23,6 +23,7 @@
 .wrapper {
   height: calc(100% - 50px);
   display: flex;
+  overflow-x: hidden;
 }
 
 .rightside {
