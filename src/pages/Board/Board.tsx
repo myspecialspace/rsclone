@@ -121,12 +121,12 @@ export default function BoardPage() {
   }
 
 
-  const sortLists = (a: any, b: any): any => {
-    console.log(a.order, b.order)
+  //const sortLists = (a: any, b: any): any => {
+  //  console.log(a.order, b.order)
     //if (a.order === b.order) return 0;
     //if (a.order > b.order) return 1;
     //if (a.order < b.order) return -1;
-  }
+  //}
 
   //console.log(lists[0].order, lists[1].order)
   
