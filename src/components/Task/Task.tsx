@@ -37,9 +37,10 @@ export default function Task({ task }: TaskProps) {
         </div>
       </Card>
       <Modal open={isModalOpen} /*onOk={onCreate}*/ onCancel={() => setIsModalOpen(false)}>
-      <Input className={styles.change}
+      <TextArea className={styles.change}
             onChange={handleOnChange}
             autoFocus
+            autoSize
             placeholder="card title"
             value={taskName}
             //onBlur={handleOnBlur}
