@@ -1,7 +1,7 @@
 import Card from 'antd/es/card/Card';
 import styles from './Task.module.scss';
 import { Task as ITask } from '../../types/task';
-import { Button, Typography, Modal, Input } from 'antd';
+import { Button, Typography, Modal } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
