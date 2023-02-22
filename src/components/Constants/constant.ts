@@ -137,7 +137,14 @@ enum BoardContentRu {
   ADD_LIST = 'Добавить список',
   ADD_LIST_TEXT = 'Добавьте еще одну колонку',
   INPUT_TITLE = 'Ввести заголовок для этой карточки',
-  INPUT_LIST_NAME = 'Ввести заголовок списка'
+  INPUT_LIST_NAME = 'Ввести заголовок списка',
+  UPDATE_BOARD_NAME = 'Изменить название доски',
+  BOARD_SETTING = 'Настройки доски',
+  UPDATE_BOARD_SETTING = 'Настройки',
+  BOARD_TITLE = 'Доска:  ',
+  BOARD_INVITE = 'Пригласить участников доски',
+  DELETE_BOARD_NAME = 'Удалить доску',
+  MEMBERS_TITLE = 'Пользователи',
 }
 
 enum BoardContentEn {
@@ -145,10 +152,25 @@ enum BoardContentEn {
   ADD_LIST = 'Add a list',
   ADD_LIST_TEXT = 'Add a list',
   INPUT_TITLE = 'Enter a title of this card',
-  INPUT_LIST_NAME = 'Enter a title of this list'
+  INPUT_LIST_NAME = 'Enter a title of this list',
+  UPDATE_BOARD_NAME = 'Settings name Board ',
+  BOARD_SETTING = 'Settings Board',
+  UPDATE_BOARD_SETTING = 'Settings',
+  BOARD_TITLE = 'Board: ',
+  BOARD_INVITE = 'Invite Board members',
+  DELETE_BOARD_NAME = 'Delete Board',
+  MEMBERS_TITLE = 'Members',
 }
 
-console.log(BoardContentEn, MenuContentEn, WorkspaceContentEn, LoginPageContentEN, MainPageContentEn, SignUpPageContentEn, MeSettingsContentEn);
+console.log(
+  BoardContentEn,
+  MenuContentEn,
+  WorkspaceContentEn,
+  LoginPageContentEN,
+  MainPageContentEn,
+  SignUpPageContentEn,
+  MeSettingsContentEn
+);
 
 export const mainPageContent = MainPageContentRu;
 export const MenuContent = MenuContentRu;
