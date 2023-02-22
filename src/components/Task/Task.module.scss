@@ -1,7 +1,33 @@
 @import '../../styles/index';
 
 .task {
+  max-width: 260px;
   background-color: $color-light;
   box-shadow: 0px 4px 6px rgba(50, 49, 50, 0.08);
   margin-bottom: 10px;
+}
+
+.task__content {
+  max-width: 260px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.button_edit {
+  border: none;
+}
+
+.title {
+  width: 230px;
+}
+
+.ico {
+  width: '10px';
+  height: '10px';
+  color: $color-grey;
+  cursor: pointer;
+  &:hover {
+    color: $color-button-hover;
+  }
 }
