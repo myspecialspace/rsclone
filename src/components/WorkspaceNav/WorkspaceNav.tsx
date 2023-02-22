@@ -28,7 +28,7 @@ export function WorkspaceNav({ className }: WorkspaceNavProps) {
   const $workspace = useWorkspace();
   const boards = $workspace.data?.boards || [];
   const [openKeys, setOpenKeys] = useState(Object.values(MenuKeys) as string[]);
-  console.log('matches', matches);
+  //console.log('matches', matches);
   const routeIdMatch = matches[matches.length - 1];
   const activeRouteId = routeIdMatch.id === RouterId.WORKSPACE_BOARD
     ? getBoardKey(routeIdMatch.params.id!)

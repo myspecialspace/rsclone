@@ -29,10 +29,10 @@ export default function BoardPage() {
   const lists = board?.lists || [];
 
   useEffect(() => {
-    const boardId = parseInt(params.id!);
+    const boardId = parseInt(params.boardId!);
     dispatch(listsActions.setBoardId(boardId));
     dispatch(boardActions.setId(boardId));
-  }, [dispatch, params.id]);
+  }, [dispatch, params.boardId]);
 
   useEffect(() => {
     if (board?.workspace?.id) {
@@ -51,13 +51,13 @@ export default function BoardPage() {
   }
 
   const onCreateList = async (data: SubmitData) => {
-    if(data.name.length !== 0) {
+    if (data.name.length !== 0) {
       await dispatch(
         listsThunks.fetchCreate({
           board: boardId,
           description: '',
           name: data.name,
-          order: lists.length + 1  || 1,
+          order: lists.length + 1 || 1,
           owner: userId,
         })
       );
@@ -67,7 +67,7 @@ export default function BoardPage() {
   };
 
   const onCreateTask = async (data: SubmitData) => {
-    if(data.name.length !== 0) {
+    if (data.name.length !== 0) {
       await dispatch(
         taskThunks.fetchCreate({
           board: boardId,
@@ -84,7 +84,7 @@ export default function BoardPage() {
   };
 
   const onUpdateList = async (data: UpdateData) => {
-    if(data.name.length !== 0) {
+    if (data.name.length !== 0) {
       await dispatch(
         listsThunks.editList({
           listId: data.listId,
@@ -98,7 +98,7 @@ export default function BoardPage() {
     }
   };
 
-  const onNewOrderUpdate =async (data: orderUpdate) => {
+  const onNewOrderUpdate = async (data: orderUpdate) => {
     await dispatch(
       listsThunks.editListOrder({
         listId: data.listId,
@@ -109,7 +109,7 @@ export default function BoardPage() {
     $board.refetch();
   }
 
-  const onCurrentOrderUpdate =async (data: orderUpdate) => {
+  const onCurrentOrderUpdate = async (data: orderUpdate) => {
     await dispatch(
       listsThunks.editListOrder({
         listId: data.listId,
@@ -123,13 +123,13 @@ export default function BoardPage() {
 
   //const sortLists = (a: any, b: any): any => {
   //  console.log(a.order, b.order)
-    //if (a.order === b.order) return 0;
-    //if (a.order > b.order) return 1;
-    //if (a.order < b.order) return -1;
+  //if (a.order === b.order) return 0;
+  //if (a.order > b.order) return 1;
+  //if (a.order < b.order) return -1;
   //}
 
   //console.log(lists[0].order, lists[1].order)
-  
+
   //const listsSorted = (lists.length > 1) ? lists.sort(sortLists) : lists;
 
   //console.log(lists)

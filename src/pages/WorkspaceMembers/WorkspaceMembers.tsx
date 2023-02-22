@@ -18,7 +18,7 @@ export default function WorkspaceMembersPage() {
   const $workspace = useWorkspace();
   const members = $workspace.data?.members || [];
 
-  return <div>
+  return <div className={styles.workspaceMembers}>
     <div className={styles.title}>Добавить пользователя в пространство:</div>
     <Select
       showSearch
