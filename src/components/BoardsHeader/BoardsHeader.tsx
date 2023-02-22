@@ -18,7 +18,7 @@ import Member from '../../pages/Workspace/Member';
 import { AppState, useAppDispatch } from '../../store';
 import { useSelector } from 'react-redux';
 import { BoardContent } from '../Constants/constant';
-import { DeleteBoard, UpdateData } from '../../store/board/types';
+import { DeleteBoard } from '../../store/board/types';
 import { useBoard } from '../../store/board/hooks';
 import * as boardThunks from '../../store/board/thunks';
 import { useNavigate } from 'react-router-dom';
