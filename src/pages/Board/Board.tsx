@@ -16,6 +16,7 @@ import BoardsHeader from '../../components/BoardsHeader/BoardsHeader';
 import { useBoard } from '../../store/board/hooks';
 import { workspaceActions } from '../../store/workspace';
 import { UpdateData } from '../../components/List/Title';
+import { orderUpdate } from '../../components/List/types';
 
 export default function BoardPage() {
   const params = useParams();
@@ -88,15 +89,52 @@ export default function BoardPage() {
         listsThunks.editList({
           listId: data.listId,
           name: data.name,
-          //description: '',
+          description: 'updated',
           order: data.order,
           board: boardId,
         })
       );
-        console.log(data);
       $board.refetch();
     }
   };
+
+  const onNewOrderUpdate =async (data: orderUpdate) => {
+    await dispatch(
+      listsThunks.editListOrder({
+        listId: data.listId,
+        order: data.order,
+      })
+    );
+    console.log(data)
+    $board.refetch();
+  }
+
+  const onCurrentOrderUpdate =async (data: orderUpdate) => {
+    await dispatch(
+      listsThunks.editListOrder({
+        listId: data.listId,
+        order: data.order,
+      })
+    );
+    console.log(data)
+    $board.refetch();
+  }
+
+
+  const sortLists = (a: any, b: any): any => {
+    console.log(a.order, b.order)
+    //if (a.order === b.order) return 0;
+    //if (a.order > b.order) return 1;
+    //if (a.order < b.order) return -1;
+  }
+
+  //console.log(lists[0].order, lists[1].order)
+  
+  //const listsSorted = (lists.length > 1) ? lists.sort(sortLists) : lists;
+
+  //console.log(lists)
+  //const listsSorted = lists
+  //console.log(listsSorted.length)
 
   return (
     <>
@@ -111,6 +149,8 @@ export default function BoardPage() {
                   tasks={list.tasks}
                   onCreateTask={onCreateTask}
                   onUpdateList={onUpdateList}
+                  onNewOrderUpdate={onNewOrderUpdate}
+                  onCurrentOrderUpdate={onCurrentOrderUpdate}
                 />
               </div>
             );
