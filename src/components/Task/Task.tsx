@@ -5,6 +5,9 @@ import { Button, Typography, Modal } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
+import { useAppDispatch } from '../../store';
+import { useBoard } from '../../store/board/hooks';
+import * as taskThunks from '../../store/tasks/thunks';
 
 interface TaskProps {
   task: ITask;
@@ -12,14 +15,33 @@ interface TaskProps {
 }
 
 export default function Task({ task }: TaskProps) {
+  const dispatch = useAppDispatch();
+  const $board = useBoard();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [taskBgColor, setTaskBgColor] = useState('#ffffff');
+  const [taskBgColor, setTaskBgColor] = useState(task.backgroundColor);
   const [taskName, setTaskName] = useState(task.name);
+  const [description, setDescription] = useState(task.description);
 
   const handleOnChange = (e: React.ChangeEvent) => {
     setTaskName((e.target as HTMLInputElement).value);
     console.log('task name', taskName)
   }
+
+  const onUpdateTask = async () => {
+    console.log(' update task ', { taskName, description, taskBgColor });
+
+    await dispatch(
+      taskThunks.editTask({
+        taskId: task.id,
+        name: taskName,
+        description: description,
+        backgroundColor: taskBgColor,
+    }));
+
+    $board.refetch();
+    setIsModalOpen(false);
+  };
+
 
   return (
     <div>
@@ -30,13 +52,14 @@ export default function Task({ task }: TaskProps) {
         onDragOver={(e) => dragOverHandler(e)}
         onDrop={(e) => dropHandler(e, task)}*/
         draggable={true}
-        className={styles.task}>
+        className={styles.task}
+        style={{ backgroundColor: task.backgroundColor}}>
         <div className={styles.task__content}>
           <Typography className={styles.title}>{task.name}</Typography>
-          <Button className={styles.button_edit} icon={<EditOutlined className={styles.ico} onClick={() => setIsModalOpen(true)}/>}></Button>
+          <Button className={styles.button_edit} style={{ backgroundColor: task.backgroundColor}} icon={<EditOutlined className={styles.ico} onClick={() => setIsModalOpen(true)}/>}></Button>
         </div>
       </Card>
-      <Modal open={isModalOpen} /*onOk={onCreate}*/ onCancel={() => setIsModalOpen(false)}>
+      <Modal open={isModalOpen} onOk={onUpdateTask} onCancel={() => setIsModalOpen(false)}>
       <TextArea className={styles.change}
             onChange={handleOnChange}
             autoFocus
@@ -48,10 +71,10 @@ export default function Task({ task }: TaskProps) {
         <div>Описание</div>
         <TextArea
           placeholder="Добавить более подробное описание"
-          value=""
+          value={description}
           autoSize
           autoFocus
-          /*onChange={(e) => setDescription(e.target.value)}*/
+          onChange={(e) => setDescription(e.target.value)}
         />
         <div>Выбрать цвет обложки</div>
         <input type="color" value={taskBgColor} onChange={(e) => setTaskBgColor(e.target.value)} />
