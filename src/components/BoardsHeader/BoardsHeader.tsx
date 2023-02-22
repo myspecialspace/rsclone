@@ -1,94 +1,161 @@
 import { useState } from 'react';
-import {
-  StarOutlined,
-  EditOutlined,
-  LockOutlined,
-  UnlockOutlined,
-} from '@ant-design/icons';
+import { StarOutlined, LockOutlined, SettingOutlined } from '@ant-design/icons';
 import styles from './BoardsHeader.module.scss';
-import type { MenuProps } from 'antd';
-import { Menu, Avatar, Tooltip } from 'antd';
+import {
+  Button,
+  MenuProps,
+  Menu,
+  Avatar,
+  Tooltip,
+  Input,
+  Space,
+  Dropdown,
+  Modal,
+  Form,
+  Checkbox,
+} from 'antd';
 import Member from '../../pages/Workspace/Member';
-import { AppState } from '../../store';
+import { AppState, useAppDispatch } from '../../store';
 import { useSelector } from 'react-redux';
-import { WorkspaceContent } from '../Constants/constant';
-
-const items: MenuProps['items'] = [
-  {
-    label: 'Name Board',
-    key: 'board',
-    icon: <EditOutlined />,
-  },
-  {
-    label: 'Featured boards',
-    key: 'featured',
-    icon: <StarOutlined />,
-  },
-  {
-    label: 'Visibility ',
-    key: 'Visibility',
-    children: [
-      {
-        label: 'Private',
-        icon: <LockOutlined />,
-        key: 'Private',
-      },
-      {
-        label: 'Public',
-        icon: <UnlockOutlined />,
-        key: 'Public',
-      },
-    ],
-  },
-];
+import { BoardContent } from '../Constants/constant';
+import { DeleteBoard } from '../../store/board/types';
+import { useBoard } from '../../store/board/hooks';
+import * as boardThunks from '../../store/board/thunks';
+import { useNavigate } from 'react-router-dom';
+import * as routerPaths from '../../router/paths';
 
 const BoardsHeader: React.FC = () => {
-  const [current, setCurrent] = useState('mail');
-  const id: string | null = localStorage.getItem('userId'); // TODO from state.auth.userId
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [boardName, setBoardName] = useState('');
+  console.log(boardName);
+  const dispatch = useAppDispatch();
+  //   const userId = useSelector((state: AppState) => state.auth.userId);
+  const $board = useBoard();
+  const navigate = useNavigate();
+  const userBoard = useSelector((state: AppState) => state.board.board || []);
+  //   console.log(userBoard);
 
-  const userMembers = useSelector(
-    (state: AppState) => state.board.board.members || []
-  );
-  const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
-    console.log(id);
-    setCurrent(e.key);
+  const boardHeaderItems: MenuProps['items'] = [
+    {
+      label: `${BoardContent.BOARD_TITLE}${userBoard.name}`,
+      key: 'board',
+      //   icon: <EditOutlined />,
+    },
+    {
+      //   label: 'Favorite boards',
+      label: userBoard.isFavorite,
+      key: 'favorite',
+      icon: <StarOutlined />,
+    },
+    {
+      label: userBoard.isPrivate,
+      //   label: 'Private',
+      icon: <LockOutlined />,
+      key: 'private',
+    },
+  ];
+
+  const upDateBoard = () => {
+    console.log('open setting');
   };
-  //   console.log(userMembers);
+  const onDeleteBoard = async (boardId: DeleteBoard) => {
+    await dispatch(boardThunks.deleteBoard(boardId));
+    $board.refetch();
+  };
+  const deleteBoard = () => {
+    onDeleteBoard({ boardId: userBoard.id });
+    navigate(routerPaths.workspaces(userBoard.workspace.id));
+  };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <Button onClick={() => setIsModalOpen(true)}>
+          {BoardContent.BOARD_SETTING}
+        </Button>
+      ),
+    },
 
+    {
+      key: '2',
+      label: (
+        <Button onClick={deleteBoard}>{BoardContent.DELETE_BOARD_NAME}</Button>
+      ),
+    },
+  ];
+  const onFinish = (data: any) => {
+    console.log('Success:', data);
+  };
   return (
     <>
-      <div className='boards-page__wrapper'>
-        <div className='boards'>
-          <div className='boards__content'>
-            <div className={styles.wrapper}>
-              <Menu
-                onClick={onClick}
-                selectedKeys={[current]}
-                mode='horizontal'
-                items={items}
-                // theme='dark'
-              />
-              <Avatar.Group
-                maxCount={2}
-                maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+      <div className={styles.inner}>
+        <Menu
+          style={{
+            minWidth: 'max-content',
+            borderBottom: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '250px',
+            borderRadius: '10px',
+          }}
+          mode='horizontal'
+          items={boardHeaderItems}
+        />
+        <Space>
+          <Dropdown menu={{ items }}>
+            <Space>
+              <SettingOutlined />
+            </Space>
+          </Dropdown>
+          <Avatar.Group
+            maxCount={2}
+            maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+          >
+            {userBoard.members.map((member) => (
+              <Tooltip
+                key={member.id}
+                title={BoardContent.MEMBERS_TITLE}
+                placement='top'
               >
-                {userMembers.map((member) => (
-                  <Tooltip
-                    key={member.id}
-                    title={WorkspaceContent.MEMBERS_TITLE}
-                    placement='top'
-                  >
-                    <Member member={member} />
-                  </Tooltip>
-                ))}
-              </Avatar.Group>
-            </div>
-          </div>
-        </div>
+                <Member member={member} />
+              </Tooltip>
+            ))}
+          </Avatar.Group>
+        </Space>
+
+        <Modal
+          title={BoardContent.UPDATE_BOARD_SETTING}
+          open={isModalOpen}
+          onOk={upDateBoard}
+          onCancel={() => setIsModalOpen(false)}
+          okText='сохранить'
+        >
+          <Form name='boardUpdate' onFinish={onFinish}>
+            <Form.Item label={BoardContent.BOARD_TITLE} name='boardName'>
+              <Input
+                placeholder={BoardContent.UPDATE_BOARD_NAME}
+                onChange={(e) => setBoardName(e.target.value)}
+              />
+            </Form.Item>
+            <Form.Item
+              name='favorite'
+              valuePropName='checked'
+              wrapperCol={{ offset: 8, span: 16 }}
+            >
+              <Checkbox>Избранное</Checkbox>
+            </Form.Item>
+            <Form.Item
+              name='private'
+              valuePropName='checked'
+              wrapperCol={{ offset: 8, span: 16 }}
+            >
+              <Checkbox>Закрытая</Checkbox>
+            </Form.Item>
+          </Form>
+        </Modal>
       </div>
     </>
   );
 };
-
 export default BoardsHeader;

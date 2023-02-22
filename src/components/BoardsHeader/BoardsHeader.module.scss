@@ -1,70 +1,10 @@
 @import '../../styles/index';
-.wrapper {
-  display: grid;
-  grid-template-columns: 1fr 150px;
-  justify-content: space-between;
-  align-items: center;
-}
-.boards-page {
-  &__wrapper {
-    background-color: $color-grey;
-  }
-}
-.boards {
-  &__content {
-    display: grid;
-  }
 
-  &__header {
-  }
-}
-.header-boards {
-  max-height: 200px;
+.inner {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  &__button {
-    display: flex;
-    gap: 5px;
-    position: relative;
-  }
-
-  &__name {
-  }
-
-  &__input {
-    display: none;
-    position: absolute;
-  }
-  &__input._active {
-    display: block;
-  }
-
-  &__user {
-  }
-
-  &__body {
-    height: 550px;
-    background-color: $color-login-button;
-  }
+  //   justify-content: start;
+  //   align-items: center;
+  gap: 25px;
 }
-.user {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  justify-content: center;
-  &__avatar {
-    border-radius: 50%;
-    width: 100%;
-    max-width: 50px;
-    max-height: 50px;
-  }
-  &__name {
-    color: $color-light;
-    font-size: 16px;
-    &.hide {
-      color: rebeccapurple;
-    }
-  }
-}
+// .content {
+// }
