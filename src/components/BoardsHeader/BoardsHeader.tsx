@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import {
-  StarOutlined,
-  EditOutlined,
-  LockOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
+import { StarOutlined, LockOutlined, SettingOutlined } from '@ant-design/icons';
 import styles from './BoardsHeader.module.scss';
 import {
   Button,
@@ -32,6 +27,7 @@ import * as routerPaths from '../../router/paths';
 const BoardsHeader: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [boardName, setBoardName] = useState('');
+  console.log(boardName);
   const dispatch = useAppDispatch();
   //   const userId = useSelector((state: AppState) => state.auth.userId);
   const $board = useBoard();
@@ -59,22 +55,8 @@ const BoardsHeader: React.FC = () => {
     },
   ];
 
-  const onUpDateBoard = async (data: UpdateData) => {
-    await dispatch(
-      boardThunks.updateBoard({
-        name: data.name,
-        boardId: data.boardId,
-        // description: '',
-        // isClosed: false,
-        isFavorite: true,
-        isPrivate: true,
-      })
-    );
-    $board.refetch();
-  };
   const upDateBoard = () => {
     console.log('open setting');
-    // onUpDateBoard({})
   };
   const onDeleteBoard = async (boardId: DeleteBoard) => {
     await dispatch(boardThunks.deleteBoard(boardId));
