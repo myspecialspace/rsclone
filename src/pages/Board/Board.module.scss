@@ -1,7 +1,7 @@
 @import '../../styles/index';
 
 .container {
-  width: 100%;
+  width: calc(100% - 256px); //calculate
   height: 92%;
   //padding-left: 40px;
   //padding-top: 30px;
