@@ -60,7 +60,7 @@ export default function BoardPage() {
           owner: userId,
         })
       );
-  
+
       $board.refetch();
     }
   };
@@ -77,7 +77,7 @@ export default function BoardPage() {
           owner: userId,
         })
       );
-  
+
       $board.refetch();
     }
   };
@@ -93,7 +93,7 @@ export default function BoardPage() {
           board: boardId,
         })
       );
-        console.log(data);
+
       $board.refetch();
     }
   };
