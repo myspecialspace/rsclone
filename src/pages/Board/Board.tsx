@@ -137,8 +137,7 @@ export default function BoardPage() {
   //console.log(listsSorted.length)
 
   return (
-    <>
-      <div className={styles.container}>
+      <div className={styles.container} id="container">
         <BoardsHeader />
         <div className={styles.list__container}>
           {lists.map((list) => {
@@ -161,6 +160,5 @@ export default function BoardPage() {
           ></InputContainer>
         </div>
       </div>
-    </>
   );
 }
