@@ -25,9 +25,30 @@ export default function List({ list, tasks, onCreateTask, onUpdateList }: ListPr
     }
   };
 
+  function dragStartHandler(e: React.DragEvent<HTMLDivElement>, list: IList) {
+    console.log(`drag`, list)
+  }
+
+  function dragOverHandler(e: React.DragEvent<HTMLDivElement>, list: IList) {
+    e.preventDefault();
+    console.log(`drag`, list)
+  }
+
+  function dropHandler(e: React.DragEvent<HTMLDivElement>, list: IList) {
+    e.preventDefault();
+    console.log(`drag`, list)
+  }
+
   return (
     <div>
-      <Card className={styles.list}>
+      <Card
+        onDragStart={(e) => dragStartHandler(e, list)}
+        onDragLeave={(e) => dragStartHandler(e, list)}
+        onDragEnd={(e) => dragStartHandler(e, list)}
+        onDragOver={(e) => dragOverHandler(e, list)}
+        onDrop={(e) => dropHandler(e, list)}
+        draggable={true}
+        className={styles.list}>
         <Title title={list.name} list={list} listId={list.id} onSubmitUpdate={onSubmitUpdate}></Title>
         {tasks.map((task) => (<Task key={task.id} task={task} listId={list.id} />))}
         <InputContainer type='task' list={list} onCreateTask={onCreateTask} />
