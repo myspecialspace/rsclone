@@ -31,3 +31,13 @@
     color: $color-button-hover;
   }
 }
+
+.change {
+  border: 1px solid #ffffff;
+  margin: 20px 0;
+  @extend %font-logo;
+  @include font($size: 2rem, $height: 2rem, $weight: 500);
+  &:focus {
+    border: 1px solid $color-light-grey;
+  }
+}
