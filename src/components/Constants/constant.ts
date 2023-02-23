@@ -84,7 +84,7 @@ enum WorkspaceContentRu {
   BOARD_CREATE = 'Создать доску',
   BOARD_COLOR = 'Цвет доски',
   WORKSPACE_ERROR = 'Ошибка',
-  WORKSPACE_INVITE = 'Пригласить участников рабочего пространства',
+  WORKSPACE_INVITE = 'Пригласить в воркспейс',
   CREATE = 'Создать',
   WORKSPACE_TITLES = 'Рабочие пространства',
   WORKSPACE_CURRENT = 'Текущее',
@@ -138,13 +138,6 @@ enum BoardContentRu {
   ADD_LIST_TEXT = 'Добавьте еще одну колонку',
   INPUT_TITLE = 'Ввести заголовок для этой карточки',
   INPUT_LIST_NAME = 'Ввести заголовок списка',
-  UPDATE_BOARD_NAME = 'Изменить название доски',
-  BOARD_SETTING = 'Настройки доски',
-  UPDATE_BOARD_SETTING = 'Настройки',
-  BOARD_TITLE = 'Доска:  ',
-  BOARD_INVITE = 'Пригласить участников доски',
-  DELETE_BOARD_NAME = 'Удалить доску',
-  MEMBERS_TITLE = 'Пользователи',
 }
 
 enum BoardContentEn {
@@ -153,6 +146,23 @@ enum BoardContentEn {
   ADD_LIST_TEXT = 'Add a list',
   INPUT_TITLE = 'Enter a title of this card',
   INPUT_LIST_NAME = 'Enter a title of this list',
+}
+enum BoardHeaderContentRu {
+  UPDATE_BOARD_NAME = 'Изменить название доски',
+  BOARD_SETTING = 'Настройки доски',
+  UPDATE_BOARD_SETTING = 'Настройки',
+  BOARD_TITLE = 'Доска:  ',
+  BOARD_INVITE = 'Пригласить участников',
+  DELETE_BOARD_NAME = 'Удалить доску',
+  MEMBERS_TITLE = 'Пользователи',
+  BUTTON_OK = 'Сохранить',
+  BUTTON_NO = 'Отмена',
+  CHECK_FAVORITE = 'избранная',
+  CHECK_PRIVATE = 'личная',
+  CHECK_CLOSE = 'закрыть',
+  BOARD_DESCRIPTION = 'Описание: ',
+}
+enum BoardHeaderContentEn {
   UPDATE_BOARD_NAME = 'Settings name Board ',
   BOARD_SETTING = 'Settings Board',
   UPDATE_BOARD_SETTING = 'Settings',
@@ -160,6 +170,12 @@ enum BoardContentEn {
   BOARD_INVITE = 'Invite Board members',
   DELETE_BOARD_NAME = 'Delete Board',
   MEMBERS_TITLE = 'Members',
+  BUTTON_OK = 'Save',
+  BUTTON_NO = 'Cancel',
+  CHECK_FAVORITE = 'favorite',
+  CHECK_PRIVATE = 'private',
+  CHECK_CLOSE = 'close board',
+  BOARD_DESCRIPTION = 'description: ',
 }
 
 enum CardEditRu {
@@ -178,7 +194,8 @@ console.log(
   LoginPageContentEN,
   MainPageContentEn,
   SignUpPageContentEn,
-  MeSettingsContentEn
+  MeSettingsContentEn,
+  BoardHeaderContentEn
 );
 
 export const mainPageContent = MainPageContentRu;
@@ -188,3 +205,5 @@ export const WorkspaceContent = WorkspaceContentRu;
 export const BoardContent = BoardContentRu;
 export const MeSettingsContent = MeSettingsContentRu;
 export const CardEdit = CardEditRu;
+export const BoardHeaderContent = BoardHeaderContentRu;
+

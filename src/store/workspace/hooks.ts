@@ -44,9 +44,9 @@ export const useWorkspaceIdParams = () => {
 
   useEffect(() => {
     dispatch(workspaceActions.setId(
-      parseInt(params.id!)
+      parseInt(params.workspaceId!)
     ));
-  }, [dispatch, params.id]);
+  }, [dispatch, params.workspaceId]);
 };
 
 export const useWorkspace = () => {
