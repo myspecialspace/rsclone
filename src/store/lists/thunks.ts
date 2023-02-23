@@ -51,10 +51,10 @@ export const editList = createAsyncThunk<List, EditListInterface>(
 );
 
 export const editListOrder = createAsyncThunk<List, EditListOrderInterface>(
-  "lists/update",
+  "lists/update/order",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await api.getInstance().put<strapi.SingleResponse<List>>(`lists/${data.listId}`, { data });
+      const response = await api.getInstance().put<strapi.SingleResponse<List>>(`lists/${data.listId}`, { data: data.patch });
       return getMappedResponse(response.data);
     } catch (error) {
       return rejectWithValue(error);

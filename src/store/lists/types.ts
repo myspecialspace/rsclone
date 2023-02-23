@@ -31,5 +31,7 @@ export interface EditListInterface {
 
 export interface EditListOrderInterface {
   listId: number;
-  order: number;
+  patch: {
+    order: number;
+  }
 }

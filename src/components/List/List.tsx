@@ -1,5 +1,5 @@
 import { Card } from 'antd';
-import { Title, UpdateData} from './Title';
+import { Title, UpdateData } from './Title';
 import styles from './List.module.scss';
 import Task from '../Task/Task';
 import InputContainer from '../input/Input-container';
@@ -7,6 +7,7 @@ import { List as IList } from '../../types/list';
 import { Task as ITask } from '../../types/task';
 import { SubmitData } from '../input/Input-data';
 import { useState } from 'react';
+import { OrderUpdateData } from './types';
 
 const TASK_COLOR = 'white';
 interface ListProps {
@@ -14,11 +15,13 @@ interface ListProps {
   tasks: ITask[];
   onCreateTask: (data: SubmitData) => any;
   onUpdateList: (data: UpdateData) => any;
-  onNewOrderUpdate: (data: any) => any;
-  onCurrentOrderUpdate: (data: any) => any;
+  // onNewOrderUpdate: (data: any) => any;
+  onCurrentOrderUpdate: (data: OrderUpdateData) => any;
 }
 
-export default function List({ list, tasks, onCreateTask, onUpdateList, onNewOrderUpdate, onCurrentOrderUpdate }: ListProps) {
+const DATA_KEY = 'fromListId';
+
+export default function List({ list, tasks, onCreateTask, onUpdateList, onCurrentOrderUpdate }: ListProps) {
 
   const onSubmitUpdate = (data: UpdateData) => {
     if (onUpdateList !== undefined) {
@@ -36,7 +39,8 @@ export default function List({ list, tasks, onCreateTask, onUpdateList, onNewOrd
   const dragStartHandler = (e: React.DragEvent<HTMLDivElement>, list: IList,) => {
     setCurrentList(list);
     setCurrentOrder(list.order);
-    console.log("порядок текущего листа", currentOrder, "list id ", currentList.id);
+    e.dataTransfer.setData(DATA_KEY, String(list.id));
+    // console.log("порядок текущего листа", currentOrder, "list id ", currentList.id);
   }
 
   function dragEndHandler(e: React.DragEvent<HTMLDivElement>) {
@@ -49,15 +53,16 @@ export default function List({ list, tasks, onCreateTask, onUpdateList, onNewOrd
   }
 
   const dropHandler = (e: React.DragEvent<HTMLDivElement>, list: IList) => {
+    const fromListId = parseInt(e.dataTransfer.getData(DATA_KEY));
     e.preventDefault();
     setNewList(list);
     setNewOrder(list.order);
-    console.log("новый порядок  лист", newOrder, 'id', currentList.id)
-    console.log('поменять текущий порядок на ', { listId: currentList.id, order: newOrder})
-    console.log('поменять новый порядок на ', { listId: newList.id, order: currentOrder})
-    
-    onNewOrderUpdate({ listId: currentList.id, order: newOrder});
-    onCurrentOrderUpdate({ listId: newList.id, order: currentOrder});
+    // console.log("новый порядок  лист", newOrder, 'id', currentList.id)
+    // console.log('поменять текущий порядок на ', { listId: currentList.id, order: newOrder})
+    // console.log('поменять новый порядок на ', { listId: newList.id, order: currentOrder})
+
+    // onNewOrderUpdate({ listId: currentList.id, order: newOrder });
+    onCurrentOrderUpdate({ fromListId, toListId: list.id });
   }
 
   return (

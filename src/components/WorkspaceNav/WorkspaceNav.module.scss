@@ -1,25 +1,5 @@
 @import '../../styles/index';
 
-.menu {
-  background-color: #516270;
-  color: #fff;
-
-  :global(.ant-menu-item-group-title) {
-    color: #fff;
-  }
-}
-
-.menu {
-  :global(.ant-menu-item:hover) {
-    color: #fff!important;
-  }
-}
-.menu {
-  :global(.ant-menu-title-content:hover) {
-    color: #fff!important;
-  }
-}
-
 .header {
   display: flex;
   align-items: center;

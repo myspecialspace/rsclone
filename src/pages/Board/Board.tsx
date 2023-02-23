@@ -16,7 +16,8 @@ import BoardsHeader from '../../components/BoardsHeader/BoardsHeader';
 import { useBoard } from '../../store/board/hooks';
 import { workspaceActions } from '../../store/workspace';
 import { UpdateData } from '../../components/List/Title';
-import { orderUpdate } from '../../components/List/types';
+import { OrderUpdateData } from '../../components/List/types';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 export default function BoardPage() {
   const params = useParams();
@@ -26,7 +27,9 @@ export default function BoardPage() {
   const dispatch = useAppDispatch();
 
   const board = $board?.data;
-  const lists = board?.lists || [];
+  const boardLists = board?.lists || [];
+
+  const lists = [...boardLists].sort((a, b) => a.order - b.order); // TODO sort by server api params
 
   useEffect(() => {
     const boardId = parseInt(params.boardId!);
@@ -98,67 +101,106 @@ export default function BoardPage() {
     }
   };
 
-  const onNewOrderUpdate = async (data: orderUpdate) => {
-    await dispatch(
-      listsThunks.editListOrder({
-        listId: data.listId,
-        order: data.order,
-      })
-    );
-    console.log(data)
+  // const onNewOrderUpdate = async (data: OrderUpdateData) => {
+  //   await dispatch(
+  //     listsThunks.editListOrder({
+  //       listId: data.listId,
+  //       patch: {
+  //         order: data.order,
+  //       }
+  //     })
+  //   );
+  //   console.log(data)
+  //   $board.refetch();
+  // }
+
+  const onCurrentOrderUpdate = async (data: OrderUpdateData) => {
+    console.log('onCurrentOrderUpdate', data);
+
+
+    // await dispatch(
+    //   listsThunks.editListOrder({
+    //     listId: data.listId,
+    //     patch: {
+    //       order: data.order,
+    //     }
+    //   })
+    // );
     $board.refetch();
   }
 
-  const onCurrentOrderUpdate = async (data: orderUpdate) => {
-    await dispatch(
-      listsThunks.editListOrder({
-        listId: data.listId,
-        order: data.order,
-      })
-    );
-    console.log(data)
-    $board.refetch();
-  }
 
+  const onDragEnd = (e: any) => {
+    console.log('onDragEnd', e);
+    // TODO send api for update lists orders
+  };
 
-  //const sortLists = (a: any, b: any): any => {
-  //  console.log(a.order, b.order)
-  //if (a.order === b.order) return 0;
-  //if (a.order > b.order) return 1;
-  //if (a.order < b.order) return -1;
-  //}
+  const getListStyle = (isDraggingOver: boolean) => ({
+    background: isDraggingOver ? 'lightblue' : 'lightgrey',
+    display: 'flex',
+    padding: 8,
+    overflow: 'auto',
+  });
 
-  //console.log(lists[0].order, lists[1].order)
+  const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
+    // some basic styles to make the items look a bit nicer
+    userSelect: 'none',
+    padding: 8 * 2,
+    margin: `0 ${8}px 0 0`,
 
-  //const listsSorted = (lists.length > 1) ? lists.sort(sortLists) : lists;
+    // change background colour if dragging
+    background: isDragging ? 'lightgreen' : 'grey',
 
-  //console.log(lists)
-  //const listsSorted = lists
-  //console.log(listsSorted.length)
+    // styles we need to apply on draggables
+    ...draggableStyle,
+  });
 
   return (
-      <div className={styles.container} id="container">
+    <>
+      <div className={styles.container}>
         <BoardsHeader />
-        <div className={styles.list__container}>
-          {lists.map((list) => {
-            return (
-              <div key={list.id}>
-                <List
-                  list={list}
-                  tasks={list.tasks}
-                  onCreateTask={onCreateTask}
-                  onUpdateList={onUpdateList}
-                  onNewOrderUpdate={onNewOrderUpdate}
-                  onCurrentOrderUpdate={onCurrentOrderUpdate}
-                />
+
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId={'board-' + board.id} direction="horizontal">
+            {(provided, snapshot) => (
+              <div
+                className={styles.list__container}
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {lists.map((list, index) => {
+                  return (
+                    <Draggable key={list.id} draggableId={String(list.id)} index={index}>
+                      {(provided2, snapshot2) => (
+                        <div
+                          ref={provided2.innerRef}
+                          {...provided2.draggableProps}
+                          {...provided2.dragHandleProps}
+                          style={getItemStyle(
+                            snapshot2.isDragging,
+                            provided2.draggableProps.style
+                          )}
+                        >
+                          <List
+                            list={list}
+                            tasks={list.tasks}
+                            onCreateTask={onCreateTask}
+                            onUpdateList={onUpdateList}
+                            // onNewOrderUpdate={onNewOrderUpdate}
+                            onCurrentOrderUpdate={onCurrentOrderUpdate}
+                          />
+                        </div>
+                      )}
+
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
               </div>
-            );
-          })}
-          <InputContainer
-            type='list'
-            onCreateList={onCreateList}
-          ></InputContainer>
-        </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
+    </>
   );
 }

@@ -13,7 +13,7 @@ import { WORKSPACE_BG_COLOR } from '../../helpers/defaults';
 import { fetchWorkspacesCreate } from '../../store/workspaces/thunks';
 import { MeSettingsContent, WorkspaceContent } from '../../components/Constants/constant';
 import { Workspace } from '../../store/workspaces/types';
-import { useCurrentWorkspace } from '../../store/workspace/hooks';
+import { useCurrentWorkspace, useCurrentWorkspaceId } from '../../store/workspace/hooks';
 import { useUser } from '../../store/auth/hooks';
 import { getBgColor, getFirstChar } from '../../helpers/user';
 import { MenuInfo } from 'rc-menu/lib/interface';
@@ -23,6 +23,7 @@ import { workspaceActions } from '../../store/workspace';
 export default function MeLayout() {
   const $user = useUser()
   const userId = useSelector((state: AppState) => state.auth.userId);
+  const workspaceId = useCurrentWorkspaceId();
   const $workspaces = useWorkspaces();
   const workspaces = $workspaces.data;
   const currentWorkspace = useCurrentWorkspace();
@@ -137,14 +138,16 @@ export default function MeLayout() {
       dispatch(workspaceActions.resetCurrentId());
       navigate(routerPaths.login());
       return;
-  }
+    }
   };
 
   return (
     <div className={styles.root}>
       <header className={styles.header}>
-        <div className={styles.logo}></div>
-        <div className={styles.name}>Trello</div>
+        <Link to={routerPaths.workspaceBoards(workspaceId)} className={styles.logoLink}>
+          <div className={styles.logo}></div>
+          <div className={styles.name}>Trello</div>
+        </Link>
 
         <Dropdown className={styles.workspaceSelector} menu={{ items: workspaceItems, onClick: onWorkspaceClick }}>
           <Button ghost>

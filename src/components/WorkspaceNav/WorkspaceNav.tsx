@@ -1,4 +1,4 @@
-import { Menu, MenuProps } from 'antd';
+import { Menu, MenuProps, ConfigProvider } from 'antd';
 import { AppstoreOutlined, UsergroupAddOutlined, SettingOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styles from './WorkspaceNav.module.scss';
@@ -87,14 +87,21 @@ export function WorkspaceNav({ className }: WorkspaceNavProps) {
         <h4 className={styles.title}>{MenuContent.MENU_TITLE}</h4>
         <div onClick={onShowButtonClick}><LeftOutlined className={styles.show_ico} /></div>
       </div>
-      <Menu
-        className={styles.menu}
-        mode="inline"
-        items={items}
-        selectedKeys={[activeRouteId]}
-        openKeys={openKeys}
-        onOpenChange={setOpenKeys}
-      />
+      <ConfigProvider theme={{
+        token: {
+          colorBgBase: '#516270',
+          colorText: '#fff',
+        }
+      }}>
+        <Menu
+          className={styles.menu}
+          mode="inline"
+          items={items}
+          selectedKeys={[activeRouteId]}
+          openKeys={openKeys}
+          onOpenChange={setOpenKeys}
+        />
+      </ConfigProvider>
     </div>
   )
 }
@@ -107,16 +114,12 @@ export function MenuShowButton() {
 
 const onShowButtonClick = () => {
   const menu = document.getElementById('menu__container') as HTMLElement;
-  const rightSide = document.getElementById('container') as HTMLElement;
-  menu.style.position='absolute';
-  menu.style.transform='translateX(-266px)';
-  rightSide.style.width='100%';
+  menu.style.position = 'absolute';
+  menu.style.transform = 'translateX(-266px)';
 };
 
 const onHideButtonClick = () => {
   const menu = document.getElementById('menu__container') as HTMLElement;
-  const rightSide = document.getElementById('container') as HTMLElement;
-  menu.style.position='relative';
-  menu.style.transform='translateX(0)';
-  rightSide.style.width='calc(100% - 256px)';
+  menu.style.position = 'relative';
+  menu.style.transform = 'translateX(0)';
 };
