@@ -8,6 +8,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { useAppDispatch } from '../../store';
 import { useBoard } from '../../store/board/hooks';
 import * as taskThunks from '../../store/tasks/thunks';
+import { CardEdit } from '../Constants/constant';
 
 interface TaskProps {
   task: ITask;
@@ -21,6 +22,7 @@ export default function Task({ task }: TaskProps) {
   const [taskBgColor, setTaskBgColor] = useState(task.backgroundColor);
   const [taskName, setTaskName] = useState(task.name);
   const [description, setDescription] = useState(task.description);
+  const [comment, setComment] = useState('');
 
   const handleOnChange = (e: React.ChangeEvent) => {
     setTaskName((e.target as HTMLInputElement).value);
@@ -60,33 +62,34 @@ export default function Task({ task }: TaskProps) {
         </div>
       </Card>
       <Modal open={isModalOpen} onOk={onUpdateTask} onCancel={() => setIsModalOpen(false)}>
-      <TextArea className={styles.change}
-            onChange={handleOnChange}
-            autoFocus
-            autoSize
-            placeholder="card title"
-            value={taskName}
-            //onBlur={handleOnBlur}
-             />
-        <div>Описание</div>
+      <TextArea 
+        className={styles.change}
+        onChange={handleOnChange}
+        autoFocus
+        autoSize
+        placeholder="card title"
+        value={taskName}/>
+        <div className={styles.change__title}>{CardEdit.DESCRIPTION}</div>
         <TextArea
-          placeholder="Добавить более подробное описание"
+          className={styles.description}
+          placeholder={CardEdit.DESCRIPTION_PLACEHOLDER}
           value={description}
           autoSize
           autoFocus
           onChange={(e) => setDescription(e.target.value)}
         />
-        <div>Выбрать цвет обложки</div>
-        <input type="color" value={taskBgColor} onChange={(e) => setTaskBgColor(e.target.value)} />
-        <div>Оставить комментарий</div>
+        <div className={styles.change__title}>{CardEdit.COLOR}</div>
+        <input className={styles.color} type="color" value={taskBgColor} onChange={(e) => setTaskBgColor(e.target.value)} />
+        <div className={styles.change__title}>{CardEdit.COMMENT}</div>
         <TextArea
-          placeholder="Напишите комментарий ..."
-          value=""
+          className={styles.comment}
+          placeholder={CardEdit.COMMENT_PLACEHOLDER}
+          value={comment}
           autoSize={{ minRows: 2}}
           autoFocus
-          /*onChange={(e) => setComment(e.target.value)}*/
+          onChange={(e) => setComment(e.target.value)}
         />
-        <Button type="text" danger>Delete task</Button>
+        <Button type="text" danger>{CardEdit.DELETE}</Button>
       </Modal>
     </div>
   )

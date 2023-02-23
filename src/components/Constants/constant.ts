@@ -162,6 +162,15 @@ enum BoardContentEn {
   MEMBERS_TITLE = 'Members',
 }
 
+enum CardEditRu {
+  DESCRIPTION = 'Описание',
+  DESCRIPTION_PLACEHOLDER = 'Добавить более подробное описание...',
+  COLOR = 'Выбрать цвет обложки',
+  COMMENT = 'Оставить комментарий',
+  COMMENT_PLACEHOLDER ='Напишите комментарий ...',
+  DELETE = 'Удалить карточку',
+}
+
 console.log(
   BoardContentEn,
   MenuContentEn,
@@ -178,3 +187,4 @@ export const WorkspaceName = MenuContentRu.MENU_TITLE;
 export const WorkspaceContent = WorkspaceContentRu;
 export const BoardContent = BoardContentRu;
 export const MeSettingsContent = MeSettingsContentRu;
+export const CardEdit = CardEditRu;
