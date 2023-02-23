@@ -2,7 +2,7 @@
 
 .task {
   max-width: 260px;
-  background-color: $color-light;
+  //background-color: $color-light;
   box-shadow: 0px 4px 6px rgba(50, 49, 50, 0.08);
   margin-bottom: 10px;
 }
@@ -26,6 +26,7 @@
   width: '10px';
   height: '10px';
   color: $color-grey;
+  background-color: transparent;
   cursor: pointer;
   &:hover {
     color: $color-button-hover;
@@ -35,6 +36,7 @@
 .change {
   border: 1px solid #ffffff;
   margin: 20px 0;
+  background-color: transparent;
   @extend %font-logo;
   @include font($size: 2rem, $height: 2rem, $weight: 500);
   &:focus {
