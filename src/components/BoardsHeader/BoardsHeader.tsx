@@ -108,6 +108,7 @@ const BoardsHeader: React.FC = () => {
   const handleClosed = (e: CheckboxChangeEvent) => {
     setBoardNew({ ...boardNew, isClosed: e.target.checked });
   };
+  console.log(userBoard.description);
   return (
     <>
       <div className={styles.inner}>
@@ -154,7 +155,7 @@ const BoardsHeader: React.FC = () => {
             </Avatar.Group>
           </Space>
         </div>
-        {userBoard.description !== '' ? (
+        {userBoard.description !== null && userBoard.description !== '' ? (
           <div className={styles.description}>
             <span className={styles.text}>
               {BoardHeaderContent.BOARD_DESCRIPTION}
