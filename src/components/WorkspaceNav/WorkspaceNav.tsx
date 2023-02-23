@@ -28,7 +28,7 @@ export function WorkspaceNav({ className }: WorkspaceNavProps) {
   const $workspace = useWorkspace();
   const boards = $workspace.data?.boards || [];
   const [openKeys, setOpenKeys] = useState(Object.values(MenuKeys) as string[]);
-  console.log('matches', matches);
+  //console.log('matches', matches);
   const routeIdMatch = matches[matches.length - 1];
   const activeRouteId = routeIdMatch.id === RouterId.WORKSPACE_BOARD
     ? getBoardKey(routeIdMatch.params.id!)
@@ -107,12 +107,16 @@ export function MenuShowButton() {
 
 const onShowButtonClick = () => {
   const menu = document.getElementById('menu__container') as HTMLElement;
+  const rightSide = document.getElementById('container') as HTMLElement;
   menu.style.position='absolute';
   menu.style.transform='translateX(-266px)';
+  rightSide.style.width='100%';
 };
 
 const onHideButtonClick = () => {
   const menu = document.getElementById('menu__container') as HTMLElement;
+  const rightSide = document.getElementById('container') as HTMLElement;
   menu.style.position='relative';
   menu.style.transform='translateX(0)';
+  rightSide.style.width='calc(100% - 256px)';
 };

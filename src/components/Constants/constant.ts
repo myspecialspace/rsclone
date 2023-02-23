@@ -84,7 +84,7 @@ enum WorkspaceContentRu {
   BOARD_CREATE = 'Создать доску',
   BOARD_COLOR = 'Цвет доски',
   WORKSPACE_ERROR = 'Ошибка',
-  WORKSPACE_INVITE = 'Пригласить участников рабочего пространства',
+  WORKSPACE_INVITE = 'Пригласить в воркспейс',
   CREATE = 'Создать',
   WORKSPACE_TITLES = 'Рабочие пространства',
   WORKSPACE_CURRENT = 'Текущее',
