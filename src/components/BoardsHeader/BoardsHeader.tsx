@@ -1,10 +1,14 @@
 import { useState } from 'react';
-import { StarOutlined, LockOutlined, SettingOutlined } from '@ant-design/icons';
+import {
+  StarOutlined,
+  LockOutlined,
+  SettingOutlined,
+  UnlockOutlined,
+} from '@ant-design/icons';
 import styles from './BoardsHeader.module.scss';
 import {
   Button,
   MenuProps,
-  Menu,
   Avatar,
   Tooltip,
   Input,
@@ -14,49 +18,50 @@ import {
   Form,
   Checkbox,
 } from 'antd';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Member from '../../pages/Workspace/Member';
 import { AppState, useAppDispatch } from '../../store';
 import { useSelector } from 'react-redux';
 import { BoardHeaderContent } from '../Constants/constant';
-import { DeleteBoard } from '../../store/board/types';
+import { DeleteBoard, UpdateData } from '../../store/board/types';
 import { useBoard } from '../../store/board/hooks';
 import * as boardThunks from '../../store/board/thunks';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as routerPaths from '../../router/paths';
 
 const BoardsHeader: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [boardNew, setBoardNew] = useState('');
-  console.log(boardNew);
+  const id = useParams();
+  const boardId = Number(id.boardId);
+  const userBoard = useSelector((state: AppState) => state.board.board || []);
+  const [boardNew, setBoardNew] = useState({
+    boardId: boardId,
+    name: userBoard.name,
+    description: '',
+    isFavorite: false,
+    isPrivate: false,
+    isClosed: false,
+  });
+
   const dispatch = useAppDispatch();
-  //   const userId = useSelector((state: AppState) => state.auth.userId);
   const $board = useBoard();
   const navigate = useNavigate();
-  const userBoard = useSelector((state: AppState) => state.board.board || []);
-  //   console.log(userBoard);
-
-  const boardHeaderItems: MenuProps['items'] = [
-    {
-      label: `${BoardHeaderContent.BOARD_TITLE}${userBoard.name}`,
-      key: 'board',
-      //   icon: <EditOutlined />,
-    },
-    {
-      //   label: 'Favorite boards',
-      label: userBoard.isFavorite,
-      key: 'favorite',
-      icon: <StarOutlined />,
-    },
-    {
-      label: userBoard.isPrivate,
-      //   label: 'Private',
-      icon: <LockOutlined />,
-      key: 'private',
-    },
-  ];
-
+  const onUpDateBoard = async (data: UpdateData) => {
+    await dispatch(
+      boardThunks.updateBoard({
+        name: data.name,
+        boardId: boardId,
+        description: boardNew.description,
+        isClosed: boardNew.isClosed,
+        isFavorite: boardNew.isFavorite,
+        isPrivate: boardNew.isPrivate,
+      })
+    );
+    $board.refetch();
+  };
   const upDateBoard = () => {
-    console.log('open setting');
+    onUpDateBoard(boardNew);
+    setIsModalOpen(false);
   };
   const onDeleteBoard = async (boardId: DeleteBoard) => {
     await dispatch(boardThunks.deleteBoard(boardId));
@@ -88,91 +93,137 @@ const BoardsHeader: React.FC = () => {
       ),
     },
   ];
-  const onFinish = (data: any) => {
-    console.log('Success:', data);
-  };
+
   const handleInput = (e: React.ChangeEvent) => {
-    if ((e.target as HTMLTextAreaElement).value.length !== 0) {
-      setBoardNew((e.target as HTMLTextAreaElement).value);
-    }
+    const { name, value } = e.target as HTMLTextAreaElement;
+    setBoardNew({ ...boardNew, [name]: value });
   };
-  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = e.target.checked;
-    console.log(checked);
+  const handleFavorite = (e: CheckboxChangeEvent) => {
+    setBoardNew({ ...boardNew, isFavorite: e.target.checked });
+  };
+  const handlePrivate = (e: CheckboxChangeEvent) => {
+    setBoardNew({ ...boardNew, isPrivate: e.target.checked });
+  };
+
+  const handleClosed = (e: CheckboxChangeEvent) => {
+    setBoardNew({ ...boardNew, isClosed: e.target.checked });
   };
   return (
     <>
       <div className={styles.inner}>
-        <Menu
-          style={{
-            borderBottom: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minWidth: '250px',
-            borderRadius: '10px',
-          }}
-          mode='horizontal'
-          items={boardHeaderItems}
-        />
-        <Space>
-          <Dropdown menu={{ items }}>
-            <Space>
-              <SettingOutlined />
-            </Space>
-          </Dropdown>
-          <Avatar.Group
-            maxCount={2}
-            maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
-          >
-            {userBoard.members.map((member) => (
-              <Tooltip
-                key={member.id}
-                title={BoardHeaderContent.MEMBERS_TITLE}
-                placement='top'
+        <div className={styles.menu}>
+          <ul className={styles.list}>
+            <li className={styles.item}>
+              <span className={styles.text}>
+                {BoardHeaderContent.BOARD_TITLE}
+              </span>
+              <span
+                className={styles.text}
+                style={{ color: `${userBoard.backgroundColor}` }}
               >
-                <Member member={member} />
-              </Tooltip>
-            ))}
-          </Avatar.Group>
-        </Space>
+                {userBoard.name}
+              </span>
+            </li>
+            <li className={styles.item}>
+              {userBoard.isFavorite ? (
+                <StarOutlined style={{ color: '#FFB02E' }} />
+              ) : (
+                <StarOutlined style={{ color: 'inherit' }} />
+              )}
+            </li>
+            <li className={styles.item}>
+              {userBoard.isPrivate ? (
+                <LockOutlined style={{ color: '#FFB02E' }} />
+              ) : (
+                <UnlockOutlined />
+              )}
+            </li>
+          </ul>
+          <Space>
+            <Dropdown menu={{ items }}>
+              <SettingOutlined style={{ fontSize: '22px' }} />
+            </Dropdown>
+            <Avatar.Group
+              maxCount={2}
+              maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+            >
+              {userBoard.members.map((member) => (
+                <Tooltip
+                  key={member.id}
+                  title={BoardHeaderContent.MEMBERS_TITLE}
+                  placement='top'
+                >
+                  <Member member={member} />
+                </Tooltip>
+              ))}
+            </Avatar.Group>
+          </Space>
+        </div>
+        {userBoard.description !== '' ? (
+          <div className={styles.description}>
+            <span className={styles.text}>
+              {BoardHeaderContent.BOARD_DESCRIPTION}
+            </span>
+            <span>{userBoard.description}</span>
+          </div>
+        ) : (
+          <></>
+        )}
         <Modal
           title={BoardHeaderContent.UPDATE_BOARD_SETTING}
           open={isModalOpen}
-          //   onOk={upDateBoard}
+          onOk={upDateBoard}
           onCancel={() => setIsModalOpen(false)}
           okText={BoardHeaderContent.BUTTON_OK}
           cancelText={BoardHeaderContent.BUTTON_NO}
         >
-          <Form name='boardUpdate' onFinish={onFinish}>
-            <Form.Item label={BoardHeaderContent.BOARD_TITLE} name='boardName'>
+          <Form name='boardUpdate'>
+            <Form.Item label={BoardHeaderContent.BOARD_TITLE} name='name'>
               <Input
                 placeholder={BoardHeaderContent.UPDATE_BOARD_NAME}
-                //   onChange={(e) => setBoardNew(e.target.value)}
                 onChange={handleInput}
+                name='name'
+                value={boardNew.name}
+              />
+            </Form.Item>
+            <Form.Item
+              label={BoardHeaderContent.BOARD_DESCRIPTION}
+              name='description'
+            >
+              <Input
+                placeholder={BoardHeaderContent.BOARD_DESCRIPTION}
+                onChange={handleInput}
+                name='description'
+                value={boardNew.description}
               />
             </Form.Item>
             <Space>
               <Form.Item
-                name='favorite'
+                name='isFavorite'
                 valuePropName='checked'
                 wrapperCol={{ offset: 8, span: 16 }}
               >
-                <Checkbox>{BoardHeaderContent.CHECK_FAVORITE}</Checkbox>
+                <Checkbox onChange={handleFavorite}>
+                  {BoardHeaderContent.CHECK_FAVORITE}
+                </Checkbox>
               </Form.Item>
               <Form.Item
-                name='private'
+                name='isPrivate'
                 valuePropName='checked'
                 wrapperCol={{ offset: 8, span: 16 }}
               >
-                <Checkbox>{BoardHeaderContent.CHECK_PRIVATE}</Checkbox>
+                <Checkbox onChange={handlePrivate}>
+                  {BoardHeaderContent.CHECK_PRIVATE}
+                </Checkbox>
               </Form.Item>
               <Form.Item
                 name='close'
                 valuePropName='checked'
                 wrapperCol={{ offset: 8, span: 16 }}
               >
-                <Checkbox>{BoardHeaderContent.CHECK_CLOSE}</Checkbox>
+                <Checkbox onChange={handleClosed}>
+                  {BoardHeaderContent.CHECK_CLOSE}
+                </Checkbox>
               </Form.Item>
             </Space>
           </Form>

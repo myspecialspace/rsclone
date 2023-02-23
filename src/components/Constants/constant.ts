@@ -152,7 +152,7 @@ enum BoardHeaderContentRu {
   BOARD_SETTING = 'Настройки доски',
   UPDATE_BOARD_SETTING = 'Настройки',
   BOARD_TITLE = 'Доска:  ',
-  BOARD_INVITE = 'Пригласить участников доски',
+  BOARD_INVITE = 'Пригласить участников',
   DELETE_BOARD_NAME = 'Удалить доску',
   MEMBERS_TITLE = 'Пользователи',
   BUTTON_OK = 'Сохранить',
@@ -160,6 +160,7 @@ enum BoardHeaderContentRu {
   CHECK_FAVORITE = 'избранная',
   CHECK_PRIVATE = 'личная',
   CHECK_CLOSE = 'закрыть',
+  BOARD_DESCRIPTION = 'Описание: ',
 }
 enum BoardHeaderContentEn {
   UPDATE_BOARD_NAME = 'Settings name Board ',
@@ -174,6 +175,7 @@ enum BoardHeaderContentEn {
   CHECK_FAVORITE = 'favorite',
   CHECK_PRIVATE = 'private',
   CHECK_CLOSE = 'close board',
+  BOARD_DESCRIPTION = 'description: ',
 }
 console.log(
   BoardContentEn,
