@@ -1,10 +1,38 @@
 @import '../../styles/index';
 
 .inner {
-  display: flex;
-  //   justify-content: start;
-  //   align-items: center;
-  gap: 25px;
+  width: 100%;
+  padding: 10px 0 10px 10px;
 }
-// .content {
-// }
+.menu {
+  display: flex;
+  justify-content: space-between;
+  background-color: $color-light;
+  padding: 10px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+}
+.list {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  list-style: none;
+}
+.item {
+  display: flex;
+  gap: 10px;
+  font-size: 16px;
+}
+.text {
+  color: $color-grey;
+}
+.description {
+  font-size: 16px;
+  background-color: $color-light;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+}

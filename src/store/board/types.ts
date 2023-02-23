@@ -23,8 +23,8 @@ export interface DeleteBoard {
 export interface UpdateData {
   boardId: number;
   name: string;
-  //   description: string;
+  description: string;
   isFavorite: boolean;
   isPrivate: boolean;
-  //   isClosed: boolean;
+  isClosed: boolean;
 }
