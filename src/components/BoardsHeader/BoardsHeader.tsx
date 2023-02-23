@@ -117,12 +117,7 @@ const BoardsHeader: React.FC = () => {
               <span className={styles.text}>
                 {BoardHeaderContent.BOARD_TITLE}
               </span>
-              <span
-                className={styles.text}
-                style={{ color: `${userBoard.backgroundColor}` }}
-              >
-                {userBoard.name}
-              </span>
+              <span>{userBoard.name}</span>
             </li>
             <li className={styles.item}>
               {userBoard.isFavorite ? (
