@@ -108,7 +108,6 @@ const BoardsHeader: React.FC = () => {
   const handleClosed = (e: CheckboxChangeEvent) => {
     setBoardNew({ ...boardNew, isClosed: e.target.checked });
   };
-  console.log(userBoard.description);
   return (
     <>
       <div className={styles.inner}>
