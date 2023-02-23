@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api";
 import { getMappedResponse } from "../../helpers/strapi";
-import { Task, TaskEditInterface } from './types';
+import { Task, TaskEditInterface, TaskDeleteInterface } from './types';
 import * as strapi from "../../helpers/strapi-types";
 
 export const fetchTasks = createAsyncThunk<Task[], number>(
@@ -42,7 +42,23 @@ export const editTask = createAsyncThunk<Task, TaskEditInterface>(
   "tasks/update",
   async (data, { rejectWithValue }) => {
     try {
-      const response = await api.getInstance().put<strapi.SingleResponse<Task>>(`tasks/${data.taskId}`, { data });
+      const response = await api
+      .getInstance()
+      .put<strapi.SingleResponse<Task>>(`tasks/${data.taskId}`, { data });
+      return getMappedResponse(response.data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteTask = createAsyncThunk<Task, TaskDeleteInterface>(
+  'tasks/delete',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await api
+        .getInstance()
+        .delete<strapi.SingleResponse<Task>>(`tasks/${data.taskId}`);
       return getMappedResponse(response.data);
     } catch (error) {
       return rejectWithValue(error);

@@ -30,8 +30,6 @@ export default function Task({ task }: TaskProps) {
   }
 
   const onUpdateTask = async () => {
-    console.log(' update task ', { taskName, description, taskBgColor });
-
     await dispatch(
       taskThunks.editTask({
         taskId: task.id,
@@ -43,6 +41,15 @@ export default function Task({ task }: TaskProps) {
     $board.refetch();
     setIsModalOpen(false);
   };
+
+  const onTaskDelete = async () => {
+    await dispatch(
+      taskThunks.deleteTask({
+        taskId: task.id,
+    }));
+
+    $board.refetch();
+  }
 
 
   return (
@@ -89,7 +96,7 @@ export default function Task({ task }: TaskProps) {
           autoFocus
           onChange={(e) => setComment(e.target.value)}
         />
-        <Button type="text" danger>{CardEdit.DELETE}</Button>
+        <Button type="text" danger onClick={onTaskDelete}>{CardEdit.DELETE}</Button>
       </Modal>
     </div>
   )

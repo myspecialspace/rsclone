@@ -32,3 +32,7 @@ export interface TaskEditInterface {
   //"isCompleted": false,
   //"date_to_complete": "2024-02-17T06:46:38.332Z"
 }
+
+export interface TaskDeleteInterface {
+  taskId: number;
+}
