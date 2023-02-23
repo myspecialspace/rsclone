@@ -25,14 +25,14 @@ export function Title(props: TitleProps) {
   const handleOnChange = (e: React.ChangeEvent) => {
     setListName((e.target as HTMLInputElement).value);
   };
-  const deleteList = () => {
+  const listDelete = () => {
     props.onDeleteList({ listId: props.listId });
   };
   const items: MenuProps['items'] = [
     {
       key: '1',
       label: (
-        <Button onClick={deleteList} danger>
+        <Button onClick={listDelete} danger>
           <DeleteOutlined />
           {BoardContent.DELETE_LIST}
         </Button>
