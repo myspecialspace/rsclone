@@ -27,9 +27,9 @@ export interface TaskEditInterface {
   name: string;
   description: string;
   backgroundColor: string;
+  isCompleted: boolean;
   //"board": 6,
   //"list": 7,
-  //"isCompleted": false,
   //"date_to_complete": "2024-02-17T06:46:38.332Z"
 }
 

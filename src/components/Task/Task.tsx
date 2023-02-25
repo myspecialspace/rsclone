@@ -1,7 +1,7 @@
 import Card from 'antd/es/card/Card';
 import styles from './Task.module.scss';
 import { Task as ITask } from '../../types/task';
-import { Button, Typography, Modal } from 'antd';
+import { Button, Typography, Modal, Checkbox } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
@@ -9,6 +9,8 @@ import { useAppDispatch } from '../../store';
 import { useBoard } from '../../store/board/hooks';
 import * as taskThunks from '../../store/tasks/thunks';
 import { CardEdit } from '../Constants/constant';
+import DateToComplete from './Date-and-time';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 interface TaskProps {
   task: ITask;
@@ -22,7 +24,8 @@ export default function Task({ task }: TaskProps) {
   const [taskBgColor, setTaskBgColor] = useState(task.backgroundColor);
   const [taskName, setTaskName] = useState(task.name);
   const [description, setDescription] = useState(task.description);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState(' '); //исправить ошибку в консоли
+  const [isCompleted, setIsCompleted] = useState(task.isCompleted);
 
   const handleOnChange = (e: React.ChangeEvent) => {
     setTaskName((e.target as HTMLInputElement).value);
@@ -36,6 +39,7 @@ export default function Task({ task }: TaskProps) {
         name: taskName,
         description: description,
         backgroundColor: taskBgColor,
+        isCompleted: isCompleted,
     }));
 
     $board.refetch();
@@ -51,16 +55,15 @@ export default function Task({ task }: TaskProps) {
     $board.refetch();
   }
 
+const onCheckChange = (e: CheckboxChangeEvent) => {
+  setIsCompleted(e.target.checked)
+};
+
   let date = task.createdAt.slice(0, 4) +' '+  task.createdAt.slice(5, 7) + ' ' + task.createdAt.slice(8, 10);
 
   return (
     <div>
       <Card
-        /*onDragStart={(e) => dragStartHandler(e, task)}
-        onDragLeave={(e) => dragEndHandler(e)}
-        onDragEnd={(e) => dragEndHandler(e)}
-        onDragOver={(e) => dragOverHandler(e)}
-        onDrop={(e) => dropHandler(e, task)}*/
         draggable={true}
         className={styles.task}
         style={{ backgroundColor: task.backgroundColor}}>
@@ -77,6 +80,10 @@ export default function Task({ task }: TaskProps) {
         autoSize
         placeholder="card title"
         value={taskName}/>
+        <div className={styles.change__check}>
+          <p className={styles.date}>{CardEdit.CREATE_DATA}: {date}</p>
+          <Checkbox onChange={onCheckChange}>Выполнено</Checkbox>
+        </div>
         <div className={styles.change__title}>{CardEdit.DESCRIPTION}</div>
         <TextArea
           className={styles.description}
@@ -97,7 +104,8 @@ export default function Task({ task }: TaskProps) {
           autoFocus
           onChange={(e) => setComment(e.target.value)}
         />
-        <p className={styles.date}>{CardEdit.CREATE_DATA}: {date}</p>
+        <p className={styles.change__title}>Выполнить до:</p>
+        <DateToComplete />
         <Button type="text" danger onClick={onTaskDelete}>{CardEdit.DELETE}</Button>
       </Modal>
     </div>

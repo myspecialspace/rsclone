@@ -73,5 +73,18 @@
 
 .comment {
   margin-top: 4px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.complete_date {
+  width: 330px;
+  margin-bottom: 20px;
+}
+
+.change__check {
+  display: flex;
+  justify-content: space-between;
+  color: $color-grey;
+  @extend %font-logo;
+  @include font($size: 1.3rem, $height: 1.6rem, $weight: 400);
 }
