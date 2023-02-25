@@ -23,13 +23,17 @@ import Member from '../../pages/Workspace/Member';
 import { AppState, useAppDispatch } from '../../store';
 import { useSelector } from 'react-redux';
 import { BoardHeaderContent } from '../Constants/constant';
-import { DeleteBoard, UpdateData } from '../../store/board/types';
+import { DeleteBoard, UpdateDeleteBoard } from '../../store/board/types';
 import { useBoard } from '../../store/board/hooks';
 import * as boardThunks from '../../store/board/thunks';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as routerPaths from '../../router/paths';
 
-const BoardsHeader: React.FC = () => {
+interface BoardsHeaderProps {
+  onDeleteBoard: (data: DeleteBoard) => any;
+}
+
+const BoardsHeader = (props: BoardsHeaderProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const id = useParams();
   const boardId = Number(id.boardId);
@@ -42,11 +46,10 @@ const BoardsHeader: React.FC = () => {
     isPrivate: false,
     isClosed: false,
   });
-
   const dispatch = useAppDispatch();
   const $board = useBoard();
   const navigate = useNavigate();
-  const onUpDateBoard = async (data: UpdateData) => {
+  const onUpDateBoard = async (data: UpdateDeleteBoard) => {
     await dispatch(
       boardThunks.updateBoard({
         name: data.name,
@@ -63,12 +66,8 @@ const BoardsHeader: React.FC = () => {
     onUpDateBoard(boardNew);
     setIsModalOpen(false);
   };
-  const onDeleteBoard = async (boardId: DeleteBoard) => {
-    await dispatch(boardThunks.deleteBoard(boardId));
-    $board.refetch();
-  };
   const deleteBoard = () => {
-    onDeleteBoard({ boardId: userBoard.id });
+    props.onDeleteBoard({ boardId: userBoard.id });
     navigate(routerPaths.workspaces(userBoard.workspace.id));
   };
   const items: MenuProps['items'] = [
@@ -87,7 +86,7 @@ const BoardsHeader: React.FC = () => {
     {
       key: '3',
       label: (
-        <Button onClick={deleteBoard}>
+        <Button onClick={deleteBoard} danger>
           {BoardHeaderContent.DELETE_BOARD_NAME}
         </Button>
       ),

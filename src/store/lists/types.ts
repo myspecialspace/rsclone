@@ -1,6 +1,6 @@
-import { EntityState } from "@reduxjs/toolkit";
-import { FetchState } from "../../helpers/fetch-state";
-import { TAttrsBase } from "../../helpers/strapi-types";
+import { EntityState } from '@reduxjs/toolkit';
+import { FetchState } from '../../helpers/fetch-state';
+import { TAttrsBase } from '../../helpers/strapi-types';
 
 export interface State extends EntityState<List> {
   fetchState: FetchState;
@@ -12,13 +12,13 @@ export interface State extends EntityState<List> {
 export interface List extends TAttrsBase {
   id: number;
   // TODO fields from api
-  "name": string;
-  "createdAt": string;
-  "updatedAt": string;
-  "publishedAt": string;
-  "isFavorite": boolean;
-  "description": string;
-  "order": number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  isFavorite: boolean;
+  description: string;
+  order: number;
 }
 
 export interface EditListInterface {
@@ -26,10 +26,13 @@ export interface EditListInterface {
   name: string;
   description: string;
   order: number;
-  board: number
+  board: number;
 }
 
 export interface EditListOrderInterface {
   listId: number;
   order: number;
+}
+export interface EditListDeleteInterface {
+  listId: number;
 }
