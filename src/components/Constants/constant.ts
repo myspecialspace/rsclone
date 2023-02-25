@@ -179,6 +179,7 @@ enum BoardHeaderContentEn {
 }
 
 enum CardEditRu {
+  CREATE_DATA = 'Создано',
   DESCRIPTION = 'Описание',
   DESCRIPTION_PLACEHOLDER = 'Добавить более подробное описание...',
   COLOR = 'Выбрать цвет обложки',

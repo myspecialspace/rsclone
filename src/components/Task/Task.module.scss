@@ -45,10 +45,17 @@
 }
 
 .change__title {
-  //margin-bottom: 5px;
   color: $color-grey;
   @extend %font-logo;
   @include font($size: 1.3rem, $height: 1.6rem, $weight: 400);
+}
+
+.date {
+  margin-bottom: 15px;
+  color: $color-grey;
+  @extend %font-logo;
+  @include font($size: 1.2rem, $height: 1.4rem, $weight: 400);
+  font-style: italic;
 }
 
 .description {

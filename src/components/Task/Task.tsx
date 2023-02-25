@@ -51,6 +51,7 @@ export default function Task({ task }: TaskProps) {
     $board.refetch();
   }
 
+  let date = task.createdAt.slice(0, 4) +' '+  task.createdAt.slice(5, 7) + ' ' + task.createdAt.slice(8, 10);
 
   return (
     <div>
@@ -96,6 +97,7 @@ export default function Task({ task }: TaskProps) {
           autoFocus
           onChange={(e) => setComment(e.target.value)}
         />
+        <p className={styles.date}>{CardEdit.CREATE_DATA}: {date}</p>
         <Button type="text" danger onClick={onTaskDelete}>{CardEdit.DELETE}</Button>
       </Modal>
     </div>
