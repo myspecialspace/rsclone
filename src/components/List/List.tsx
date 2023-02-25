@@ -1,5 +1,5 @@
 import { Card } from 'antd';
-import { Title, UpdateData} from './Title';
+import { Title, UpdateData } from './Title';
 import styles from './List.module.scss';
 import Task from '../Task/Task';
 import InputContainer from '../input/Input-container';
@@ -7,6 +7,7 @@ import { List as IList } from '../../types/list';
 import { Task as ITask } from '../../types/task';
 import { SubmitData } from '../input/Input-data';
 import { useState } from 'react';
+import { deleteList } from './types';
 
 const TASK_COLOR = 'white';
 interface ListProps {
@@ -16,10 +17,18 @@ interface ListProps {
   onUpdateList: (data: UpdateData) => any;
   onNewOrderUpdate: (data: any) => any;
   onCurrentOrderUpdate: (data: any) => any;
+  onDeleteList: (data: deleteList) => any;
 }
 
-export default function List({ list, tasks, onCreateTask, onUpdateList, onNewOrderUpdate, onCurrentOrderUpdate }: ListProps) {
-
+export default function List({
+  list,
+  tasks,
+  onCreateTask,
+  onUpdateList,
+  onNewOrderUpdate,
+  onCurrentOrderUpdate,
+  onDeleteList,
+}: ListProps) {
   const onSubmitUpdate = (data: UpdateData) => {
     if (onUpdateList !== undefined) {
       onUpdateList(data);
@@ -33,11 +42,19 @@ export default function List({ list, tasks, onCreateTask, onUpdateList, onNewOrd
   const [currentOrder, setCurrentOrder] = useState(list.order);
   const [newOrder, setNewOrder] = useState(list.order);
 
-  const dragStartHandler = (e: React.DragEvent<HTMLDivElement>, list: IList,) => {
+  const dragStartHandler = (
+    e: React.DragEvent<HTMLDivElement>,
+    list: IList
+  ) => {
     setCurrentList(list);
     setCurrentOrder(list.order);
-    console.log("порядок текущего листа", currentOrder, "list id ", currentList.id);
-  }
+    console.log(
+      'порядок текущего листа',
+      currentOrder,
+      'list id ',
+      currentList.id
+    );
+  };
 
   function dragEndHandler(e: React.DragEvent<HTMLDivElement>) {
     (e.target as HTMLElement).style.background = `${TASK_COLOR}`;
@@ -52,13 +69,19 @@ export default function List({ list, tasks, onCreateTask, onUpdateList, onNewOrd
     e.preventDefault();
     setNewList(list);
     setNewOrder(list.order);
-    console.log("новый порядок  лист", newOrder, 'id', currentList.id)
-    console.log('поменять текущий порядок на ', { listId: currentList.id, order: newOrder})
-    console.log('поменять новый порядок на ', { listId: newList.id, order: currentOrder})
-    
-    onNewOrderUpdate({ listId: currentList.id, order: newOrder});
-    onCurrentOrderUpdate({ listId: newList.id, order: currentOrder});
-  }
+    console.log('новый порядок  лист', newOrder, 'id', currentList.id);
+    console.log('поменять текущий порядок на ', {
+      listId: currentList.id,
+      order: newOrder,
+    });
+    console.log('поменять новый порядок на ', {
+      listId: newList.id,
+      order: currentOrder,
+    });
+
+    onNewOrderUpdate({ listId: currentList.id, order: newOrder });
+    onCurrentOrderUpdate({ listId: newList.id, order: currentOrder });
+  };
 
   return (
     <div>
@@ -69,13 +92,20 @@ export default function List({ list, tasks, onCreateTask, onUpdateList, onNewOrd
         onDragOver={(e) => dragOverHandler(e)}
         onDrop={(e) => dropHandler(e, list)}
         draggable={true}
-        className={styles.list}>
-        <Title title={list.name} list={list} listId={list.id} onSubmitUpdate={onSubmitUpdate}></Title>
-        {tasks.map((task) => (<Task key={task.id} task={task} listId={list.id} />))}
+        className={styles.list}
+      >
+        <Title
+          title={list.name}
+          list={list}
+          listId={list.id}
+          onSubmitUpdate={onSubmitUpdate}
+          onDeleteList={onDeleteList}
+        ></Title>
+        {tasks.map((task) => (
+          <Task key={task.id} task={task} listId={list.id} />
+        ))}
         <InputContainer type='task' list={list} onCreateTask={onCreateTask} />
       </Card>
     </div>
-  )
+  );
 }
-
-

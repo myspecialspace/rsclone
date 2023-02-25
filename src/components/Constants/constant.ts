@@ -138,6 +138,7 @@ enum BoardContentRu {
   ADD_LIST_TEXT = 'Добавьте еще одну колонку',
   INPUT_TITLE = 'Ввести заголовок для этой карточки',
   INPUT_LIST_NAME = 'Ввести заголовок списка',
+  DELETE_LIST = 'Удалить список',
 }
 
 enum BoardContentEn {
@@ -146,6 +147,7 @@ enum BoardContentEn {
   ADD_LIST_TEXT = 'Add a list',
   INPUT_TITLE = 'Enter a title of this card',
   INPUT_LIST_NAME = 'Enter a title of this list',
+  DELETE_LIST = 'Delete a list',
 }
 enum BoardHeaderContentRu {
   UPDATE_BOARD_NAME = 'Изменить название доски',

@@ -7,6 +7,7 @@ import { AppState, useAppDispatch } from '../../store';
 import styles from './Board.module.scss';
 import * as listsThunks from '../../store/lists/thunks';
 import * as taskThunks from '../../store/tasks/thunks';
+import * as boardThunks from '../../store/board/thunks';
 import { SubmitData } from '../../components/input/Input-data';
 import { useSelector } from 'react-redux';
 import { listsActions } from '../../store/lists';
@@ -16,7 +17,9 @@ import BoardsHeader from '../../components/BoardsHeader/BoardsHeader';
 import { useBoard } from '../../store/board/hooks';
 import { workspaceActions } from '../../store/workspace';
 import { UpdateData } from '../../components/List/Title';
-import { orderUpdate } from '../../components/List/types';
+import { deleteList, orderUpdate } from '../../components/List/types';
+import { DeleteBoard } from '../../store/board/types';
+import { useWorkspace } from '../../store/workspace/hooks';
 
 export default function BoardPage() {
   const params = useParams();
@@ -24,7 +27,7 @@ export default function BoardPage() {
   const userId = useSelector((state: AppState) => state.auth.userId);
   const $board = useBoard();
   const dispatch = useAppDispatch();
-
+  const $workspace = useWorkspace();
   const board = $board?.data;
   const lists = board?.lists || [];
 
@@ -36,9 +39,7 @@ export default function BoardPage() {
 
   useEffect(() => {
     if (board?.workspace?.id) {
-      dispatch(workspaceActions.setId(
-        board.workspace.id
-      ));
+      dispatch(workspaceActions.setId(board.workspace.id));
     }
   }, [dispatch, board]);
 
@@ -105,9 +106,9 @@ export default function BoardPage() {
         order: data.order,
       })
     );
-    console.log(data)
+    console.log(data);
     $board.refetch();
-  }
+  };
 
   const onCurrentOrderUpdate = async (data: orderUpdate) => {
     await dispatch(
@@ -116,11 +117,21 @@ export default function BoardPage() {
         order: data.order,
       })
     );
-    console.log(data)
+    console.log(data);
     $board.refetch();
-  }
-
-
+  };
+  const onDeleteList = async (data: deleteList) => {
+    await dispatch(
+      listsThunks.deleteList({
+        listId: data.listId,
+      })
+    );
+    $board.refetch();
+  };
+  const onDeleteBoard = async (boardId: DeleteBoard) => {
+    await dispatch(boardThunks.deleteBoard(boardId));
+    $workspace.refetch();
+  };
   //const sortLists = (a: any, b: any): any => {
   //  console.log(a.order, b.order)
   //if (a.order === b.order) return 0;
@@ -137,28 +148,29 @@ export default function BoardPage() {
   //console.log(listsSorted.length)
 
   return (
-      <div className={styles.container} id="container">
-        <BoardsHeader />
-        <div className={styles.list__container}>
-          {lists.map((list) => {
-            return (
-              <div key={list.id}>
-                <List
-                  list={list}
-                  tasks={list.tasks}
-                  onCreateTask={onCreateTask}
-                  onUpdateList={onUpdateList}
-                  onNewOrderUpdate={onNewOrderUpdate}
-                  onCurrentOrderUpdate={onCurrentOrderUpdate}
-                />
-              </div>
-            );
-          })}
-          <InputContainer
-            type='list'
-            onCreateList={onCreateList}
-          ></InputContainer>
-        </div>
+    <div className={styles.container} id='container'>
+      <BoardsHeader onDeleteBoard={onDeleteBoard} />
+      <div className={styles.list__container}>
+        {lists.map((list) => {
+          return (
+            <div key={list.id}>
+              <List
+                list={list}
+                tasks={list.tasks}
+                onCreateTask={onCreateTask}
+                onUpdateList={onUpdateList}
+                onNewOrderUpdate={onNewOrderUpdate}
+                onCurrentOrderUpdate={onCurrentOrderUpdate}
+                onDeleteList={onDeleteList}
+              />
+            </div>
+          );
+        })}
+        <InputContainer
+          type='list'
+          onCreateList={onCreateList}
+        ></InputContainer>
       </div>
+    </div>
   );
 }

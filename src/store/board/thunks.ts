@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api';
 import { getMappedResponse } from '../../helpers/strapi';
 import * as strapi from '../../helpers/strapi-types';
-import { Board, DeleteBoard, UpdateData } from './types';
+import { Board, DeleteBoard, UpdateDeleteBoard } from './types';
 
 export const fetchBoard = createAsyncThunk<Board, number>(
   'board/fetch',
@@ -35,7 +35,7 @@ export const deleteBoard = createAsyncThunk<Board, DeleteBoard>(
     }
   }
 );
-export const updateBoard = createAsyncThunk<Board, UpdateData>(
+export const updateBoard = createAsyncThunk<Board, UpdateDeleteBoard>(
   'board/update',
   async (data, { rejectWithValue }) => {
     try {

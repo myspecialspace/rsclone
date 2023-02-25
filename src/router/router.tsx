@@ -4,7 +4,6 @@ import LoginPage from '../pages/Login/Login';
 import NotFoundPage from '../pages/NotFound/NotFound';
 import RegistrationPage from '../pages/Registration/Registration';
 import AboutPage from '../pages/About/About';
-import Boards from '../pages/Boards/Boards';
 import WorkspacePage from '../pages/Workspace/Workspace';
 import MeLayout from '../components/MeLayout/MeLayout';
 import BoardPage from '../pages/Board/Board';
@@ -36,10 +35,6 @@ export default createBrowserRouter([
       {
         path: RoutePath.REGISTRATION,
         element: <RegistrationPage />,
-      },
-      {
-        path: RoutePath.BOARDS,
-        element: <Boards />,
       },
     ],
   },
@@ -77,5 +72,5 @@ export default createBrowserRouter([
         element: <MeSettingsPage />,
       },
     ],
-  }
+  },
 ]);
