@@ -14,26 +14,6 @@
   @include font($size: 1.8rem, $height: 2rem, $weight: 500);
 }
 
-.show_ico {
-  font-size: 1.8rem;
-  color: $color-grey;
-  padding: 10px;
-  margin-right: 6px;
-  border-radius: 4px;
-  &:hover {
-    background-color: $color-light-grey;
-  }
-  cursor: pointer;
-}
-
-.ico_hidden {
-  position: absolute;
-  top: 96px;
-  left: 10px;
-  cursor: pointer;
-  z-index: 2;
-}
-
 .item_ico {
   position: absolute;
   top: 200px;

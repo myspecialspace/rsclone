@@ -3,7 +3,7 @@ import { Board as BaseBoard } from '../../types/board';
 import { List as BaseList } from '../../types/list';
 import { Task as BaseTask } from '../../types/task';
 
-interface List extends BaseList {
+export interface List extends BaseList {
   tasks: BaseTask[];
 }
 export interface Board extends BaseBoard {

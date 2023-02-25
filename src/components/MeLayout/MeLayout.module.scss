@@ -1,3 +1,5 @@
+@import '../../styles/index';
+
 .root {
   height: 100%;
   background-color: aliceblue;
@@ -24,10 +26,11 @@
   height: calc(100% - 50px);
   display: flex;
   overflow-x: hidden;
+  position: relative;
 }
 
 .rightside {
-  width: 100%;
+  width: calc(100% - 256px);
 }
 
 .logo {
@@ -68,4 +71,32 @@
   display: flex;
   text-decoration: none;
   align-items: center;
+}
+
+.sidebarButton {
+  font-size: 1.8rem;
+  color: $color-grey;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  z-index: 10;
+  left: calc(256px - 26px);
+
+  &:hover {
+    background-color: $color-light-grey;
+  }
+}
+
+.sidebarHidden {
+  .sidebarButton {
+    left: 0px;
+    transform: rotate(180deg);
+  }
+
+  .rightside {
+    width: 100%;
+    padding-left: 40px;
+  }
 }

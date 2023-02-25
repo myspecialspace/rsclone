@@ -28,10 +28,3 @@ export interface EditListInterface {
   order: number;
   board: number
 }
-
-export interface EditListOrderInterface {
-  listId: number;
-  patch: {
-    order: number;
-  }
-}

@@ -1,8 +1,8 @@
 import { Button, Dropdown, Input, MenuProps, Modal } from 'antd';
-import { DownOutlined, TeamOutlined, AppstoreOutlined, SettingOutlined, PoweroffOutlined } from '@ant-design/icons';
+import { DownOutlined, TeamOutlined, AppstoreOutlined, SettingOutlined, PoweroffOutlined, RightOutlined } from '@ant-design/icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styles from './MeLayout.module.scss';
-import { WorkspaceNav, MenuShowButton } from '../WorkspaceNav/WorkspaceNav';
+import { WorkspaceNav } from '../WorkspaceNav/WorkspaceNav';
 import { useSelector } from 'react-redux';
 import { AppState, useAppDispatch } from '../../store';
 import { authActions, getJWTFromStorage, getUserIdFromStorage } from '../../store/auth';
@@ -19,6 +19,7 @@ import { getBgColor, getFirstChar } from '../../helpers/user';
 import { MenuInfo } from 'rc-menu/lib/interface';
 import { UserItemKey } from './types';
 import { workspaceActions } from '../../store/workspace';
+import classNames from 'classnames';
 
 export default function MeLayout() {
   const $user = useUser()
@@ -32,6 +33,7 @@ export default function MeLayout() {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [workspaceName, setWorkspaceName] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [workspaceBgColor, setWorkspaceBgColor] = useState(WORKSPACE_BG_COLOR);
 
   useEffect(() => {
@@ -51,12 +53,12 @@ export default function MeLayout() {
   const userChar = getFirstChar(user);
   const userColor = getBgColor(user);
 
-  const getWorkspaceItem = (workspace: Workspace) => {
+  const getWorkspaceItem = (workspace: Workspace, keyPrefix: string) => {
     const label = <Link to={routerPaths.workspaces(workspace.id)}>{workspace.name}</Link>;
 
     return {
       label,
-      key: workspace.id
+      key: keyPrefix + workspace.id,
     };
   };
   //for dropdown menu items => current & all workspaces
@@ -66,16 +68,17 @@ export default function MeLayout() {
       key: 'current',
       label: WorkspaceContent.WORKSPACE_CURRENT,
       children: [
-        currentWorkspace ? getWorkspaceItem(currentWorkspace) : null,
+        currentWorkspace ? getWorkspaceItem(currentWorkspace, 'current') : null,
       ],
     },
     {
       type: 'group',
       key: 'workspaces',
       label: WorkspaceContent.WORKSPACE_TITLES,
-      children: workspaces.map((workspace) => getWorkspaceItem(workspace)),
+      children: workspaces.map((workspace) => getWorkspaceItem(workspace, 'workspace')),
     },
   ];
+
   //обработчик
   const onWorkspaceClick = () => {
 
@@ -167,11 +170,13 @@ export default function MeLayout() {
           </Dropdown>
         </div>
       </header>
-      <div className={styles.wrapper}>
-        <WorkspaceNav className={styles.sidebar} />
+      <div className={classNames(styles.wrapper, { [styles.sidebarHidden]: !isSidebarOpen })}>
+        <WorkspaceNav className={styles.sidebar} isSidebarOpen={isSidebarOpen} />
         <div className={styles.rightside}>
-          <MenuShowButton />
           <Outlet />
+        </div>
+        <div onClick={() => setIsSidebarOpen(!isSidebarOpen)} className={classNames(styles.sidebarButton)}>
+          <RightOutlined className={styles.show_ico} />
         </div>
       </div>
       <Modal title={WorkspaceContent.WORKSPACE_CREATE} open={isModalOpen} onOk={onCreateWorkspace} onCancel={() => setIsModalOpen(false)}>
