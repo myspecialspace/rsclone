@@ -16,13 +16,11 @@ https://trello-clone-panthers.netlify.app/
 - Axios
 - [Antd](https://ant.design/)
 - Sass
-- [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
 
 ### Backend:
 
 - [Strapi](https://strapi.io/)
 - Postman
-- [Railway](https://railway.app/)
 
 ## Deployment
 
@@ -63,31 +61,32 @@ Start the server
 
 #### Run Locally
 
-Clone the project
+clone strapi locally
 
 ```bash
   git clone https://github.com/myspecialspace/trello-strapi
 ```
 
-Start the server application with autoReload enabled
+Install dependencies
 
 ```bash
-npm run develop
+npm run install
 ```
 
-Start the server application with autoReload disabled
+Import
+
+```bash
+npm run import
+```
+
+Start the server
 
 ```bash
 npm run start
 ```
 
-Follow the link
+Change API_URL for
 
 ```bash
-  http://localhost:1337/admin
-```
-
-```bash
-login - panthers.rsschool@gmail.com
-password - 123456Qq
+http://localhost:1337/api
 ```
