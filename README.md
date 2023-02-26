@@ -4,7 +4,7 @@ it is a project management tool, a clone of [Trello](https://trello.com/). Plan 
 
 ## Deploy
 
-https://github.com/myspecialspace/rsclone
+https://trello-clone-panthers.netlify.app/
 
 ## Tech stack
 
@@ -20,12 +20,16 @@ https://github.com/myspecialspace/rsclone
 ### Backend:
 
 - [Strapi](https://strapi.io/)
+- Postman
 
 ## Deployment
 
-### Frontend:
+Deployed version is [here](https://trello-clone-panthers.netlify.app/).
 
-Deployed version is [here](https://github.com/myspecialspace/rsclone)
+If the deployed project doesn't work install the project locally
+_(see below)_:
+
+### Frontend:
 
 #### Run Locally
 
@@ -57,13 +61,19 @@ Start the server
 
 #### Run Locally
 
-Install Strapi
+Clone the project
 
 ```bash
-  npx create-strapi-app@latest [your folder name] --quickstart
+  git clone https://github.com/myspecialspace/trello-strapi
 ```
 
-Start the server
+Start the server application with autoReload enabled
+
+```bash
+npm run develop
+```
+
+Start the server application with autoReload disabled
 
 ```bash
 npm run start
