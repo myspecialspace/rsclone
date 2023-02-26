@@ -14,12 +14,14 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 //import Comment from './Comment';
 
 
+
 interface TaskProps {
   task: ITask;
   listId: number;
 }
 
 export default function Task({ task }: TaskProps) {
+
   const dispatch = useAppDispatch();
   const $board = useBoard();
   const [isModalOpen, setIsModalOpen] = useState(false);

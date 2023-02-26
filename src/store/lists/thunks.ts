@@ -1,13 +1,13 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../api';
-import { getMappedResponse } from '../../helpers/strapi';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import api from "../../api";
+import { getMappedResponse } from "../../helpers/strapi";
+import * as strapi from "../../helpers/strapi-types";
 import {
   List,
   EditListInterface,
-  EditListOrderInterface,
+  //EditListOrderInterface,
   EditListDeleteInterface,
 } from './types';
-import * as strapi from '../../helpers/strapi-types';
 
 export const fetchLists = createAsyncThunk<List[], number>(
   'lists/fetch',
@@ -63,7 +63,10 @@ export const editList = createAsyncThunk<List, EditListInterface>(
   }
 );
 
-export const editListOrder = createAsyncThunk<List, EditListOrderInterface>(
+
+
+
+/* export const editListOrder = createAsyncThunk<List, EditListOrderInterface>(
   'lists/update',
   async (data, { rejectWithValue }) => {
     try {
@@ -75,7 +78,8 @@ export const editListOrder = createAsyncThunk<List, EditListOrderInterface>(
       return rejectWithValue(error);
     }
   }
-);
+);*/
+
 
 export const deleteList = createAsyncThunk<List, EditListDeleteInterface>(
   'lists/delete',

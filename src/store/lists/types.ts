@@ -29,10 +29,10 @@ export interface EditListInterface {
   board: number;
 }
 
-export interface EditListOrderInterface {
+/* export interface EditListOrderInterface {
   listId: number;
   order: number;
-}
+} */
 export interface EditListDeleteInterface {
   listId: number;
 }
