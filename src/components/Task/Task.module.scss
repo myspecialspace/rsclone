@@ -38,8 +38,53 @@
   margin: 20px 0;
   background-color: transparent;
   @extend %font-logo;
-  @include font($size: 2rem, $height: 2rem, $weight: 500);
+  @include font($size: 2.4rem, $height: 2.6rem, $weight: 500);
   &:focus {
     border: 1px solid $color-light-grey;
   }
+}
+
+.change__title {
+  color: $color-grey;
+  @extend %font-logo;
+  @include font($size: 1.3rem, $height: 1.6rem, $weight: 400);
+}
+
+.date {
+  margin-bottom: 15px;
+  color: $color-grey;
+  @extend %font-logo;
+  @include font($size: 1.2rem, $height: 1.4rem, $weight: 400);
+  font-style: italic;
+}
+
+.description {
+  margin-bottom: 16px;
+  border: 1px solid #ffffff;
+  color: #292829;
+  @extend %font-prim;
+  @include font($size: 1.5rem, $height: 1.6rem, $weight: 400);
+}
+
+.color {
+  border: none;
+  margin: 0 0 16px 10px;
+}
+
+.comment {
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+.complete_date {
+  width: 330px;
+  margin-bottom: 20px;
+}
+
+.change__check {
+  display: flex;
+  justify-content: space-between;
+  color: $color-grey;
+  @extend %font-logo;
+  @include font($size: 1.3rem, $height: 1.6rem, $weight: 400);
 }
