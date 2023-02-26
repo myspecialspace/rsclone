@@ -28,11 +28,6 @@ export interface EditListInterface {
   order: number;
   board: number;
 }
-
-/* export interface EditListOrderInterface {
-  listId: number;
-  order: number;
-} */
 export interface EditListDeleteInterface {
   listId: number;
 }

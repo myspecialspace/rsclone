@@ -1,11 +1,20 @@
 import styles from './About.module.scss';
 import { mainPageContent } from '../../components/Constants/constant';
 import image from '../../assets/img/TrelloUICollage.jpg';
+import Logo from "../../components/Logo/Logo";
+import Header from "../../components/Header/Header";
 
 export default function AboutPage() {
   return (
-    <main className={styles.main}>
-    <section className={styles.about}>
+    
+    <div className={styles.main}>
+      <header className={styles.header}>
+        <div className={styles.header__wrapper}>
+          <Logo/>
+          <Header className={styles.header__settings} />
+        </div>
+    </header>
+    <main className={styles.about}>
       <div className={styles.wrapper}>
         <div className={styles.about__container}>
           <div className={styles.about__content}>
@@ -21,7 +30,7 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-    </section>
-  </main>
+    </main>
+  </div>
   )
 }

@@ -13,7 +13,7 @@ export const fetchBoard = createAsyncThunk<Board, number>(
       const response = await api
         .getInstance()
         .get<strapi.SingleResponse<Board>>(
-          `boards/${boardId}?populate=workspace,lists.tasks,members,owner`
+          `boards/${boardId}?populate=workspace,lists.tasks,members,owner,lists.tasks.comments`
         );
       const data = getMappedResponse(response.data);
       //   console.log(data);
