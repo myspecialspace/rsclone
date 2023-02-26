@@ -82,7 +82,7 @@ const onCheckChange = (e: CheckboxChangeEvent) => {
         value={taskName}/>
         <div className={styles.change__check}>
           <p className={styles.date}>{CardEdit.CREATE_DATA}: {date}</p>
-          <Checkbox onChange={onCheckChange}>Выполнено</Checkbox>
+          <Checkbox checked={isCompleted} onChange={onCheckChange}>Выполнено</Checkbox>
         </div>
         <div className={styles.change__title}>{CardEdit.DESCRIPTION}</div>
         <TextArea

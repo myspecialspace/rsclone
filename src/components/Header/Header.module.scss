@@ -1,37 +1,5 @@
 @import '../../styles/index';
 
-.header__wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-//logo
-.logo_link {
-  display: flex;
-  align-items: flex-end;
-  text-decoration: none;
-  margin-left: 20px;
-  padding-top: 8px;
-  color: #0052cc;
-  cursor: pointer;
-  @extend %transition;
-}
-
-.logo__img {
-  width: 32px;
-  height: 32px;
-  margin: 6px;
-  background: url(../../assets/svg/trello_logo.svg);
-  background-size: cover;
-}
-
-.logo__title {
-  margin-bottom: -4px;
-  @extend %font-logo;
-  @include font($size: 1.4rem, $height: 1.4rem, $weight: 700);
-}
-
 .buttons_container {
   display: flex;
   align-items: center;
