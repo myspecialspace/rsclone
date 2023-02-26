@@ -11,6 +11,8 @@ import * as taskThunks from '../../store/tasks/thunks';
 import { CardEdit } from '../Constants/constant';
 import DateToComplete from './Date-and-time';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+//import Comment from './Comment';
+
 
 interface TaskProps {
   task: ITask;
@@ -59,6 +61,8 @@ const onCheckChange = (e: CheckboxChangeEvent) => {
   setIsCompleted(e.target.checked)
 };
 
+console.log(task.comments) //undefined
+
   let date = task.createdAt.slice(0, 4) +' '+  task.createdAt.slice(5, 7) + ' ' + task.createdAt.slice(8, 10);
 
   return (
@@ -95,15 +99,19 @@ const onCheckChange = (e: CheckboxChangeEvent) => {
         />
         <div className={styles.change__title}>{CardEdit.COLOR}</div>
         <input className={styles.color} type="color" value={taskBgColor} onChange={(e) => setTaskBgColor(e.target.value)} />
-        <div className={styles.change__title}>{CardEdit.COMMENT}</div>
-        <TextArea
-          className={styles.comment}
-          placeholder={CardEdit.COMMENT_PLACEHOLDER}
-          value={comment}
-          autoSize={{ minRows: 2}}
-          autoFocus
-          onChange={(e) => setComment(e.target.value)}
-        />
+        <div>
+          
+
+          <div className={styles.change__title}>{CardEdit.COMMENT}</div>
+          <TextArea
+            className={styles.comment}
+            placeholder={CardEdit.COMMENT_PLACEHOLDER}
+            value={comment}
+            autoSize={{ minRows: 2}}
+            autoFocus
+            onChange={(e) => setComment(e.target.value)}
+          />
+        </div>
         <p className={styles.change__title}>Выполнить до:</p>
         <DateToComplete />
         <Button type="text" danger onClick={onTaskDelete}>{CardEdit.DELETE}</Button>
@@ -111,3 +119,7 @@ const onCheckChange = (e: CheckboxChangeEvent) => {
     </div>
   )
 }
+
+          /*{task.comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} taskId={task.id} />
+          ))}*/
