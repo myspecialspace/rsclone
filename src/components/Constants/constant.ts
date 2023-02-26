@@ -186,10 +186,29 @@ enum CardEditRu {
   DESCRIPTION_PLACEHOLDER = 'Добавить более подробное описание...',
   COLOR = 'Выбрать цвет обложки',
   COMMENT = 'Оставить комментарий',
-  COMMENT_PLACEHOLDER ='Напишите комментарий ...',
+  COMMENT_PLACEHOLDER = 'Напишите комментарий ...',
   DELETE = 'Удалить карточку',
 }
-
+enum WorkspaseContentRu {
+  UPDATE_WORKSPASE_TITLE = 'Изменить в рабочем пространстве',
+  UPDATE_WORKSPASE = 'Название',
+  UPDATE_WORKSPASE_NAME = 'Новое имя пространства',
+  CHECK_FAVORITE = 'в избранное',
+  WORKSPASE_DESCRIPTION = 'Описание: ',
+  WORKSPASE_DESCRIPTION_PLACEHOLDER = 'Добавить описание',
+  BUTTON_OK = 'Сохранить',
+  BUTTON_NO = 'Отмена',
+}
+enum WorkspaseContenEn {
+  UPDATE_WORKSPASE_TITLE = 'Settings Workspace ',
+  UPDATE_WORKSPASE = 'Name',
+  UPDATE_WORKSPASE_NAME = 'New name of Workspace',
+  CHECK_FAVORITE = 'favorite',
+  WORKSPASE_DESCRIPTION = 'Description: ',
+  WORKSPASE_DESCRIPTION_PLACEHOLDER = 'Add description',
+  BUTTON_OK = 'Save',
+  BUTTON_NO = 'Cancel',
+}
 console.log(
   BoardContentEn,
   MenuContentEn,
@@ -198,7 +217,8 @@ console.log(
   MainPageContentEn,
   SignUpPageContentEn,
   MeSettingsContentEn,
-  BoardHeaderContentEn
+  BoardHeaderContentEn,
+  WorkspaseContenEn
 );
 
 export const mainPageContent = MainPageContentRu;
@@ -209,4 +229,4 @@ export const BoardContent = BoardContentRu;
 export const MeSettingsContent = MeSettingsContentRu;
 export const CardEdit = CardEditRu;
 export const BoardHeaderContent = BoardHeaderContentRu;
-
+export const WorkspaseContent = WorkspaseContentRu;

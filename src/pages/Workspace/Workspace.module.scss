@@ -1,4 +1,4 @@
-@import "../../styles/index.scss";
+@import '../../styles/index.scss';
 
 .header.login__button {
   display: none;
@@ -18,7 +18,9 @@
 }
 
 .title {
-  padding: 20px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
   @extend %font-logo;
   @include font($size: 2.6rem, $height: 2.8rem, $weight: 500);
 }
@@ -30,7 +32,7 @@
 .horizontal {
   margin: auto;
   width: 92.5%;
-  background-color: $color-light-grey
+  background-color: $color-light-grey;
 }
 
 .boards {
@@ -105,4 +107,17 @@
   &:hover {
     transform: scale(1.5);
   }
+}
+.itemstar {
+  display: flex;
+  gap: 10px;
+  font-size: 24px;
+}
+.text {
+  color: $color-grey;
+}
+.description {
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 5px;
 }

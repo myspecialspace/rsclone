@@ -1,0 +1,17 @@
+@import '../../styles/index';
+.inner {
+  padding: 20px 50px;
+  display: flex;
+  flex-flow: column wrap;
+
+  align-content: center;
+  align-items: center;
+}
+.title {
+  font-size: 20px;
+  padding: 20px 0;
+}
+.form {
+  max-width: 500px;
+  width: 300px;
+}
