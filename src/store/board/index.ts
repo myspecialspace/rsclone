@@ -4,6 +4,7 @@ import {
 import { State, List } from './types';
 import { editListOrder, editTaskOrder, fetchBoard } from './thunks';
 import { FetchState } from '../../helpers/fetch-state';
+import { Task } from '../../types/task';
 
 const initialState = (): State => ({
   fetchState: FetchState.INITIAL,
@@ -20,6 +21,17 @@ const sortListAndTasks = (lists: List[]): List[] => {
       };
     })
     .sort((a, b) => a.order - b.order);
+};
+
+const findTaskById = (board: State['board'], taskId: number): Task | undefined => {
+  for (const list of board.lists || []) {
+
+    for (const task of list.tasks || []) {
+      if (task.id === taskId) {
+        return task;
+      }
+    }
+  }
 };
 
 export const slice = createSlice({
@@ -64,9 +76,8 @@ export const slice = createSlice({
        * обновляем ордер в стейте, чтобы не было визуального лага,
        * пока запрос на обновление ордера грузится
        * */
-      const { listId, taskId, patch } = action.meta.arg;
-      const list = state.board.lists.find((list) => list.id === listId)!;
-      const task = list.tasks.find((task) => task.id === taskId)!;
+      const { taskId, patch } = action.meta.arg;
+      const task = findTaskById(state.board, taskId)!;
       task.order = patch.order;
 
       state.board.lists = sortListAndTasks(state.board.lists);

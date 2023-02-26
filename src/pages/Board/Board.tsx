@@ -23,6 +23,7 @@ import { DropType, getDroppableId, parseDroppableId } from './constants';
 import { Task, List as IList } from '../../types/base';
 import { DeleteBoard } from '../../store/board/types';
 import { useWorkspace } from '../../store/workspace/hooks';
+import { getEntityById, removeFromEntities, addToEntities } from '../../helpers/entity';
 
 export default function BoardPage() {
   const params = useParams();
@@ -105,20 +106,6 @@ export default function BoardPage() {
       $board.refetch();
     }
   };
-
-
-  // const onNewOrderUpdate = async (data: OrderUpdateData) => {
-  //   await dispatch(
-  //     listsThunks.editListOrder({
-  //       listId: data.listId,
-  //       patch: {
-  //         order: data.order,
-  //       }
-  //     })
-  //   );
-  //   console.log(data)
-  //   $board.refetch();
-  // }
 
   const onCurrentOrderUpdate = async (data: OrderUpdateData) => {
     console.log('onCurrentOrderUpdate', data);
@@ -208,9 +195,32 @@ export default function BoardPage() {
     return actionPayloads;
   };
 
+  const getActionsForReorderTasks = (tasks: Task[], position: number, type: 'remove' | 'add'): ActionForReorder[] => {
+    const actions: ActionForReorder[] = [];
+    const isRemove = type === 'remove';
+
+    const from = isRemove ? position + 1 : position;
+
+    for (let i = from; i < tasks.length; i++) {
+      const task = tasks[i];
+
+      actions.push({
+        id: task.id,
+        name: task.name,
+        patch: {
+          order: isRemove
+            ? task.order - 1
+            : task.order + 1
+        },
+      });
+    }
+
+    return actions;
+  };
+
   const onDragList = async (event: DropResult) => {
     const actionsForReorder = getActionsForReorder(event, lists);
-    /** отправляем запросы: обновляем ордеры в всех листах, которые были затронуты */
+    /** отправляем запросы: обновляем ордеры во всех листах, которые были затронуты */
     await Promise.all(actionsForReorder.map((payload) => dispatch(boardThunks.editListOrder({
       listId: payload.id,
       patch: payload.patch,
@@ -227,12 +237,17 @@ export default function BoardPage() {
     const actionsForReorder = getActionsForReorder(event, tasks);
     console.log('actionsForReorder', actionsForReorder);
 
-    await Promise.all(actionsForReorder.map((payload) => dispatch(boardThunks.editTaskOrder({
-      taskId: payload.id,
-      listId,
-      patch: payload.patch
-    }))));
-    $board.refetch();
+    if (actionsForReorder.length > 0) {
+      await Promise.all(actionsForReorder.map((payload) => dispatch(boardThunks.editTaskOrder({
+        taskId: payload.id,
+        patch: {
+          ...payload.patch,
+          list: listId,
+        },
+      }))));
+
+      $board.refetch();
+    }
   };
 
   const onDeleteList = async (data: deleteList) => {
@@ -248,9 +263,90 @@ export default function BoardPage() {
     $workspace.refetch();
   };
 
+  const onDragTaskToAnotherList = async (event: DropResult) => {
+    const taskId = parseDroppableId(event.draggableId);
+    const sourceListId = parseDroppableId(event.source.droppableId);
+    const destListId = parseDroppableId(event.destination!.droppableId);
 
-  const onDragTaskToAnotherList = (event: DropResult) => {
-    console.log('on drag task to another list', event);
+    type Action = Parameters<typeof dispatch>[0];
+    const actions: Action[] = [];
+
+    const sourceList = getEntityById(board.lists, sourceListId)!;
+    const destList = getEntityById(board.lists, destListId)!;
+
+    // удалить таску из текущего листа
+    actions.push(
+      boardThunks.updateList({
+        listId: sourceList.id,
+        patch: {
+          tasks: removeFromEntities(sourceList.tasks, taskId)
+        },
+      }),
+    );
+
+    // добавить таску в другой лист
+    actions.push(
+      boardThunks.updateList({
+        listId: destList.id,
+        patch: {
+          tasks: addToEntities(destList.tasks, taskId)
+        },
+      }),
+    );
+
+    // сделать -1 ордер в текущем листе для тасок которые ниже
+    const sourceReorderActions = getActionsForReorderTasks(sourceList.tasks, event.source.index, 'remove');
+
+    sourceReorderActions.forEach((action) => {
+      actions.push(
+        boardThunks.editTaskOrder({
+          taskId: action.id,
+          patch: {
+            ...action.patch,
+            list: sourceList.id,
+          },
+        })
+      );
+    });
+
+    // сделать +1 ордер в другом листе для тасок которые ниже
+    const destReorderActions = getActionsForReorderTasks(destList.tasks, event.destination!.index, 'add');
+
+    destReorderActions.forEach((action) => {
+      actions.push(
+        boardThunks.editTaskOrder({
+          taskId: action.id,
+          patch: {
+            ...action.patch,
+            list: destList.id,
+          },
+        })
+      );
+    });
+
+    // обновить в таске list id и ордер
+    actions.push(
+      boardThunks.editTaskOrder({
+        taskId,
+        patch: {
+          order: event.destination!.index,
+          list: destList.id,
+        },
+      })
+    );
+
+    // TODO
+    // удалить таску из текущего листа
+    // добавить таску в другой лист
+    // сделать -1 ордер в текущем листе для тасок которые ниже
+    // сделать +1 ордер в другом листе для тасок которые ниже
+    // обновить в таске list id и ордер
+
+    await Promise.all(
+      actions.map((action) => dispatch(action))
+    );
+
+    $board.refetch();
   };
 
 
@@ -307,7 +403,6 @@ export default function BoardPage() {
                             tasks={list.tasks}
                             onCreateTask={onCreateTask}
                             onUpdateList={onUpdateList}
-                            // onNewOrderUpdate={onNewOrderUpdate}
                             onCurrentOrderUpdate={onCurrentOrderUpdate}
                             onDeleteList={onDeleteList}
                           />
