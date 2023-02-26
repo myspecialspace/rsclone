@@ -21,6 +21,9 @@ import { OrderUpdateData } from '../../components/List/types';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { DropType, getDroppableId, parseDroppableId } from './constants';
 import { Task, List as IList } from '../../types/base';
+import { deleteList, orderUpdate } from '../../components/List/types';
+import { DeleteBoard } from '../../store/board/types';
+import { useWorkspace } from '../../store/workspace/hooks';
 
 export default function BoardPage() {
   const params = useParams();
@@ -28,7 +31,7 @@ export default function BoardPage() {
   const userId = useSelector((state: AppState) => state.auth.userId);
   const $board = useBoard();
   const dispatch = useAppDispatch();
-
+  const $workspace = useWorkspace();
   const board = $board?.data;
   console.log({ board });
   const lists = board?.lists || [];
@@ -41,9 +44,7 @@ export default function BoardPage() {
 
   useEffect(() => {
     if (board?.workspace?.id) {
-      dispatch(workspaceActions.setId(
-        board.workspace.id
-      ));
+      dispatch(workspaceActions.setId(board.workspace.id));
     }
   }, [dispatch, board]);
 
@@ -106,6 +107,7 @@ export default function BoardPage() {
     }
   };
 
+
   // const onNewOrderUpdate = async (data: OrderUpdateData) => {
   //   await dispatch(
   //     listsThunks.editListOrder({
@@ -131,10 +133,9 @@ export default function BoardPage() {
     //     }
     //   })
     // );
+
     $board.refetch();
-  }
-
-
+  };
 
   const onDragEnd = async (event: DropResult) => {
     if (!event.destination) {
@@ -232,9 +233,22 @@ export default function BoardPage() {
       listId,
       patch: payload.patch
     }))));
-
     $board.refetch();
   };
+
+  const onDeleteList = async (data: deleteList) => {
+    await dispatch(
+      listsThunks.deleteList({
+        listId: data.listId,
+      })
+    );
+    $board.refetch();
+  };
+  const onDeleteBoard = async (boardId: DeleteBoard) => {
+    await dispatch(boardThunks.deleteBoard(boardId));
+    $workspace.refetch();
+  };
+
 
   const onDragTaskToAnotherList = (event: DropResult) => {
     console.log('on drag task to another list', event);
@@ -266,7 +280,7 @@ export default function BoardPage() {
   return (
     <>
       <div className={styles.container}>
-        <BoardsHeader />
+        <BoardsHeader onDeleteBoard={onDeleteBoard} />
 
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId={getDroppableId.board(board.id)} direction="horizontal" type={DropType.LIST}>
@@ -296,6 +310,7 @@ export default function BoardPage() {
                             onUpdateList={onUpdateList}
                             // onNewOrderUpdate={onNewOrderUpdate}
                             onCurrentOrderUpdate={onCurrentOrderUpdate}
+                            onDeleteList={onDeleteList}
                           />
                         </div>
                       )}

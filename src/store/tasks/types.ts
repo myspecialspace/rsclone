@@ -21,3 +21,18 @@ export interface Task extends TAttrsBase {
   "order": number;
   list: List;
 }
+
+export interface TaskEditInterface {
+  taskId: number;
+  name: string;
+  description: string;
+  backgroundColor: string;
+  isCompleted: boolean;
+  //"board": 6,
+  //"list": 7,
+  //"date_to_complete": "2024-02-17T06:46:38.332Z"
+}
+
+export interface TaskDeleteInterface {
+  taskId: number;
+}

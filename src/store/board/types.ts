@@ -20,11 +20,11 @@ export interface DeleteBoard {
   boardId: number;
 }
 
-export interface UpdateData {
+export interface UpdateDeleteBoard {
   boardId: number;
   name: string;
-  //   description: string;
+  description: string;
   isFavorite: boolean;
   isPrivate: boolean;
-  //   isClosed: boolean;
+  isClosed: boolean;
 }

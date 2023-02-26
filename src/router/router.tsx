@@ -72,5 +72,5 @@ export default createBrowserRouter([
         element: <MeSettingsPage />,
       },
     ],
-  }
+  },
 ]);
