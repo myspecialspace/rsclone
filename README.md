@@ -16,11 +16,13 @@ https://trello-clone-panthers.netlify.app/
 - Axios
 - [Antd](https://ant.design/)
 - Sass
+- [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
 
 ### Backend:
 
 - [Strapi](https://strapi.io/)
 - Postman
+- [Railway](https://railway.app/)
 
 ## Deployment
 
