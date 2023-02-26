@@ -1,8 +1,8 @@
 import {
   createSlice,
 } from '@reduxjs/toolkit';
-import { State } from './types';
-import { fetchBoard } from './thunks';
+import { State, List } from './types';
+import { editListOrder, editTaskOrder, fetchBoard } from './thunks';
 import { FetchState } from '../../helpers/fetch-state';
 
 const initialState = (): State => ({
@@ -10,6 +10,17 @@ const initialState = (): State => ({
   board: null!,
   id: -1,
 });
+
+const sortListAndTasks = (lists: List[]): List[] => {
+  return lists
+    .map((list) => {
+      return {
+        ...list,
+        tasks: list.tasks.sort((a, b) => a.order - b.order)
+      };
+    })
+    .sort((a, b) => a.order - b.order);
+};
 
 export const slice = createSlice({
   name: 'board',
@@ -27,9 +38,38 @@ export const slice = createSlice({
     builder.addCase(fetchBoard.rejected, (state, action) => {
       state.fetchState = FetchState.ERROR;
     });
-    builder.addCase(fetchBoard.fulfilled, (state, action) => {
+    builder.addCase(fetchBoard.fulfilled, (state, { payload }) => {
       state.fetchState = FetchState.SUCCESS;
-      state.board = action.payload;
+      state.board = payload;
+
+      const lists = sortListAndTasks(payload.lists);
+
+      state.board.lists = lists;
+    });
+
+    builder.addCase(editListOrder.pending, (state, action) => {
+      /**
+       * обновляем ордер в стейте, чтобы не было визуального лага,
+       * пока запрос на обновление ордера грузится
+       * */
+      const listId = action.meta.arg.listId;
+      const reorderList = state.board.lists.find((list) => list.id === listId)!;
+      reorderList.order = action.meta.arg.patch.order;
+
+      state.board.lists = sortListAndTasks(state.board.lists);
+    });
+
+    builder.addCase(editTaskOrder.pending, (state, action) => {
+      /**
+       * обновляем ордер в стейте, чтобы не было визуального лага,
+       * пока запрос на обновление ордера грузится
+       * */
+      const { listId, taskId, patch } = action.meta.arg;
+      const list = state.board.lists.find((list) => list.id === listId)!;
+      const task = list.tasks.find((task) => task.id === taskId)!;
+      task.order = patch.order;
+
+      state.board.lists = sortListAndTasks(state.board.lists);
     });
   }
 });

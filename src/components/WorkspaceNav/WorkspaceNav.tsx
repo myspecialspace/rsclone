@@ -1,5 +1,5 @@
-import { Menu, MenuProps } from 'antd';
-import { AppstoreOutlined, UsergroupAddOutlined, SettingOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Menu, MenuProps, ConfigProvider } from 'antd';
+import { AppstoreOutlined, UsergroupAddOutlined, SettingOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styles from './WorkspaceNav.module.scss';
 import { MenuContent } from '../Constants/constant';
@@ -11,6 +11,7 @@ import { useState } from 'react';
 
 interface WorkspaceNavProps {
   className: string;
+  isSidebarOpen: boolean;
 }
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -22,7 +23,7 @@ enum MenuKeys {
 
 const getBoardKey = (boardId: number | string) => MenuKeys.BOARD + '-' + boardId;
 
-export function WorkspaceNav({ className }: WorkspaceNavProps) {
+export function WorkspaceNav({ className, isSidebarOpen }: WorkspaceNavProps) {
   const matches = useMatches();
   const workspaceId = useCurrentWorkspaceId();
   const $workspace = useWorkspace();
@@ -81,42 +82,30 @@ export function WorkspaceNav({ className }: WorkspaceNavProps) {
     })),
   ];
 
+  const menuStyles: React.CSSProperties = isSidebarOpen
+    ? { position: 'relative', transform: 'translateX(0)' }
+    : { position: 'absolute', transform: 'translateX(-266px)' };
+
   return (
-    <div className={classNames(styles.root, className)} id="menu__container">
+    <div className={classNames(styles.root, className)} style={menuStyles}>
       <div className={styles.header}>
         <h4 className={styles.title}>{MenuContent.MENU_TITLE}</h4>
-        <div onClick={onShowButtonClick}><LeftOutlined className={styles.show_ico} /></div>
       </div>
-      <Menu
-        className={styles.menu}
-        mode="inline"
-        items={items}
-        selectedKeys={[activeRouteId]}
-        openKeys={openKeys}
-        onOpenChange={setOpenKeys}
-      />
+      <ConfigProvider theme={{
+        token: {
+          colorBgBase: '#516270',
+          colorText: '#fff',
+        }
+      }}>
+        <Menu
+          className={styles.menu}
+          mode="inline"
+          items={items}
+          selectedKeys={[activeRouteId]}
+          openKeys={openKeys}
+          onOpenChange={setOpenKeys}
+        />
+      </ConfigProvider>
     </div>
   )
 }
-
-export function MenuShowButton() {
-  return (
-    <div onClick={onHideButtonClick} className={styles.ico_hidden}><RightOutlined className={styles.show_ico} /></div>
-  )
-}
-
-const onShowButtonClick = () => {
-  const menu = document.getElementById('menu__container') as HTMLElement;
-  const rightSide = document.getElementById('container') as HTMLElement;
-  menu.style.position='absolute';
-  menu.style.transform='translateX(-266px)';
-  rightSide.style.width='100%';
-};
-
-const onHideButtonClick = () => {
-  const menu = document.getElementById('menu__container') as HTMLElement;
-  const rightSide = document.getElementById('container') as HTMLElement;
-  menu.style.position='relative';
-  menu.style.transform='translateX(0)';
-  rightSide.style.width='calc(100% - 256px)';
-};
