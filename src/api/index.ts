@@ -12,7 +12,11 @@ interface IUser {
   password: string;
   identifier: string;
 }
-export const API_URL = `http://localhost:1337/api/`;
+//export const API_URL = `http://localhost:1337/api/`;
+export const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://trello-strapi-production.up.railway.app/api/'
+  : 'http://localhost:1337/api/';
+
 const instance = axios.create({
   baseURL: API_URL,
 });
