@@ -72,6 +72,7 @@ export default function Task({ task }: TaskProps) {
         owner: userId,
     }));
     console.log(comment, task.id)
+    setIsModalOpen(true)
     $task.refetch();
   }
 
@@ -116,6 +117,7 @@ export default function Task({ task }: TaskProps) {
         <div className={styles.change__title}>{CardEdit.COLOR}</div>
         <input className={styles.color} type="color" value={taskBgColor} onChange={(e) => setTaskBgColor(e.target.value)} />
         <div>
+        <div className={styles.change__title}>{CardEdit.COMMENTS_TITLE}</div>
           <div>
             {task.comments.map((comment) => (
               <Comment key={comment.id} comment={comment} taskId={task.id} />

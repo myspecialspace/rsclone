@@ -185,6 +185,7 @@ enum CardEditRu {
   DESCRIPTION = 'Описание',
   DESCRIPTION_PLACEHOLDER = 'Добавить более подробное описание...',
   COLOR = 'Выбрать цвет обложки',
+  COMMENTS_TITLE = 'Комментарии',
   COMMENT = 'Оставить комментарий',
   COMMENT_PLACEHOLDER ='Напишите комментарий ...',
   DELETE = 'Удалить карточку',

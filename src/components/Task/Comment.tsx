@@ -14,11 +14,13 @@ interface CommentProps {
 export default function Comment(props: CommentProps) {
 
   let dateAndTime = new Date(props.comment.createdAt);
+  let hours = (dateAndTime.getUTCHours().toString().length === 1) ? ('0' + dateAndTime.getUTCHours()) : dateAndTime.getUTCHours();
+  let minutes = (dateAndTime.getUTCMinutes().toString().length === 1) ? ('0' + dateAndTime.getUTCMinutes()) : dateAndTime.getUTCMinutes();
 
   let date = props.comment.createdAt.slice(0, 4) +'.'
   +  props.comment.createdAt.slice(5, 7) + '.'
   + props.comment.createdAt.slice(8, 10) + '    '
-  + dateAndTime.getUTCHours() + ':' + dateAndTime.getUTCMinutes();
+  + hours + ':' + minutes;
  
   return (
     <div className={styles.container}>
