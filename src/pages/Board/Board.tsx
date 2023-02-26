@@ -17,11 +17,10 @@ import BoardsHeader from '../../components/BoardsHeader/BoardsHeader';
 import { useBoard } from '../../store/board/hooks';
 import { workspaceActions } from '../../store/workspace';
 import { UpdateData } from '../../components/List/Title';
-import { OrderUpdateData } from '../../components/List/types';
+import { OrderUpdateData, deleteList } from '../../components/List/types';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { DropType, getDroppableId, parseDroppableId } from './constants';
 import { Task, List as IList } from '../../types/base';
-import { deleteList, orderUpdate } from '../../components/List/types';
 import { DeleteBoard } from '../../store/board/types';
 import { useWorkspace } from '../../store/workspace/hooks';
 

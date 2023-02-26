@@ -5,7 +5,7 @@ import * as strapi from "../../helpers/strapi-types";
 import {
   List,
   EditListInterface,
-  EditListOrderInterface,
+  //EditListOrderInterface,
   EditListDeleteInterface,
 } from './types';
 

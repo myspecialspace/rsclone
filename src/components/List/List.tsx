@@ -6,11 +6,11 @@ import InputContainer from '../input/Input-container';
 import { List as IList } from '../../types/list';
 import { Task as ITask } from '../../types/task';
 import { SubmitData } from '../input/Input-data';
-import { OrderUpdateData } from './types';
+import { OrderUpdateData, deleteList } from './types';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { DropType, getDraggableId, getDroppableId } from '../../pages/Board/constants';
 //import { useState } from 'react';
-import { deleteList } from './types';
+//import { deleteList } from './types';
 
 
 interface ListProps {
@@ -19,9 +19,10 @@ interface ListProps {
   onCreateTask: (data: SubmitData) => any;
   onUpdateList: (data: UpdateData) => any;
   onCurrentOrderUpdate: (data: OrderUpdateData) => any;
+  onDeleteList: (data: deleteList) => any;
 }
 
-export default function List({ list, tasks, onCreateTask, onUpdateList }: ListProps) {
+export default function List({ list, tasks, onCreateTask, onUpdateList, onDeleteList }: ListProps) {
 
  /* onNewOrderUpdate: (data: any) => any;
   onCurrentOrderUpdate: (data: any) => any;
@@ -67,7 +68,7 @@ export default function List({
   return (
     <div>
       <Card className={styles.list}>
-        <Title title={list.name} list={list} listId={list.id} onSubmitUpdate={onSubmitUpdate} />
+        <Title title={list.name} list={list} listId={list.id} onSubmitUpdate={onSubmitUpdate} onDeleteList={onDeleteList}/>
         <Droppable droppableId={getDroppableId.list(list.id)} type={DropType.TASK}>
           {(provided, snapshot) => (
             <div
