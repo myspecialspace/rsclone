@@ -1,0 +1,112 @@
+@import '../../styles/index.scss';
+
+.about {
+  background: url(../../assets/svg/background.svg) center bottom -0.5px / 100% 24% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto no-repeat scroll padding-box border-box rgb(82, 67, 170);
+  background-blend-mode: normal, normal;
+  color: rgb(255, 255, 255);
+  @media screen and (max-width: 460px) { 
+    background: url(../../assets/svg/background.svg) center bottom -0.5px / 100% 25% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto no-repeat scroll padding-box border-box rgb(82, 67, 170);
+  background-blend-mode: normal, normal;
+  }
+}
+  
+.about__container{
+  @include columns($width: 48%);
+  @media screen and (max-width: $content-tablet-width) {
+    @include columns($width: 90%);
+  } 
+}
+  
+.about__title{
+  padding-top: 16%;
+  @extend %font-logo;
+  @include font($size: 3rem, $height: 3.6rem);
+  margin-bottom: 8px;
+  @media screen and (max-width: $content-tablet-width) {
+    padding-top: 10%;
+    @include font($size: 2.8rem, $height: 3rem);
+  }
+}
+
+.about__text {
+  @extend %font-prim;
+  @include font($size: 2rem, $height: 2.6rem);
+  margin-bottom: 40px;
+  @media screen and (max-width: $content-tablet-width) {
+    @include font($size: 1.7rem, $height: 2.2rem);
+  }
+  @media screen and (max-width: 460px) {
+    @include font($size: 1.5rem, $height: 2.2rem);
+  }
+}
+  
+.sign__form {
+  padding-bottom: 250px;
+  /*@media screen and (max-width: $content-tablet-width) {
+    padding-bottom: 100px;
+  }
+  @media screen and (max-width: 460px) {
+    padding-bottom: 80px;
+  }*/
+}
+
+.sign__field {
+  max-width: 300px;
+  transition: all 250ms ease-out 0s;
+  width: 376px;
+  @extend %font-prim;
+  @include font($size: 1.6rem, $height: 2.6rem);
+  margin-right: 20px;
+  margin-bottom: 10px;
+  padding: 14px 10px;
+  border: 1px solid rgb(223, 225, 230);
+  border-radius: 5px;
+}
+  
+.sign__submit {
+  text-align: center;
+  color: $color-light;
+  background-color: $color-button;
+  border: 1px solid $color-button;
+  max-width: 300px;
+  @extend %font-prim;
+  @include font($size: 1.4rem, $height: 1.8rem);
+  transition: all 250ms ease-out 0s;
+  width: 386px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  padding: 19px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-button-hover;
+    border: 1px solid $color-button-hover;
+  }
+}
+
+.img__container {
+  max-width: 90%;
+  width: 900px;
+}
+
+.about__img {
+  display: block;
+  width: 960px;
+  @media screen and (max-width: $content-tablet-width) {
+    display: none;
+  }
+}
+
+.header {
+  height: 70px;
+}
+
+.header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link {
+  text-decoration: none;
+}

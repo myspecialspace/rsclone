@@ -1,0 +1,26 @@
+@import '../../styles/index';
+
+.container {
+  margin: 10px;
+}
+
+.content {
+  display: flex;
+}
+
+.ico {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  background-color: #cee8fe;
+  border-radius: 50%;
+}
+
+.date {
+  margin-bottom: 15px;
+  margin-top: 6px;
+  color: $color-light-grey;
+  @extend %font-prim;
+  @include font($size: 1.1rem, $height: 1.2rem, $weight: 400);
+  font-style: italic;
+}

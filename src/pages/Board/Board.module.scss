@@ -1,0 +1,12 @@
+@import '../../styles/index';
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.list__container {
+  display: flex;
+  height: 88%;
+  overflow-y: auto;
+}

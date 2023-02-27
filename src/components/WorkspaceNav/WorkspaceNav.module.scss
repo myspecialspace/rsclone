@@ -1,0 +1,21 @@
+@import '../../styles/index';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 2px;
+  color: rgb(229, 229, 229);
+}
+
+.title {
+  padding: 20px;
+  @extend %font-logo;
+  @include font($size: 1.8rem, $height: 2rem, $weight: 500);
+}
+
+.item_ico {
+  position: absolute;
+  top: 200px;
+  right: 5px;
+}

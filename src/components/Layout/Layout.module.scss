@@ -1,0 +1,18 @@
+.layout {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.router {
+  //flex-grow: 1;
+  height: 90%;
+}
+
+.footer {
+  //margin-top: -60px;
+  height: 10%;
+}

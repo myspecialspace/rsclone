@@ -1,0 +1,29 @@
+@import '../../styles/index.scss';
+
+.logo_link {
+    display: flex;
+    align-items: flex-end;
+    text-decoration: none;
+    margin-left: 20px;
+    padding-top: 8px;
+    color: #0052cc;
+    cursor: pointer;
+    @extend %transition;
+    @media screen and (max-width: $content-width) {
+      margin-left: 5px;
+    }
+  }
+  
+  .logo__img {
+    width: 32px;
+    height: 32px;
+    margin: 6px;
+    background: url(../../assets/svg/trello_logo.svg);
+    background-size: cover;
+  }
+
+  .logo__title {
+    margin-bottom: -4px;
+    @extend %font-logo;
+    @include font($size: 1.4rem, $height: 1.4rem, $weight: 700);
+  }

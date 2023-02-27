@@ -1,0 +1,25 @@
+.title {
+  font-size: 18px;
+  margin: 10px 0px 5px 0px;
+}
+
+.memberTiles {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+}
+
+.inputWrap {
+  display: flex;
+  width: 100%;
+}
+
+.select {
+  flex-shrink: 1;
+  flex-grow: 1;
+}
+
+.save {
+  flex-shrink: 0;
+  margin-left: 10px;
+}

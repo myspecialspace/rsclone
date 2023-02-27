@@ -1,0 +1,137 @@
+@import '../../styles/index';
+
+.root {
+  height: 100%;
+  background-color: aliceblue;
+  @media screen and (max-width: 380px) {
+    height: auto;
+  }
+}
+
+.header {
+  height: 50px;
+  background-color: #404e59;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  @media screen and (max-width: 380px) {
+    padding: 0 5px;
+  }
+}
+
+.sidebar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 256px;
+  background-color: #516270;
+  transition: all 0.3s ease-out;
+  z-index: 5;
+  @media screen and (max-width: 380px) {
+    max-width: none;
+  }
+}
+
+.wrapper__layout {
+  height: calc(100% - 50px);
+  display: flex;
+  overflow-x: hidden;
+  position: relative;
+  @media screen and (max-width: 380px) {
+    height: auto;
+    display: block;
+  }
+}
+
+.rightside {
+  width: calc(100% - 256px);
+  @media screen and (max-width: 380px) {
+    width: 100%;
+  }
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+  background: url(../../assets/svg/trello_logo.svg);
+  background-size: cover;
+}
+
+.name {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.workspaceSelector,
+.createSelector {
+  margin-left: 8px;
+  @media screen and (max-width: 470px) {
+    margin-left: 4px;
+  }
+}
+
+.right {
+  margin-left: auto;
+}
+
+.button {
+  @media screen and (max-width: 470px) {
+    padding: 5px;
+    @include font($size: 1.1rem, $height: 1.2rem, $weight: 400);
+  }
+}
+
+.user {
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoLink {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+}
+
+.sidebarButton {
+  font-size: 1.8rem;
+  color: $color-grey;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  z-index: 10;
+  left: calc(256px - 26px);
+
+  &:hover {
+    background-color: $color-light-grey;
+  }
+}
+
+.sidebarHidden {
+  .sidebarButton {
+    left: 0px;
+    transform: rotate(180deg);
+  }
+
+  .rightside {
+    width: 100%;
+    padding-left: 40px;
+    @media screen and (max-width: 380px) {
+      padding-left: 20px;
+    }
+  }
+}
+.inner {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+}
