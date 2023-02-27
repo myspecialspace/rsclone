@@ -16,14 +16,12 @@ import * as commentsThunks from '../../store/comments/thunks';
 import { useSelector } from 'react-redux';
 import { useTasks } from '../../store/tasks/hooks';
 
-
 interface TaskProps {
   task: ITask;
   listId: number;
 }
 
 export default function Task({ task }: TaskProps) {
-
   const dispatch = useAppDispatch();
   const boardId = useSelector((state: AppState) => state.board.id);
   const $board = useBoard();
@@ -38,8 +36,8 @@ export default function Task({ task }: TaskProps) {
 
   const handleOnChange = (e: React.ChangeEvent) => {
     setTaskName((e.target as HTMLInputElement).value);
-    console.log('task name', taskName)
-  }
+    // console.log('task name', taskName)
+  };
 
   const onUpdateTask = async () => {
     await dispatch(
@@ -49,7 +47,8 @@ export default function Task({ task }: TaskProps) {
         description: description,
         backgroundColor: taskBgColor,
         isCompleted: isCompleted,
-    }));
+      })
+    );
 
     $board.refetch();
     setIsModalOpen(false);
@@ -59,10 +58,11 @@ export default function Task({ task }: TaskProps) {
     await dispatch(
       taskThunks.deleteTask({
         taskId: task.id,
-    }));
+      })
+    );
 
     $board.refetch();
-  }
+  };
 
   const onCommentCreate = async () => {
     await dispatch(
@@ -70,40 +70,65 @@ export default function Task({ task }: TaskProps) {
         task: task.id,
         content: comment,
         owner: userId,
-    }));
-    console.log(comment, task.id)
-    setIsModalOpen(true)
+      })
+    );
+    // console.log(comment, task.id)
+    setIsModalOpen(true);
     $task.refetch();
-  }
-
-  const onCheckChange = (e: CheckboxChangeEvent) => {
-    setIsCompleted(e.target.checked)
   };
 
-  let date = task.createdAt.slice(0, 4) +'.'+  task.createdAt.slice(5, 7) + '.' + task.createdAt.slice(8, 10);
+  const onCheckChange = (e: CheckboxChangeEvent) => {
+    setIsCompleted(e.target.checked);
+  };
+
+  let date =
+    task.createdAt.slice(0, 4) +
+    '.' +
+    task.createdAt.slice(5, 7) +
+    '.' +
+    task.createdAt.slice(8, 10);
 
   return (
     <div>
       <Card
         draggable={true}
         className={styles.task}
-        style={{ backgroundColor: task.backgroundColor}}>
+        style={{ backgroundColor: task.backgroundColor }}
+      >
         <div className={styles.task__content}>
           <Typography className={styles.title}>{task.name}</Typography>
-          <Button className={styles.button_edit} style={{ backgroundColor: task.backgroundColor}} icon={<EditOutlined className={styles.ico} onClick={() => setIsModalOpen(true)}/>}></Button>
+          <Button
+            className={styles.button_edit}
+            style={{ backgroundColor: task.backgroundColor }}
+            icon={
+              <EditOutlined
+                className={styles.ico}
+                onClick={() => setIsModalOpen(true)}
+              />
+            }
+          ></Button>
         </div>
       </Card>
-      <Modal open={isModalOpen} onOk={onUpdateTask} onCancel={() => setIsModalOpen(false)}>
-      <TextArea 
-        className={styles.change}
-        onChange={handleOnChange}
-        autoFocus
-        autoSize
-        placeholder="card title"
-        value={taskName}/>
+      <Modal
+        open={isModalOpen}
+        onOk={onUpdateTask}
+        onCancel={() => setIsModalOpen(false)}
+      >
+        <TextArea
+          className={styles.change}
+          onChange={handleOnChange}
+          autoFocus
+          autoSize
+          placeholder='card title'
+          value={taskName}
+        />
         <div className={styles.change__check}>
-          <p className={styles.date}>{CardEdit.CREATE_DATA}: {date}</p>
-          <Checkbox checked={isCompleted} onChange={onCheckChange}>{CardEdit.CHECKED}</Checkbox>
+          <p className={styles.date}>
+            {CardEdit.CREATE_DATA}: {date}
+          </p>
+          <Checkbox checked={isCompleted} onChange={onCheckChange}>
+            {CardEdit.CHECKED}
+          </Checkbox>
         </div>
         <div className={styles.change__title}>{CardEdit.DESCRIPTION}</div>
         <TextArea
@@ -115,9 +140,14 @@ export default function Task({ task }: TaskProps) {
           onChange={(e) => setDescription(e.target.value)}
         />
         <div className={styles.change__title}>{CardEdit.COLOR}</div>
-        <input className={styles.color} type="color" value={taskBgColor} onChange={(e) => setTaskBgColor(e.target.value)} />
+        <input
+          className={styles.color}
+          type='color'
+          value={taskBgColor}
+          onChange={(e) => setTaskBgColor(e.target.value)}
+        />
         <div>
-        <div className={styles.change__title}>{CardEdit.COMMENTS_TITLE}</div>
+          <div className={styles.change__title}>{CardEdit.COMMENTS_TITLE}</div>
           <div>
             {task.comments.map((comment) => (
               <Comment key={comment.id} comment={comment} taskId={task.id} />
@@ -128,7 +158,7 @@ export default function Task({ task }: TaskProps) {
             className={styles.comment}
             placeholder={CardEdit.COMMENT_PLACEHOLDER}
             value={comment}
-            autoSize={{ minRows: 2}}
+            autoSize={{ minRows: 2 }}
             autoFocus
             onChange={(e) => setComment(e.target.value)}
             onBlur={onCommentCreate}
@@ -136,8 +166,10 @@ export default function Task({ task }: TaskProps) {
         </div>
         <p className={styles.change__title}>{CardEdit.DATE_TO_COMPLETE}</p>
         <DateToComplete />
-        <Button type="text" danger onClick={onTaskDelete}>{CardEdit.DELETE}</Button>
+        <Button type='text' danger onClick={onTaskDelete}>
+          {CardEdit.DELETE}
+        </Button>
       </Modal>
     </div>
-  )
+  );
 }

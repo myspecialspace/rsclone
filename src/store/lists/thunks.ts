@@ -1,7 +1,7 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../api";
-import { getMappedResponse } from "../../helpers/strapi";
-import * as strapi from "../../helpers/strapi-types";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import api from '../../api';
+import { getMappedResponse } from '../../helpers/strapi';
+import * as strapi from '../../helpers/strapi-types';
 import {
   List,
   EditListInterface,
@@ -13,7 +13,7 @@ export const fetchLists = createAsyncThunk<List[], number>(
   'lists/fetch',
   async (boardId, { rejectWithValue }) => {
     try {
-      console.log('boarddddd', boardId);
+      //   console.log('boarddddd', boardId);
       const response = await api
         .getInstance()
         .get<strapi.CollectionResponse<List>>(
@@ -63,9 +63,6 @@ export const editList = createAsyncThunk<List, EditListInterface>(
   }
 );
 
-
-
-
 /* export const editListOrder = createAsyncThunk<List, EditListOrderInterface>(
   'lists/update',
   async (data, { rejectWithValue }) => {
@@ -79,7 +76,6 @@ export const editList = createAsyncThunk<List, EditListInterface>(
     }
   }
 );*/
-
 
 export const deleteList = createAsyncThunk<List, EditListDeleteInterface>(
   'lists/delete',

@@ -8,10 +8,13 @@ import { Task as ITask } from '../../types/task';
 import { SubmitData } from '../input/Input-data';
 import { OrderUpdateData, deleteList } from './types';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { DropType, getDraggableId, getDroppableId } from '../../pages/Board/constants';
+import {
+  DropType,
+  getDraggableId,
+  getDroppableId,
+} from '../../pages/Board/constants';
 //import { useState } from 'react';
 //import { deleteList } from './types';
-
 
 interface ListProps {
   list: IList;
@@ -22,9 +25,14 @@ interface ListProps {
   onDeleteList: (data: deleteList) => any;
 }
 
-export default function List({ list, tasks, onCreateTask, onUpdateList, onDeleteList }: ListProps) {
-
- /* onNewOrderUpdate: (data: any) => any;
+export default function List({
+  list,
+  tasks,
+  onCreateTask,
+  onUpdateList,
+  onDeleteList,
+}: ListProps) {
+  /* onNewOrderUpdate: (data: any) => any;
   onCurrentOrderUpdate: (data: any) => any;
   onDeleteList: (data: deleteList) => any;
 }
@@ -68,8 +76,17 @@ export default function List({
   return (
     <div>
       <Card className={styles.list}>
-        <Title title={list.name} list={list} listId={list.id} onSubmitUpdate={onSubmitUpdate} onDeleteList={onDeleteList}/>
-        <Droppable droppableId={getDroppableId.list(list.id)} type={DropType.TASK}>
+        <Title
+          title={list.name}
+          list={list}
+          listId={list.id}
+          onSubmitUpdate={onSubmitUpdate}
+          onDeleteList={onDeleteList}
+        />
+        <Droppable
+          droppableId={getDroppableId.list(list.id)}
+          type={DropType.TASK}
+        >
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
@@ -77,7 +94,11 @@ export default function List({
             >
               {tasks.map((task, index) => {
                 return (
-                  <Draggable key={task.id} draggableId={getDraggableId.task(task.id)} index={index}>
+                  <Draggable
+                    key={task.id}
+                    draggableId={getDraggableId.task(task.id)}
+                    index={index}
+                  >
                     {(provided2, snapshot2) => (
                       <div
                         ref={provided2.innerRef}
@@ -105,74 +126,5 @@ export default function List({
         </Droppable>
       </Card>
     </div>
-  )
-}
-
-  /* const dragStartHandler = (
-    e: React.DragEvent<HTMLDivElement>,
-    list: IList
-  ) => {
-    setCurrentList(list);
-    setCurrentOrder(list.order);
-    console.log(
-      'порядок текущего листа',
-      currentOrder,
-      'list id ',
-      currentList.id
-    );
-  };
-
-  function dragEndHandler(e: React.DragEvent<HTMLDivElement>) {
-    (e.target as HTMLElement).style.background = `${TASK_COLOR}`;
-  }
-
-  function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    (e.target as HTMLElement).style.background = 'lightblue';
-  }
-
-  const dropHandler = (e: React.DragEvent<HTMLDivElement>, list: IList) => {
-    e.preventDefault();
-    setNewList(list);
-    setNewOrder(list.order);
-    console.log('новый порядок  лист', newOrder, 'id', currentList.id);
-    console.log('поменять текущий порядок на ', {
-      listId: currentList.id,
-      order: newOrder,
-    });
-    console.log('поменять новый порядок на ', {
-      listId: newList.id,
-      order: currentOrder,
-    });
-
-    onNewOrderUpdate({ listId: currentList.id, order: newOrder });
-    onCurrentOrderUpdate({ listId: newList.id, order: currentOrder });
-  };
-
-  return (
-    <div>
-      <Card
-        onDragStart={(e) => dragStartHandler(e, list)}
-        onDragLeave={(e) => dragEndHandler(e)}
-        onDragEnd={(e) => dragEndHandler(e)}
-        onDragOver={(e) => dragOverHandler(e)}
-        onDrop={(e) => dropHandler(e, list)}
-        draggable={true}
-        className={styles.list}
-      >
-        <Title
-          title={list.name}
-          list={list}
-          listId={list.id}
-          onSubmitUpdate={onSubmitUpdate}
-          onDeleteList={onDeleteList}
-        ></Title>
-        {tasks.map((task) => (
-          <Task key={task.id} task={task} listId={list.id} />
-        ))}
-        <InputContainer type='task' list={list} onCreateTask={onCreateTask} />
-      </Card>
-    </div>
   );
-} */
-
+}
