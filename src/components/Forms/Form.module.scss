@@ -13,11 +13,14 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 5px;
 }
 
 .form {
   width: 100%;
+}
+
+.form__item {
+  margin-bottom: 5px;
 }
 
 .form__input {
@@ -28,8 +31,6 @@
     0px 2px 3px rgba(206, 127, 214, 0.16);
   border-radius: 5px;
   border: 1px solid #cfd3e2;
-  @extend %font-prim;
-  @include font($size: 1.6rem, $height: 2.6rem, $weight: 400);
   margin-bottom: 4px;
   padding: 6px;
 }
@@ -56,14 +57,14 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 22px;
   gap: 15px;
   width: 100%;
   box-shadow: 0px 0px 3px rgba(95, 13, 111, 0.08),
     0px 2px 3px rgba(206, 127, 214, 0.16);
   border: none;
   border-radius: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   background-color: $color-login-button;
   color: $color-light;
   @extend %font-prim;

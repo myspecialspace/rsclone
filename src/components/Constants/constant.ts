@@ -16,7 +16,7 @@ enum MainPageContentEn {
   CHANGE_LEN = 'English',
 }
 
-export enum LoginPageContentRu {
+enum LoginPageContentRu {
   LOGIN_TITLE = 'Вход в Trello',
   INPUT_EMAIL = 'Укажите адрес электронной почты',
   INPUT_PASSWORD = 'Введите пароль',
@@ -28,13 +28,14 @@ export enum LoginPageContentRu {
 enum LoginPageContentEN {
   LOGIN_TITLE = 'Log in to your account',
   INPUT_EMAIL = 'Input E-mail',
-  FORGOT = 'Forgot Your Password?',
+  INPUT_PASSWORD = 'Input password',
+  //FORGOT = 'Forgot Your Password?',
   LOGIN = 'Sign In',
   HAVE_ACCOUNT = 'Don’t have an account?',
   REGISTER = 'Register',
 }
 
-export enum SignUpPageContentRu {
+enum SignUpPageContentRu {
   SIGN_UP_TITLE = 'Регистрация аккаунта',
   INPUT_NAME = 'Укажите ваше имя',
   INPUT_EMAIL = 'Укажите адрес электронной почты',
@@ -44,7 +45,7 @@ export enum SignUpPageContentRu {
   LOGIN = 'Войти',
 }
 
-export enum SignUpPageContentEn {
+enum SignUpPageContentEn {
   SIGN_UP_TITLE = 'Sign up for your account',
   INPUT_NAME = 'Enter your name',
   INPUT_EMAIL = 'Enter email',
@@ -215,24 +216,79 @@ enum CardEditRu {
   COMMENT = 'Оставить комментарий',
   COMMENT_PLACEHOLDER = 'Напишите комментарий ...',
   DELETE = 'Удалить карточку',
+  CHECKED = 'Выполнено',
+  DATE_TO_COMPLETE = 'Выполнить до:'
 }
 
-console.log(
-  BoardContentEn,
-  MenuContentEn,
-  WorkspaceContentEn,
-  LoginPageContentEN,
-  MainPageContentEn,
-  SignUpPageContentEn,
-  MeSettingsContentEn,
-  BoardHeaderContentEn
-);
 
-export const mainPageContent = MainPageContentRu;
-export const MenuContent = MenuContentRu;
-export const WorkspaceName = MenuContentRu.MENU_TITLE;
-export const WorkspaceContent = WorkspaceContentRu;
-export const BoardContent = BoardContentRu;
-export const MeSettingsContent = MeSettingsContentRu;
-export const CardEdit = CardEditRu;
-export const BoardHeaderContent = BoardHeaderContentRu;
+enum CardEditEn {
+  CREATE_DATA = 'Created',
+  DESCRIPTION = 'Description',
+  DESCRIPTION_PLACEHOLDER = 'Add a more detailed description...',
+  COLOR = 'Choose the cover color',
+  COMMENTS_TITLE = 'Comments',
+  COMMENT = 'Leave a comment',
+  COMMENT_PLACEHOLDER ='Input comments ...',
+  DELETE = 'Delete card',
+  CHECKED = 'Done',
+  DATE_TO_COMPLETE = 'Do before:'
+}
+
+enum WorkspaceMembersContentRu {
+  ADD_MEMBERS = 'Добавить пользователя в пространство:',
+  MEMBERS = 'Текущие пользователи',
+}
+
+enum WorkspaceMembersContentEn {
+  ADD_MEMBERS = 'Add user to the workspace:',
+  MEMBERS = 'Current users',
+}
+
+
+let mainPageContent: any;
+let MenuContent: any;
+let LoginPageContent: any;
+let SignUpPageContent: any;
+let WorkspaceContent: any;
+let MeSettingsContent: any;
+let WorkspaceName: any;
+let BoardContent: any;
+let CardEdit: any;
+let BoardHeaderContent: any;
+let WorkspaceMembersContent: any;
+
+function getLeng() {
+  //const [leng, setLeng] = useState('Английский');
+  //setLeng(localStorage.getItem('leng') || 'Английский');
+  let leng = localStorage.getItem('leng') || 'Английский';
+  console.log(leng);
+  mainPageContent = (leng === 'Английский') ? MainPageContentEn : MainPageContentRu;
+  MenuContent = (leng === 'Английский') ? MenuContentEn : MenuContentRu;
+  LoginPageContent = (leng === 'Английский') ? LoginPageContentEN : LoginPageContentRu;
+  SignUpPageContent = (leng === 'Английский') ? SignUpPageContentEn : SignUpPageContentRu;
+  WorkspaceContent = (leng === 'Английский') ? WorkspaceContentEn :  WorkspaceContentRu;
+  MeSettingsContent = (leng === 'Английский') ? MeSettingsContentEn : MeSettingsContentRu;
+  WorkspaceName = (leng === 'Английский') ? MenuContentEn.MENU_TITLE: MenuContentRu.MENU_TITLE;
+  BoardContent = (leng === 'Английский') ? BoardContentEn : BoardContentRu;
+  CardEdit = (leng === 'Английский') ? CardEditEn : CardEditRu;
+  BoardHeaderContent = (leng === 'Английский') ? BoardHeaderContentEn : BoardHeaderContentRu;
+  WorkspaceMembersContent = (leng === 'Английский') ? WorkspaceMembersContentEn : WorkspaceMembersContentRu;
+}
+
+getLeng()
+
+export { 
+  mainPageContent,
+  MenuContent, 
+  LoginPageContent, 
+  SignUpPageContent, 
+  WorkspaceContent, 
+  MeSettingsContent,
+  WorkspaceName,
+  BoardContent,
+  CardEdit,
+  BoardHeaderContent,
+  WorkspaceMembersContent
+};
+
+

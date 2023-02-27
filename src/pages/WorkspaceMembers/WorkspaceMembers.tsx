@@ -3,6 +3,7 @@ import { getBgColor, getFirstChar } from '../../helpers/user';
 import { useWorkspace } from '../../store/workspace/hooks';
 import { User } from '../../types/base';
 import styles from './WorkspaceMembers.module.scss';
+import { WorkspaceMembersContent } from '../../components/Constants/constant';
 
 
 const UserCard = ({ user }: { user: User }) => (
@@ -19,7 +20,7 @@ export default function WorkspaceMembersPage() {
   const members = $workspace.data?.members || [];
 
   return <div className={styles.workspaceMembers}>
-    <div className={styles.title}>Добавить пользователя в пространство:</div>
+    <div className={styles.title}>{WorkspaceMembersContent.ADD_MEMBERS}</div>
     <Select
       showSearch
       style={{ width: 200 }}
@@ -27,7 +28,7 @@ export default function WorkspaceMembersPage() {
       optionFilterProp="children"
     />
 
-    <div className={styles.title}>Текущие пользователи</div>
+    <div className={styles.title}>{WorkspaceMembersContent.MEMBERS}</div>
     <div className={styles.memberTiles}>
       {members.map((member) => <UserCard key={member.id} user={member} />)}
     </div>

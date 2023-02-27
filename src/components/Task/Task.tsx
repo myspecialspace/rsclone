@@ -103,7 +103,7 @@ export default function Task({ task }: TaskProps) {
         value={taskName}/>
         <div className={styles.change__check}>
           <p className={styles.date}>{CardEdit.CREATE_DATA}: {date}</p>
-          <Checkbox checked={isCompleted} onChange={onCheckChange}>Выполнено</Checkbox>
+          <Checkbox checked={isCompleted} onChange={onCheckChange}>{CardEdit.CHECKED}</Checkbox>
         </div>
         <div className={styles.change__title}>{CardEdit.DESCRIPTION}</div>
         <TextArea
@@ -123,7 +123,7 @@ export default function Task({ task }: TaskProps) {
               <Comment key={comment.id} comment={comment} taskId={task.id} />
             ))}
           </div>
-          <div className={styles.change__title}>{CardEdit.COMMENT}</div>
+          <div className={styles.change__comment}>{CardEdit.COMMENT}</div>
           <TextArea
             className={styles.comment}
             placeholder={CardEdit.COMMENT_PLACEHOLDER}
@@ -134,7 +134,7 @@ export default function Task({ task }: TaskProps) {
             onBlur={onCommentCreate}
           />
         </div>
-        <p className={styles.change__title}>Выполнить до:</p>
+        <p className={styles.change__title}>{CardEdit.DATE_TO_COMPLETE}</p>
         <DateToComplete />
         <Button type="text" danger onClick={onTaskDelete}>{CardEdit.DELETE}</Button>
       </Modal>

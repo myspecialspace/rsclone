@@ -59,6 +59,7 @@ export default function WorkspacePage() {
     );
     setIsModalOpen(false);
     $workspace.refetch();
+
   };
   const onClick = () => {
     setIsDeleteBoard(true);
@@ -71,12 +72,16 @@ export default function WorkspacePage() {
     await dispatch(boardThunks.deleteBoard({ boardId }));
     $workspace.refetch();
   };
+
+  /*#{workspace.id}*/
+
   return (
     <div className={styles.main}>
       <div className={styles.main__content}>
         <div className={styles.current__workspace}>
+
           <h2 className={styles.title}>
-            #{workspace.id} {workspace.name}
+             {workspace.name}
             <span className={styles.itemstar}>
               {workspace.isFavorite ? (
                 <StarOutlined style={{ color: '#FFB02E' }} />

@@ -9,6 +9,9 @@
     color: #0052cc;
     cursor: pointer;
     @extend %transition;
+    @media screen and (max-width: $content-width) {
+      margin-left: 5px;
+    }
   }
   
   .logo__img {

@@ -8,11 +8,12 @@
 
 html {
   font-size: 10px;
+  margin: 0;
+  //height: 100vh;
 }
 
-.body {
-  @extend %font-prim;
-  @include font($size: 1.6rem, $height: 2.6rem, $weight: normal);
+#root {
+  height: 100vh;
 }
 
 h1 {
@@ -42,6 +43,9 @@ button {
 }
 
 .wrapper {
-  // max-width: $content-width;
+  max-width: $content-width;
   margin: 0 auto;
+  @media screen and (max-width: $content-width) {
+    margin: 0 10px;
+  }
 }
