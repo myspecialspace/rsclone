@@ -207,6 +207,16 @@ enum CardEditEn {
   DATE_TO_COMPLETE = 'Do before:'
 }
 
+enum WorkspaceMembersContentRu {
+  ADD_MEMBERS = 'Добавить пользователя в пространство:',
+  MEMBERS = 'Текущие пользователи',
+}
+
+enum WorkspaceMembersContentEn {
+  ADD_MEMBERS = 'Add user to the workspace:',
+  MEMBERS = 'Current users',
+}
+
 
 let mainPageContent: any;
 let MenuContent: any;
@@ -218,6 +228,7 @@ let WorkspaceName: any;
 let BoardContent: any;
 let CardEdit: any;
 let BoardHeaderContent: any;
+let WorkspaceMembersContent: any;
 
 function getLeng() {
   //const [leng, setLeng] = useState('Английский');
@@ -234,6 +245,7 @@ function getLeng() {
   BoardContent = (leng === 'Английский') ? BoardContentEn : BoardContentRu;
   CardEdit = (leng === 'Английский') ? CardEditEn : CardEditRu;
   BoardHeaderContent = (leng === 'Английский') ? BoardHeaderContentEn : BoardHeaderContentRu;
+  WorkspaceMembersContent = (leng === 'Английский') ? WorkspaceMembersContentEn : WorkspaceMembersContentRu;
 }
 
 getLeng()
@@ -248,7 +260,8 @@ export {
   WorkspaceName,
   BoardContent,
   CardEdit,
-  BoardHeaderContent
+  BoardHeaderContent,
+  WorkspaceMembersContent
 };
 
 

@@ -44,12 +44,12 @@ export default function WorkspacePage() {
     setIsModalOpen(false);
     $workspace.refetch();
   }
-
+  /*#{workspace.id}*/
   return (
     <div className={styles.main}>
       <div className={styles.main__content}>
         <div className={styles.current__workspace}>
-          <h2 className={styles.title}>#{workspace.id} {workspace.name}</h2>
+          <h2 className={styles.title}> {workspace.name}</h2>
           <Space align="center">
             <Button type="primary" icon={<UserAddOutlined />}>{WorkspaceContent.WORKSPACE_INVITE}</Button>
           </Space>
