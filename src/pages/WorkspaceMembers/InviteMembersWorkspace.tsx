@@ -43,7 +43,7 @@ export default function InviteMembersWorkspace({ className, onSave, barWidth }: 
     if ($workspace.isSuccess) {
       setValue(userToOptions($workspace.data?.members || []))
     }
-  }, [$workspace.isSuccess]);
+  }, [$workspace.data?.members, $workspace.isSuccess]);
 
   const onSearch = (value: string) => {
     dispatch(searchUsesrActions.setSearch(value));
@@ -96,7 +96,7 @@ export default function InviteMembersWorkspace({ className, onSave, barWidth }: 
         labelInValue
         filterOption={false}
         className={styles.select}
-        
+
       />
       <Button
         type="primary"

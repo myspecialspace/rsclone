@@ -13,7 +13,7 @@ export const useSearchUsers = () => {
 
   useEffect(() => {
       dispatch(searchUsers({ search }));
-  }, [search]);
+  }, [dispatch, search]);
 
   return {
     ...getFetchStatuses(fetchState),
