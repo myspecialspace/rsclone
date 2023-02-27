@@ -1,4 +1,4 @@
-import { SignUpPageContentRu } from '../Constants/constant';
+import { SignUpPageContent } from '../Constants/constant';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Form.module.scss';
 import { useState } from 'react';
@@ -58,7 +58,7 @@ const FormSignUp = () => {
   return (
     <div className={styles.login__content}>
       <h3 className={styles.login__title}>
-        {SignUpPageContentRu.SIGN_UP_TITLE}
+        {SignUpPageContent.SIGN_UP_TITLE}
       </h3>
       <Form
         name='registration'
@@ -72,9 +72,10 @@ const FormSignUp = () => {
           <Form.Item
             name='username'
             rules={[{ required: true, message: 'Please input your Name!' }]}
+            className={styles.form__item}
           >
             <Input
-              placeholder={SignUpPageContentRu.INPUT_NAME}
+              placeholder={SignUpPageContent.INPUT_NAME}
               className={styles.form__input}
               id='username'
               name='username'
@@ -84,9 +85,10 @@ const FormSignUp = () => {
           <Form.Item
             name='email'
             rules={[{ required: true, message: 'Please input your E-mail!' }]}
+            className={styles.form__item}
           >
             <Input
-              placeholder={SignUpPageContentRu.INPUT_EMAIL}
+              placeholder={SignUpPageContent.INPUT_EMAIL}
               className={styles.form__input}
               id='email'
               name='email'
@@ -99,7 +101,7 @@ const FormSignUp = () => {
           >
             <Input.Password
               className={styles.form__input}
-              placeholder={SignUpPageContentRu.INPUT_PASSWORD}
+              placeholder={SignUpPageContent.INPUT_PASSWORD}
               name='Password'
               id='password'
               value={user.password}
@@ -108,7 +110,7 @@ const FormSignUp = () => {
         </div>
         {!!error && <div style={{ 'color': 'red' }}>{error.message}</div>}
         <Button htmlType='submit' id='sign-in' className={styles.login__button}>
-          {SignUpPageContentRu.SIGN_UP}
+          {SignUpPageContent.SIGN_UP}
         </Button>
       </Form>
       <div className={styles.login__line_container}>
@@ -116,10 +118,10 @@ const FormSignUp = () => {
       </div>
       <div className={styles.question}>
         <span className={styles.question_has}>
-          {SignUpPageContentRu.HAVE_ACCOUNT}{' '}
+          {SignUpPageContent.HAVE_ACCOUNT}{' '}
         </span>
         <Link to={routerPaths.login()} className={styles.register}>
-          {SignUpPageContentRu.LOGIN}
+          {SignUpPageContent.LOGIN}
         </Link>
       </div>
     </div>

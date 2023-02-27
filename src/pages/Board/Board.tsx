@@ -33,7 +33,6 @@ export default function BoardPage() {
   const dispatch = useAppDispatch();
   const $workspace = useWorkspace();
   const board = $board?.data;
-  console.log({ board });
   const lists = board?.lists || [];
 
   useEffect(() => {
@@ -108,18 +107,6 @@ export default function BoardPage() {
   };
 
   const onCurrentOrderUpdate = async (data: OrderUpdateData) => {
-    console.log('onCurrentOrderUpdate', data);
-
-
-    // await dispatch(
-    //   listsThunks.editListOrder({
-    //     listId: data.listId,
-    //     patch: {
-    //       order: data.order,
-    //     }
-    //   })
-    // );
-
     $board.refetch();
   };
 
