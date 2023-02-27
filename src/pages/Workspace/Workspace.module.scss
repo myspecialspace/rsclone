@@ -15,6 +15,10 @@
 .current__workspace {
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: $content-tablet-width) {
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
 }
 
 .title {
