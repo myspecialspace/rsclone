@@ -31,7 +31,6 @@ import { useEffect, useState } from 'react';
 import { WORKSPACE_BG_COLOR, BOARD_BG_COLOR } from '../../helpers/defaults';
 import { fetchWorkspacesCreate } from '../../store/workspaces/thunks';
 import {
-  BoardHeaderContent,
   MeSettingsContent,
   WorkspaceContent,
 } from '../../components/Constants/constant';
@@ -327,28 +326,31 @@ export default function MeLayout() {
             value={boardNew.name}
             name='name'
             onChange={handleInput}
+            style={{ marginTop: 10, marginBottom: 10 }}
           />
           <div>{WorkspaceContent.BOARD_COLOR}</div>
           <input
             type='color'
             value={boardBgColor}
             onChange={(e) => setBoardBgColor(e.target.value)}
+            style={{ marginTop: 5 }}
           />
           <Input
-            placeholder={BoardHeaderContent.BOARD_DESCRIPTION}
+            placeholder={WorkspaceContent.WORKSPASE_DESCRIPTION}
             onChange={handleInput}
             name='description'
             value={boardNew.description}
+            style={{ marginTop: 10 }}
           />
-          <Space>
+          <Space style={{ marginTop: 10 }}>
             <Checkbox onChange={handleFavorite} name='isFavorite'>
-              {BoardHeaderContent.CHECK_FAVORITE}
+              {WorkspaceContent.CHECK_FAVORITE}
             </Checkbox>
             <Checkbox onChange={handlePrivate} name='isPrivate'>
-              {BoardHeaderContent.CHECK_PRIVATE}
+              {WorkspaceContent.CHECK_PRIVATE}
             </Checkbox>
             <Checkbox onChange={handleClosed} name='isClose'>
-              {BoardHeaderContent.CHECK_CLOSE}
+              {WorkspaceContent.CHECK_CLOSE}
             </Checkbox>
           </Space>
         </Modal>

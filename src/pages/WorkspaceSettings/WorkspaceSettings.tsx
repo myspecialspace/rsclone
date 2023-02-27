@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { Button, Checkbox, Form, Input, Space } from 'antd';
-import { WorkspaseContent } from '../../components/Constants/constant';
+import { WorkspaceContent } from '../../components/Constants/constant';
 import styles from './WorkspaceSettings.module.scss';
 import * as routerPaths from '../../router/paths';
 export default function WorkspaceSettingsPage() {
@@ -47,27 +47,27 @@ export default function WorkspaceSettingsPage() {
   return (
     <div className={styles.inner}>
       <div className={styles.title}>
-        {WorkspaseContent.UPDATE_WORKSPASE_TITLE}
+        {WorkspaceContent.UPDATE_WORKSPASE_TITLE}
       </div>
       <Form name='workspaceUpdate' className={styles.form}>
         <Form.Item
-          label={WorkspaseContent.UPDATE_WORKSPASE}
+          label={WorkspaceContent.UPDATE_WORKSPASE}
           name='name'
           rules={[{ required: true, message: 'Please input name workspase!' }]}
         >
           <Input
-            placeholder={WorkspaseContent.UPDATE_WORKSPASE_NAME}
+            placeholder={WorkspaceContent.UPDATE_WORKSPASE_NAME}
             onChange={handleInput}
             name='name'
             value={workspaceNew.name}
           />
         </Form.Item>
         <Form.Item
-          label={WorkspaseContent.WORKSPASE_DESCRIPTION}
+          label={WorkspaceContent.WORKSPASE_DESCRIPTION}
           name='description'
         >
           <Input
-            placeholder={WorkspaseContent.WORKSPASE_DESCRIPTION_PLACEHOLDER}
+            placeholder={WorkspaceContent.WORKSPASE_DESCRIPTION_PLACEHOLDER}
             onChange={handleInput}
             name='description'
             value={workspaceNew.description}
@@ -79,20 +79,20 @@ export default function WorkspaceSettingsPage() {
           wrapperCol={{ offset: 8, span: 16 }}
         >
           <Checkbox onChange={handleFavorite}>
-            {WorkspaseContent.CHECK_FAVORITE}
+            {WorkspaceContent.CHECK_FAVORITE}
           </Checkbox>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Space wrap>
             <Button type='primary' htmlType='submit' onClick={upDateWorkspace}>
-              {WorkspaseContent.BUTTON_OK}
+              {WorkspaceContent.BUTTON_OK}
             </Button>
             <Button
               danger
               type='primary'
               onClick={() => navigate(routerPaths.workspaces(workspaceId))}
             >
-              {WorkspaseContent.BUTTON_NO}
+              {WorkspaceContent.BUTTON_NO}
             </Button>
           </Space>
         </Form.Item>

@@ -1,8 +1,5 @@
 import styles from './Workspace.module.scss';
-import {
-  WorkspaceContent,
-  WorkspaseContent,
-} from '../../components/Constants/constant';
+import { WorkspaceContent } from '../../components/Constants/constant';
 import { StarOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Button, Input, Modal, Space, Spin } from 'antd';
 import { useWorkspace } from '../../store/workspace/hooks';
@@ -77,7 +74,7 @@ export default function WorkspacePage() {
         {workspace.description !== null && workspace.description !== '' ? (
           <div className={styles.description}>
             <span className={styles.text}>
-              {WorkspaseContent.WORKSPASE_DESCRIPTION}
+              {WorkspaceContent.WORKSPASE_DESCRIPTION}
             </span>
             <span>{workspace.description}</span>
           </div>
