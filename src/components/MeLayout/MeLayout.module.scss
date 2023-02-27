@@ -11,6 +11,9 @@
   display: flex;
   align-items: center;
   padding: 0 12px;
+  @media screen and (max-width: 380px) {
+    padding: 0 5px;
+  }
 }
 
 .sidebar {
@@ -50,10 +53,20 @@
 .workspaceSelector,
 .createSelector {
   margin-left: 8px;
+  @media screen and (max-width: 470px) {
+    margin-left: 4px;
+  }
 }
 
 .right {
   margin-left: auto;
+}
+
+.button {
+  @media screen and (max-width: 470px) {
+    padding: 5px;
+    @include font($size: 1.1rem, $height: 1.2rem, $weight: 400);
+  }
 }
 
 .user {
