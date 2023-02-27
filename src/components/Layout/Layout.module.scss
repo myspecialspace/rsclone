@@ -4,14 +4,15 @@
   flex-flow: column nowrap;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
+  height: 100%;
 }
 
 .router {
-  flex-grow: 1;
+  //flex-grow: 1;
+  height: 90%;
 }
 
 .footer {
-  margin-top: -60px;
+  //margin-top: -60px;
   height: 10%;
 }

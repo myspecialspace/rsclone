@@ -66,6 +66,7 @@ const FormLogin = () => {
           <Form.Item
             name='identifier'
             rules={[{ required: true, message: 'Please input your E-mail!' }]}
+            className={styles.form__item}
           >
             <Input
               placeholder={LoginPageContentRu.INPUT_EMAIL}
@@ -73,7 +74,6 @@ const FormLogin = () => {
               id='identifier'
               name='identifier'
               required
-            // value={user.identifier}
             />
           </Form.Item>
           <Form.Item
@@ -85,7 +85,6 @@ const FormLogin = () => {
               placeholder={LoginPageContentRu.INPUT_PASSWORD}
               name='Password'
               id='password'
-            // value={user.password}
             />
           </Form.Item>
         </div>

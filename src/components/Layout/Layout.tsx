@@ -8,7 +8,6 @@ import styles from './Layout.module.scss';
 export default function Layout() {
   return (
     <div className={styles.layout}>
-
       <div className={styles.router}>
         <Outlet />
       </div>

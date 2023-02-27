@@ -4,10 +4,17 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: space-between;
+  @media screen and (max-width: 460px) {
+    width: 130px;
+    padding-right: 10px;
+    padding-top: 4px;
+  }
 }
 
 .link {
   text-decoration: none;
+  align-self: flex-end;
 }
 
 .login__button {
@@ -29,6 +36,15 @@
     background-color: #17253e;
     color: $color-light;
   }
+  @media screen and (max-width: 640px) {
+    width: 120px;
+  }
+  @media screen and (max-width: 460px) {
+    height: 36px;
+    padding: 9px 5px;
+    border-radius: 10px;
+    @include font($size: 1.4rem, $height: 2rem, $weight: normal);
+  }
 }
 
 .len {
@@ -38,6 +54,14 @@
   @include font($size: 1.6rem, $height: 2rem, $weight: normal);
   color: $color-header-button;
   border: none;
+  @media screen and (max-width: 431px) {
+    @include font($size: 1.3rem, $height: 2rem, $weight: normal);
+  }
+  @media screen and (max-width: 460px) {
+    order: 2;
+    margin-right: 2px;
+    padding: 0 4px;
+  }
 }
 
 .len__select {
@@ -49,6 +73,10 @@
   cursor: pointer;
   outline:none;
   border: none;
+  @media screen and (max-width: 460px) {
+    width: 110px;
+    @include font($size: 1.3rem, $height: 2rem, $weight: normal);
+  }
 }
 
 .len__options {
@@ -60,4 +88,7 @@
   @extend %font-prim;
   @include font($size: 1.6rem, $height: 2rem, $weight: normal);
   color: $color-header-button;
+  @media screen and (max-width: 460px) {
+    @include font($size: 1.3rem, $height: 2rem, $weight: normal);
+  }
 }

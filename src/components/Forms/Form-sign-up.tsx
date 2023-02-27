@@ -72,6 +72,7 @@ const FormSignUp = () => {
           <Form.Item
             name='username'
             rules={[{ required: true, message: 'Please input your Name!' }]}
+            className={styles.form__item}
           >
             <Input
               placeholder={SignUpPageContentRu.INPUT_NAME}
@@ -84,6 +85,7 @@ const FormSignUp = () => {
           <Form.Item
             name='email'
             rules={[{ required: true, message: 'Please input your E-mail!' }]}
+            className={styles.form__item}
           >
             <Input
               placeholder={SignUpPageContentRu.INPUT_EMAIL}

@@ -202,6 +202,8 @@ console.log(
   BoardHeaderContentEn
 );
 
+
+
 export const mainPageContent = MainPageContentRu;
 export const MenuContent = MenuContentRu;
 export const WorkspaceName = MenuContentRu.MENU_TITLE;
