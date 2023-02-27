@@ -18,12 +18,21 @@ import { useBoard } from '../../store/board/hooks';
 import { workspaceActions } from '../../store/workspace';
 import { UpdateData } from '../../components/List/Title';
 import { OrderUpdateData, deleteList } from '../../components/List/types';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from 'react-beautiful-dnd';
 import { DropType, getDroppableId, parseDroppableId } from './constants';
 import { Task, List as IList } from '../../types/base';
 import { DeleteBoard } from '../../store/board/types';
 import { useWorkspace } from '../../store/workspace/hooks';
-import { getEntityById, removeFromEntities, addToEntities } from '../../helpers/entity';
+import {
+  getEntityById,
+  removeFromEntities,
+  addToEntities,
+} from '../../helpers/entity';
 
 export default function BoardPage() {
   const params = useParams();
@@ -115,7 +124,7 @@ export default function BoardPage() {
       return;
     }
 
-    console.log('onDragEnd', event);
+    // console.log('onDragEnd', event);
     if (event.type === DropType.LIST) {
       onDragList(event);
     }
@@ -130,8 +139,15 @@ export default function BoardPage() {
     }
   };
 
-  type ActionForReorder = { id: number; name: string; patch: { order: number } };
-  const getActionsForReorder = (e: DropResult, entities: Array<IList | Task>): ActionForReorder[] => {
+  type ActionForReorder = {
+    id: number;
+    name: string;
+    patch: { order: number };
+  };
+  const getActionsForReorder = (
+    e: DropResult,
+    entities: Array<IList | Task>
+  ): ActionForReorder[] => {
     const sourceIndex = e.source.index;
     const destIndex = e.destination!.index;
 
@@ -156,7 +172,7 @@ export default function BoardPage() {
       name: source.name,
       patch: {
         order: destIndex,
-      }
+      },
     });
 
     /** добавляем 1 если сдвигали лист вперед */
@@ -166,23 +182,25 @@ export default function BoardPage() {
     for (let i = fromIndex + add; i < toIndex + add; i++) {
       const entity = entities[i];
       /** порядок уменьшаем если двигали лист вперед, и увеличиваем если двигали назад */
-      const nextOrder = isForward
-        ? i - 1
-        : i + 1;
+      const nextOrder = isForward ? i - 1 : i + 1;
 
       actionPayloads.push({
         id: entity.id,
         name: entity.name,
         patch: {
           order: nextOrder,
-        }
+        },
       });
     }
 
     return actionPayloads;
   };
 
-  const getActionsForReorderTasks = (tasks: Task[], position: number, type: 'remove' | 'add'): ActionForReorder[] => {
+  const getActionsForReorderTasks = (
+    tasks: Task[],
+    position: number,
+    type: 'remove' | 'add'
+  ): ActionForReorder[] => {
     const actions: ActionForReorder[] = [];
     const isRemove = type === 'remove';
 
@@ -195,9 +213,7 @@ export default function BoardPage() {
         id: task.id,
         name: task.name,
         patch: {
-          order: isRemove
-            ? task.order - 1
-            : task.order + 1
+          order: isRemove ? task.order - 1 : task.order + 1,
         },
       });
     }
@@ -208,30 +224,42 @@ export default function BoardPage() {
   const onDragList = async (event: DropResult) => {
     const actionsForReorder = getActionsForReorder(event, lists);
     /** отправляем запросы: обновляем ордеры во всех листах, которые были затронуты */
-    await Promise.all(actionsForReorder.map((payload) => dispatch(boardThunks.editListOrder({
-      listId: payload.id,
-      patch: payload.patch,
-    }))));
+    await Promise.all(
+      actionsForReorder.map((payload) =>
+        dispatch(
+          boardThunks.editListOrder({
+            listId: payload.id,
+            patch: payload.patch,
+          })
+        )
+      )
+    );
 
     $board.refetch();
   };
 
   const onDragTask = async (event: DropResult) => {
-    console.log('on drag TASK', event);
+    // console.log('on drag TASK', event);
     const listId = parseDroppableId(event.source.droppableId);
     const list = lists.find((list) => list.id === listId)!;
     const tasks = list.tasks;
     const actionsForReorder = getActionsForReorder(event, tasks);
-    console.log('actionsForReorder', actionsForReorder);
+    // console.log('actionsForReorder', actionsForReorder);
 
     if (actionsForReorder.length > 0) {
-      await Promise.all(actionsForReorder.map((payload) => dispatch(boardThunks.editTaskOrder({
-        taskId: payload.id,
-        patch: {
-          ...payload.patch,
-          list: listId,
-        },
-      }))));
+      await Promise.all(
+        actionsForReorder.map((payload) =>
+          dispatch(
+            boardThunks.editTaskOrder({
+              taskId: payload.id,
+              patch: {
+                ...payload.patch,
+                list: listId,
+              },
+            })
+          )
+        )
+      );
 
       $board.refetch();
     }
@@ -266,9 +294,9 @@ export default function BoardPage() {
       boardThunks.updateList({
         listId: sourceList.id,
         patch: {
-          tasks: removeFromEntities(sourceList.tasks, taskId)
+          tasks: removeFromEntities(sourceList.tasks, taskId),
         },
-      }),
+      })
     );
 
     // добавить таску в другой лист
@@ -276,13 +304,17 @@ export default function BoardPage() {
       boardThunks.updateList({
         listId: destList.id,
         patch: {
-          tasks: addToEntities(destList.tasks, taskId)
+          tasks: addToEntities(destList.tasks, taskId),
         },
-      }),
+      })
     );
 
     // сделать -1 ордер в текущем листе для тасок которые ниже
-    const sourceReorderActions = getActionsForReorderTasks(sourceList.tasks, event.source.index, 'remove');
+    const sourceReorderActions = getActionsForReorderTasks(
+      sourceList.tasks,
+      event.source.index,
+      'remove'
+    );
 
     sourceReorderActions.forEach((action) => {
       actions.push(
@@ -297,7 +329,11 @@ export default function BoardPage() {
     });
 
     // сделать +1 ордер в другом листе для тасок которые ниже
-    const destReorderActions = getActionsForReorderTasks(destList.tasks, event.destination!.index, 'add');
+    const destReorderActions = getActionsForReorderTasks(
+      destList.tasks,
+      event.destination!.index,
+      'add'
+    );
 
     destReorderActions.forEach((action) => {
       actions.push(
@@ -329,13 +365,10 @@ export default function BoardPage() {
     // сделать +1 ордер в другом листе для тасок которые ниже
     // обновить в таске list id и ордер
 
-    await Promise.all(
-      actions.map((action) => dispatch(action))
-    );
+    await Promise.all(actions.map((action) => dispatch(action)));
 
     $board.refetch();
   };
-
 
   const getListStyle = (isDraggingOver: boolean) => ({
     background: isDraggingOver ? 'lightblue' : '#eff8ff',
@@ -357,7 +390,7 @@ export default function BoardPage() {
     ...draggableStyle,
   });
 
-  console.log('renderer Board');
+  //   console.log('renderer Board');
 
   return (
     <>
@@ -365,7 +398,11 @@ export default function BoardPage() {
         <BoardsHeader onDeleteBoard={onDeleteBoard} />
 
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId={getDroppableId.board(board.id)} direction="horizontal" type={DropType.LIST}>
+          <Droppable
+            droppableId={getDroppableId.board(board.id)}
+            direction='horizontal'
+            type={DropType.LIST}
+          >
             {(provided, snapshot) => (
               <div
                 className={styles.list__container}
@@ -374,7 +411,11 @@ export default function BoardPage() {
               >
                 {lists.map((list, index) => {
                   return (
-                    <Draggable key={list.id} draggableId={String(list.id)} index={index}>
+                    <Draggable
+                      key={list.id}
+                      draggableId={String(list.id)}
+                      index={index}
+                    >
                       {(provided2, snapshot2) => (
                         <div
                           ref={provided2.innerRef}
@@ -395,15 +436,11 @@ export default function BoardPage() {
                           />
                         </div>
                       )}
-
                     </Draggable>
                   );
                 })}
                 {provided.placeholder}
-                <InputContainer
-                  type='list'
-                  onCreateList={onCreateList}
-                />
+                <InputContainer type='list' onCreateList={onCreateList} />
               </div>
             )}
           </Droppable>

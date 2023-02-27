@@ -81,10 +81,6 @@ const BoardsHeader = (props: BoardsHeaderProps) => {
     },
     {
       key: '2',
-      label: <Button>{BoardHeaderContent.BOARD_INVITE}</Button>,
-    },
-    {
-      key: '3',
       label: (
         <Button onClick={deleteBoard} danger>
           {BoardHeaderContent.DELETE_BOARD_NAME}

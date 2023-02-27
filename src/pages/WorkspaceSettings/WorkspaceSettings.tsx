@@ -10,7 +10,6 @@ import { useWorkspaces } from '../../store/workspaces/hooks';
 import { RequestStatus } from '../../helpers/api';
 import ErrorLine from '../../components/ErrorLine/ErrorLine';
 
-
 interface FormValue {
   name: string;
   description: string;
@@ -25,7 +24,6 @@ export default function WorkspaceSettingsPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
-
 
   const onSave = async (formValue: FormValue) => {
     const res = await dispatch(
@@ -85,9 +83,7 @@ export default function WorkspaceSettingsPage() {
           name='name'
           rules={[{ required: true, message: 'Please input name workspase!' }]}
         >
-          <Input
-            placeholder={WorkspaceContent.UPDATE_WORKSPASE_NAME}
-          />
+          <Input placeholder={WorkspaceContent.UPDATE_WORKSPASE_NAME} />
         </Form.Item>
         <Form.Item
           label={WorkspaceContent.WORKSPASE_DESCRIPTION}
@@ -102,9 +98,7 @@ export default function WorkspaceSettingsPage() {
           valuePropName='checked'
           wrapperCol={{ offset: 8, span: 16 }}
         >
-          <Checkbox>
-            {WorkspaceContent.CHECK_FAVORITE}
-          </Checkbox>
+          <Checkbox>{WorkspaceContent.CHECK_FAVORITE}</Checkbox>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Space wrap>
@@ -123,5 +117,4 @@ export default function WorkspaceSettingsPage() {
       </Form>
     </div>
   );
-
 }
