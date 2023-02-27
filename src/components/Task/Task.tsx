@@ -9,7 +9,6 @@ import { useAppDispatch, AppState } from '../../store';
 import { useBoard } from '../../store/board/hooks';
 import * as taskThunks from '../../store/tasks/thunks';
 import { CardEdit } from '../Constants/constant';
-import DateToComplete from './Date-and-time';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Comment from './Comment';
 import * as commentsThunks from '../../store/comments/thunks';
@@ -165,7 +164,6 @@ export default function Task({ task }: TaskProps) {
           />
         </div>
         <p className={styles.change__title}>{CardEdit.DATE_TO_COMPLETE}</p>
-        <DateToComplete />
         <Button type='text' danger onClick={onTaskDelete}>
           {CardEdit.DELETE}
         </Button>
