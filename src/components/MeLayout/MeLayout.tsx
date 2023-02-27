@@ -118,7 +118,7 @@ export default function MeLayout() {
   ];
 
   //обработчик
-  const onWorkspaceClick = () => {};
+  const onWorkspaceClick = () => { };
 
   const createItems: MenuProps['items'] = [
     {
@@ -149,7 +149,7 @@ export default function MeLayout() {
     },
   ];
 
-  const onCreateClick = () => {};
+  const onCreateClick = () => { };
 
   const onCreateWorkspace = async () => {
     // console.log(' create workspace', { workspaceName, workspaceBgColor });
@@ -303,53 +303,45 @@ export default function MeLayout() {
           onChange={(e) => setWorkspaceBgColor(e.target.value)}
         />
       </Modal>
-      <div className={styles.boards}>
-        <div
-          className={classNames(styles.board, styles.create)}
-          onClick={() => setIsModalOpen(true)}
-        >
-          {WorkspaceContent.BOARD_CREATE}
-        </div>
-        <Modal
-          title={WorkspaceContent.BOARD_CREATE}
-          open={isModalsOpen}
-          onOk={onCreateBoard}
-          onCancel={() => setIsModalsOpen(false)}
-        >
-          <Input
-            placeholder={WorkspaceContent.BOARD_NAME}
-            value={boardNew.name}
-            name='name'
-            onChange={handleInput}
-            style={{ marginTop: 10, marginBottom: 10 }}
-          />
-          <div>{WorkspaceContent.BOARD_COLOR}</div>
-          <input
-            type='color'
-            value={boardBgColor}
-            onChange={(e) => setBoardBgColor(e.target.value)}
-            style={{ marginTop: 5 }}
-          />
-          <Input
-            placeholder={WorkspaceContent.WORKSPASE_DESCRIPTION}
-            onChange={handleInput}
-            name='description'
-            value={boardNew.description}
-            style={{ marginTop: 10 }}
-          />
-          <Space style={{ marginTop: 10 }}>
-            <Checkbox onChange={handleFavorite} name='isFavorite'>
-              {WorkspaceContent.CHECK_FAVORITE}
-            </Checkbox>
-            <Checkbox onChange={handlePrivate} name='isPrivate'>
-              {WorkspaceContent.CHECK_PRIVATE}
-            </Checkbox>
-            <Checkbox onChange={handleClosed} name='isClose'>
-              {WorkspaceContent.CHECK_CLOSE}
-            </Checkbox>
-          </Space>
-        </Modal>
-      </div>
+      <Modal
+        title={WorkspaceContent.BOARD_CREATE}
+        open={isModalsOpen}
+        onOk={onCreateBoard}
+        onCancel={() => setIsModalsOpen(false)}
+      >
+        <Input
+          placeholder={WorkspaceContent.BOARD_NAME}
+          value={boardNew.name}
+          name='name'
+          onChange={handleInput}
+          style={{ marginTop: 10, marginBottom: 10 }}
+        />
+        <div>{WorkspaceContent.BOARD_COLOR}</div>
+        <input
+          type='color'
+          value={boardBgColor}
+          onChange={(e) => setBoardBgColor(e.target.value)}
+          style={{ marginTop: 5 }}
+        />
+        <Input
+          placeholder={WorkspaceContent.WORKSPASE_DESCRIPTION}
+          onChange={handleInput}
+          name='description'
+          value={boardNew.description}
+          style={{ marginTop: 10 }}
+        />
+        <Space style={{ marginTop: 10 }}>
+          <Checkbox onChange={handleFavorite} name='isFavorite'>
+            {WorkspaceContent.CHECK_FAVORITE}
+          </Checkbox>
+          <Checkbox onChange={handlePrivate} name='isPrivate'>
+            {WorkspaceContent.CHECK_PRIVATE}
+          </Checkbox>
+          <Checkbox onChange={handleClosed} name='isClose'>
+            {WorkspaceContent.CHECK_CLOSE}
+          </Checkbox>
+        </Space>
+      </Modal>
     </div>
   );
 }

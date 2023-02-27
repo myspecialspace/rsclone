@@ -1,55 +1,85 @@
 import { useAppDispatch } from '../../store';
 import { useWorkspace } from '../../store/workspace/hooks';
-import { UpDateWorkspace } from '../../store/workspace/types';
 import * as workspaceThunks from '../../store/workspace/thunks';
-import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { Button, Checkbox, Form, Input, Space } from 'antd';
+import { Button, Checkbox, Form, Input, notification, Space, Spin } from 'antd';
 import { WorkspaceContent } from '../../components/Constants/constant';
 import styles from './WorkspaceSettings.module.scss';
 import * as routerPaths from '../../router/paths';
+import { useWorkspaces } from '../../store/workspaces/hooks';
+import { RequestStatus } from '../../helpers/api';
+import ErrorLine from '../../components/ErrorLine/ErrorLine';
+
+
+interface FormValue {
+  name: string;
+  description: string;
+  isFavorite: boolean;
+}
+
 export default function WorkspaceSettingsPage() {
   const id = useParams();
   const workspaceId = Number(id.workspaceId);
   const $workspace = useWorkspace();
-  const workspaceName = $workspace.data?.name || [];
+  const $workspaces = useWorkspaces();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [workspaceNew, setWorkspaceNew] = useState({
-    workspaceId: workspaceId,
-    name: workspaceName,
-    description: '',
-    isFavorite: false,
-  });
-  const onUpDateWorkspace = async (data: UpDateWorkspace) => {
-    await dispatch(
+  const [api, contextHolder] = notification.useNotification();
+
+
+  const onSave = async (formValue: FormValue) => {
+    const res = await dispatch(
       workspaceThunks.updateWorkspace({
-        name: data.name,
+        ...formValue,
         workspaceId: workspaceId,
-        description: workspaceNew.description,
-        isFavorite: workspaceNew.isFavorite,
       })
     );
-    $workspace.refetch();
+
+    const { requestStatus } = res.meta;
+    if (requestStatus === RequestStatus.FULFILLED) {
+      api.success({ message: WorkspaceContent.SAVED });
+      $workspace.refetch();
+      $workspaces.refetch();
+      navigate(routerPaths.workspaces(workspaceId));
+    }
+
+    if (requestStatus === RequestStatus.REJECTED) {
+      api.error({ message: WorkspaceContent.SAVED_ERROR });
+    }
   };
-  const upDateWorkspace = () => {
-    onUpDateWorkspace(workspaceNew);
-    navigate(routerPaths.workspaces(workspaceId));
+
+  if ($workspace.isInitial) {
+    return null;
+  }
+
+  if ($workspace.isPending) {
+    return <Spin />;
+  }
+
+  if ($workspace.isError) {
+    return <ErrorLine />;
+  }
+
+  const workspace = $workspace.data;
+
+  const initialValues: FormValue = {
+    name: workspace.name,
+    description: workspace.description,
+    isFavorite: workspace.isFavorite,
   };
-  const handleInput = (e: React.ChangeEvent) => {
-    const { name, value } = e.target as HTMLTextAreaElement;
-    setWorkspaceNew({ ...workspaceNew, [name]: value });
-  };
-  const handleFavorite = (e: CheckboxChangeEvent) => {
-    setWorkspaceNew({ ...workspaceNew, isFavorite: e.target.checked });
-  };
+
   return (
     <div className={styles.inner}>
+      {contextHolder}
       <div className={styles.title}>
         {WorkspaceContent.UPDATE_WORKSPASE_TITLE}
       </div>
-      <Form name='workspaceUpdate' className={styles.form}>
+      <Form
+        name='workspaceUpdate'
+        className={styles.form}
+        initialValues={initialValues}
+        onFinish={onSave}
+      >
         <Form.Item
           label={WorkspaceContent.UPDATE_WORKSPASE}
           name='name'
@@ -57,9 +87,6 @@ export default function WorkspaceSettingsPage() {
         >
           <Input
             placeholder={WorkspaceContent.UPDATE_WORKSPASE_NAME}
-            onChange={handleInput}
-            name='name'
-            value={workspaceNew.name}
           />
         </Form.Item>
         <Form.Item
@@ -68,9 +95,6 @@ export default function WorkspaceSettingsPage() {
         >
           <Input
             placeholder={WorkspaceContent.WORKSPASE_DESCRIPTION_PLACEHOLDER}
-            onChange={handleInput}
-            name='description'
-            value={workspaceNew.description}
           />
         </Form.Item>
         <Form.Item
@@ -78,13 +102,13 @@ export default function WorkspaceSettingsPage() {
           valuePropName='checked'
           wrapperCol={{ offset: 8, span: 16 }}
         >
-          <Checkbox onChange={handleFavorite}>
+          <Checkbox>
             {WorkspaceContent.CHECK_FAVORITE}
           </Checkbox>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Space wrap>
-            <Button type='primary' htmlType='submit' onClick={upDateWorkspace}>
+            <Button type='primary' htmlType='submit'>
               {WorkspaceContent.BUTTON_OK}
             </Button>
             <Button
@@ -99,4 +123,5 @@ export default function WorkspaceSettingsPage() {
       </Form>
     </div>
   );
+
 }

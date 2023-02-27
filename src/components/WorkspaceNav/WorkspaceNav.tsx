@@ -69,10 +69,10 @@ export function WorkspaceNav({ className, isSidebarOpen }: WorkspaceNavProps) {
       <SettingOutlined />
     ),
 
-    getItem(MenuContent.MENU_VIEWS, MenuKeys.VIEWS, null, [
-      getItem(MenuContent.TABLE_VIEW, 'view-table'),
-      getItem(MenuContent.CALENDAR_VIEW, 'view-calendar'),
-    ]),
+    // getItem(MenuContent.MENU_VIEWS, MenuKeys.VIEWS, null, [
+    //   getItem(MenuContent.TABLE_VIEW, 'view-table'),
+    //   getItem(MenuContent.CALENDAR_VIEW, 'view-calendar'),
+    // ]),
 
     getItem(MenuContent.MENU_SUBTITLE, MenuKeys.BOARDS, null, boards.map((board) => {
       return getItem(
