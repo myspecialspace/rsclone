@@ -163,7 +163,6 @@ export default function Task({ task }: TaskProps) {
             onBlur={onCommentCreate}
           />
         </div>
-        <p className={styles.change__title}>{CardEdit.DATE_TO_COMPLETE}</p>
         <Button type='text' danger onClick={onTaskDelete}>
           {CardEdit.DELETE}
         </Button>
