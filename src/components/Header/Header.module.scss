@@ -50,6 +50,8 @@
 .len {
   padding: 4px;
   margin-right: 20px;
+  outline:none;
+  border: none;
   @extend %font-prim;
   @include font($size: 1.6rem, $height: 2rem, $weight: normal);
   color: $color-header-button;
@@ -67,6 +69,8 @@
 .len__select {
   width: 126px;
   height: 30px;
+  outline:none;
+  border: none;
   @extend %font-prim;
   @include font($size: 1.6rem, $height: 2rem, $weight: normal);
   color: $color-header-button;
@@ -74,7 +78,7 @@
   outline:none;
   border: none;
   @media screen and (max-width: 460px) {
-    width: 110px;
+    width: 120px;
     @include font($size: 1.3rem, $height: 2rem, $weight: normal);
   }
 }

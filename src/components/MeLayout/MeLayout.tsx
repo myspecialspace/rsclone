@@ -170,7 +170,7 @@ export default function MeLayout() {
           </Dropdown>
         </div>
       </header>
-      <div className={classNames(styles.wrapper, { [styles.sidebarHidden]: !isSidebarOpen })}>
+      <div className={classNames(styles.wrapper__layout, { [styles.sidebarHidden]: !isSidebarOpen })}>
         <WorkspaceNav className={styles.sidebar} isSidebarOpen={isSidebarOpen} />
         <div className={styles.rightside}>
           <Outlet />

@@ -1,4 +1,4 @@
-import { LoginPageContentRu } from '../Constants/constant';
+import { LoginPageContent } from '../Constants/constant';
 import styles from './Form.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -54,7 +54,7 @@ const FormLogin = () => {
 
   return (
     <div className={styles.login__content}>
-      <h3 className={styles.login__title}>{LoginPageContentRu.LOGIN_TITLE}</h3>
+      <h3 className={styles.login__title}>{LoginPageContent.LOGIN_TITLE}</h3>
       <Form
         name='login'
         className={styles.form}
@@ -69,7 +69,7 @@ const FormLogin = () => {
             className={styles.form__item}
           >
             <Input
-              placeholder={LoginPageContentRu.INPUT_EMAIL}
+              placeholder={LoginPageContent.INPUT_EMAIL}
               className={styles.form__input}
               id='identifier'
               name='identifier'
@@ -82,7 +82,7 @@ const FormLogin = () => {
           >
             <Input.Password
               className={styles.form__input}
-              placeholder={LoginPageContentRu.INPUT_PASSWORD}
+              placeholder={LoginPageContent.INPUT_PASSWORD}
               name='Password'
               id='password'
             />
@@ -90,7 +90,7 @@ const FormLogin = () => {
         </div>
         {!!error && <div style={{ 'color': 'red' }}>{error.message}</div>}
         <Button htmlType='submit' id='sign-in' className={styles.login__button}>
-          {LoginPageContentRu.LOGIN}
+          {LoginPageContent.LOGIN}
         </Button>
       </Form>
       <div className={styles.login__line_container}>
@@ -98,10 +98,10 @@ const FormLogin = () => {
       </div>
       <div className={styles.question}>
         <span className={styles.question_has}>
-          {LoginPageContentRu.HAVE_ACCOUNT}
+          {LoginPageContent.HAVE_ACCOUNT}
         </span>
         <Link to={routerPaths.registration()} className={styles.register}>
-          {LoginPageContentRu.REGISTER}
+          {LoginPageContent.REGISTER}
         </Link>
       </div>
     </div>
