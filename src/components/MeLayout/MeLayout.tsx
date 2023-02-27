@@ -244,7 +244,7 @@ export default function MeLayout() {
           className={styles.workspaceSelector}
           menu={{ items: workspaceItems, onClick: onWorkspaceClick }}
         >
-          <Button ghost>
+          <Button ghost className={styles.button}>
             {WorkspaceContent.WORKSPACE_TITLES}
             <DownOutlined />
           </Button>
@@ -254,7 +254,7 @@ export default function MeLayout() {
           className={styles.createSelector}
           menu={{ items: createItems, onClick: onCreateClick }}
         >
-          <Button ghost>{WorkspaceContent.CREATE}</Button>
+          <Button ghost className={styles.button}>{WorkspaceContent.CREATE}</Button>
         </Dropdown>
         <div className={styles.right}>
           <Dropdown
