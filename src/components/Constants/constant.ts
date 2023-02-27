@@ -4,7 +4,7 @@ enum MainPageContentRu {
   SIGN_UP_BUTTON = 'Зарегистрируйтесь - это бессплатно!',
   LOG_IN_BUTTON = 'Вход',
   LEN_BUTTON = 'Русский',
-  CHANGE_LEN = 'Английский',
+  CHANGE_LEN = 'English',
 }
 
 enum MainPageContentEn {
@@ -12,7 +12,7 @@ enum MainPageContentEn {
   TEXT = 'Keep everything in the same place—even if your team isn’t.',
   SIGN_UP_BUTTON = 'Sign up - it’s free!',
   LOG_IN_BUTTON = 'Log in',
-  LEN_BUTTON = 'Russian',
+  LEN_BUTTON = 'Русский',
   CHANGE_LEN = 'English',
 }
 
@@ -217,9 +217,8 @@ enum CardEditRu {
   COMMENT_PLACEHOLDER = 'Напишите комментарий ...',
   DELETE = 'Удалить карточку',
   CHECKED = 'Выполнено',
-  DATE_TO_COMPLETE = 'Выполнить до:'
+  DATE_TO_COMPLETE = 'Выполнить до:',
 }
-
 
 enum CardEditEn {
   CREATE_DATA = 'Created',
@@ -228,10 +227,10 @@ enum CardEditEn {
   COLOR = 'Choose the cover color',
   COMMENTS_TITLE = 'Comments',
   COMMENT = 'Leave a comment',
-  COMMENT_PLACEHOLDER ='Input comments ...',
+  COMMENT_PLACEHOLDER = 'Input comments ...',
   DELETE = 'Delete card',
   CHECKED = 'Done',
-  DATE_TO_COMPLETE = 'Do before:'
+  DATE_TO_COMPLETE = 'Do before:',
 }
 
 enum WorkspaceMembersContentRu {
@@ -243,7 +242,6 @@ enum WorkspaceMembersContentEn {
   ADD_MEMBERS = 'Add user to the workspace:',
   MEMBERS = 'Current users',
 }
-
 
 let mainPageContent: any;
 let MenuContent: any;
@@ -258,37 +256,39 @@ let BoardHeaderContent: any;
 let WorkspaceMembersContent: any;
 
 function getLeng() {
-  //const [leng, setLeng] = useState('Английский');
-  //setLeng(localStorage.getItem('leng') || 'Английский');
-  let leng = localStorage.getItem('leng') || 'Английский';
-  console.log(leng);
-  mainPageContent = (leng === 'Английский') ? MainPageContentEn : MainPageContentRu;
-  MenuContent = (leng === 'Английский') ? MenuContentEn : MenuContentRu;
-  LoginPageContent = (leng === 'Английский') ? LoginPageContentEN : LoginPageContentRu;
-  SignUpPageContent = (leng === 'Английский') ? SignUpPageContentEn : SignUpPageContentRu;
-  WorkspaceContent = (leng === 'Английский') ? WorkspaceContentEn :  WorkspaceContentRu;
-  MeSettingsContent = (leng === 'Английский') ? MeSettingsContentEn : MeSettingsContentRu;
-  WorkspaceName = (leng === 'Английский') ? MenuContentEn.MENU_TITLE: MenuContentRu.MENU_TITLE;
-  BoardContent = (leng === 'Английский') ? BoardContentEn : BoardContentRu;
-  CardEdit = (leng === 'Английский') ? CardEditEn : CardEditRu;
-  BoardHeaderContent = (leng === 'Английский') ? BoardHeaderContentEn : BoardHeaderContentRu;
-  WorkspaceMembersContent = (leng === 'Английский') ? WorkspaceMembersContentEn : WorkspaceMembersContentRu;
+  let leng = localStorage.getItem('leng') || 'Русский';
+  mainPageContent = leng === 'English' ? MainPageContentEn : MainPageContentRu;
+  MenuContent = leng === 'English' ? MenuContentEn : MenuContentRu;
+  LoginPageContent =
+    leng === 'English' ? LoginPageContentEN : LoginPageContentRu;
+  SignUpPageContent =
+    leng === 'English' ? SignUpPageContentEn : SignUpPageContentRu;
+  WorkspaceContent =
+    leng === 'English' ? WorkspaceContentEn : WorkspaceContentRu;
+  MeSettingsContent =
+    leng === 'English' ? MeSettingsContentEn : MeSettingsContentRu;
+  WorkspaceName =
+    leng === 'English' ? MenuContentEn.MENU_TITLE : MenuContentRu.MENU_TITLE;
+  BoardContent = leng === 'English' ? BoardContentEn : BoardContentRu;
+  CardEdit = leng === 'English' ? CardEditEn : CardEditRu;
+  BoardHeaderContent =
+    leng === 'English' ? BoardHeaderContentEn : BoardHeaderContentRu;
+  WorkspaceMembersContent =
+    leng === 'English' ? WorkspaceMembersContentEn : WorkspaceMembersContentRu;
 }
 
-getLeng()
+getLeng();
 
-export { 
+export {
   mainPageContent,
-  MenuContent, 
-  LoginPageContent, 
-  SignUpPageContent, 
-  WorkspaceContent, 
+  MenuContent,
+  LoginPageContent,
+  SignUpPageContent,
+  WorkspaceContent,
   MeSettingsContent,
   WorkspaceName,
   BoardContent,
   CardEdit,
   BoardHeaderContent,
-  WorkspaceMembersContent
+  WorkspaceMembersContent,
 };
-
-
