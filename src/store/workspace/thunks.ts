@@ -3,7 +3,7 @@ import api from '../../api';
 import { getMappedResponse } from '../../helpers/strapi';
 import * as strapi from '../../helpers/strapi-types';
 import { Board } from '../boards/types';
-import { UpDateWorkspace, Workspace } from './types';
+import { UpdateWorkspaceData, Workspace } from './types';
 
 export const fetchWorkspace = createAsyncThunk<Workspace, number>(
   'workspace/fetch',
@@ -48,7 +48,7 @@ export const fetchCreateBoard = createAsyncThunk<Board, CreateBoardData>(
     }
   }
 );
-export const updateWorkspace = createAsyncThunk<Board, UpDateWorkspace>(
+export const updateWorkspace = createAsyncThunk<Workspace, UpdateWorkspaceData>(
   'workspace/update',
   async (data, { rejectWithValue }) => {
     try {
@@ -56,9 +56,31 @@ export const updateWorkspace = createAsyncThunk<Board, UpDateWorkspace>(
         .getInstance()
         .put<strapi.SingleResponse<Workspace>>(
           `workspaces/${data.workspaceId}`,
-          {
-            data,
-          }
+          { data },
+        );
+
+      return getMappedResponse(response.data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export interface UpdateWorkspacMembersData {
+  workspaceId: number;
+  patch: {
+    members: number[];
+  };
+}
+export const updateWorkspaceMembers = createAsyncThunk<Workspace, UpdateWorkspacMembersData>(
+  'workspace/members/update',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await api
+        .getInstance()
+        .put<strapi.SingleResponse<Workspace>>(
+          `workspaces/${data.workspaceId}`,
+          { data: data.patch },
         );
 
       return getMappedResponse(response.data);

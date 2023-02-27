@@ -105,6 +105,8 @@ enum WorkspaceContentRu {
   CHECK_CLOSE = 'закрыть',
   DELETE_BOARD = 'Вы уверены, что хотите удалить доску?',
   BUTTON_DELETE = 'Удалить',
+  SAVED = 'Сохранено',
+  SAVED_ERROR = 'Ошибка сохранения',
 }
 
 enum WorkspaceContentEn {
@@ -135,6 +137,8 @@ enum WorkspaceContentEn {
   CHECK_CLOSE = 'close board',
   DELETE_BOARD = 'You are sure you want to remove the board?',
   BUTTON_DELETE = 'Delete',
+  SAVED = 'Saved',
+  SAVED_ERROR = 'Failed to save',
 }
 
 enum MeSettingsContentRu {
@@ -237,11 +241,17 @@ enum CardEditEn {
 enum WorkspaceMembersContentRu {
   ADD_MEMBERS = 'Добавить пользователя в пространство:',
   MEMBERS = 'Текущие пользователи',
+  SAVED = 'Сохранено',
+  ERROR = 'Ошибка сохранения',
+  CLOSE = 'Закрыть'
 }
 
 enum WorkspaceMembersContentEn {
-  ADD_MEMBERS = 'Add user to the workspace:',
-  MEMBERS = 'Current users',
+  ADD_MEMBERS = 'Add member to the workspace:',
+  MEMBERS = 'Current members',
+  SAVED = 'Saved',
+  ERROR = 'Failed to save',
+  CLOSE = 'Close'
 }
 
 

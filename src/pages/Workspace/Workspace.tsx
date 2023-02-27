@@ -1,5 +1,5 @@
 import styles from './Workspace.module.scss';
-import { WorkspaceContent } from '../../components/Constants/constant';
+import { WorkspaceContent, WorkspaceMembersContent } from '../../components/Constants/constant';
 import {
   StarOutlined,
   UserAddOutlined,
@@ -21,6 +21,8 @@ import { authSelectors } from '../../store/auth/selectors';
 import * as boardThunks from '../../store/board/thunks';
 import { useBoard } from '../../store/board/hooks';
 import { DeleteBoard } from '../../store/board/types';
+import InviteMembersWorkspace, { OnSaveEvent } from '../WorkspaceMembers/InviteMembersWorkspace';
+import { RequestStatus } from '../../helpers/api';
 
 export default function WorkspacePage() {
   const dispatch = useAppDispatch();
@@ -30,6 +32,7 @@ export default function WorkspacePage() {
   const board = $board?.data || '';
   const boardId = board.id;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isInviteMembersModalOpen, setIsInviteMembersModalOpen] = useState(false);
   const [isDeleteBoard, setIsDeleteBoard] = useState(false);
   const [boardName, setBoardName] = useState('');
   const [boardBgColor, setBoardBgColor] = useState(BOARD_BG_COLOR);
@@ -75,13 +78,20 @@ export default function WorkspacePage() {
 
   /*#{workspace.id}*/
 
+  const onSaveMembers = ({ status } : OnSaveEvent) => {
+    if (status === RequestStatus.FULFILLED) {
+      setIsInviteMembersModalOpen(false);
+      $workspace.refetch();
+    }
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.main__content}>
         <div className={styles.current__workspace}>
 
           <h2 className={styles.title}>
-             {workspace.name}
+            {workspace.name}
             <span className={styles.itemstar}>
               {workspace.isFavorite ? (
                 <StarOutlined style={{ color: '#FFB02E' }} />
@@ -91,9 +101,19 @@ export default function WorkspacePage() {
             </span>
           </h2>
           <Space align='center'>
-            <Button type='primary' icon={<UserAddOutlined />}>
+            <Button type='primary' icon={<UserAddOutlined />} onClick={() => setIsInviteMembersModalOpen(true)}>
               {WorkspaceContent.WORKSPACE_INVITE}
             </Button>
+            <Modal
+              title={WorkspaceMembersContent.ADD_MEMBERS}
+              open={isInviteMembersModalOpen}
+              onCancel={() => setIsInviteMembersModalOpen(false)}
+              okText={false}
+              cancelText={WorkspaceMembersContent.CLOSE}
+              footer={null}
+            >
+              <InviteMembersWorkspace onSave={onSaveMembers}/>
+            </Modal>
           </Space>
         </div>
         {workspace.description !== null && workspace.description !== '' ? (
