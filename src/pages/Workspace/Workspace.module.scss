@@ -1,4 +1,4 @@
-@import "../../styles/index.scss";
+@import '../../styles/index.scss';
 
 .header.login__button {
   display: none;
@@ -22,7 +22,9 @@
 }
 
 .title {
-  padding: 20px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
   @extend %font-logo;
   @include font($size: 2.6rem, $height: 2.8rem, $weight: 500);
 }
@@ -34,13 +36,14 @@
 .horizontal {
   margin: auto;
   width: 92.5%;
-  background-color: $color-light-grey
+  background-color: $color-light-grey;
 }
 
 .boards {
   display: flex;
   flex-flow: row wrap;
   gap: 10px;
+  position: relative;
 }
 
 .board {
@@ -60,7 +63,7 @@
 
   &:hover {
     filter: brightness(85%);
-    .favorites {
+    & .favorites {
       transform: translateX(-34px);
     }
   }
@@ -109,4 +112,46 @@
   &:hover {
     transform: scale(1.5);
   }
+}
+.itemstar {
+  display: flex;
+  gap: 10px;
+  font-size: 24px;
+}
+.text {
+  color: $color-grey;
+}
+.description {
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 5px;
+}
+.description_board {
+  position: absolute;
+  top: 38%;
+  left: 6px;
+  @extend %font-prim;
+  @include font($size: 1.2rem, $height: 1.2rem, $weight: 300);
+  text-decoration: none;
+  color: $color-grey;
+  z-index: 12;
+}
+.delete {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  z-index: 15;
+  @extend %transition;
+  font-size: 20px;
+  color: #ffffff;
+  &:hover {
+    filter: brightness(85%);
+    transform: scale(1.2);
+    color: #ff0000;
+  }
+}
+.board_link {
+  position: relative;
 }

@@ -92,6 +92,19 @@ enum WorkspaceContentRu {
   WORKSPACE_CREATE = 'Создать рабочее пространство',
   WORKSPACE_NAME = 'Название рабочего пространства',
   WORKSPACE_COLOR = 'Цвет рабочего пространства',
+  UPDATE_WORKSPASE_TITLE = 'Изменить в рабочем пространстве',
+  UPDATE_WORKSPASE = 'Название',
+  UPDATE_WORKSPASE_NAME = 'Новое имя пространства',
+  CHECK_FAVORITE = 'в избранное',
+  WORKSPASE_DESCRIPTION = 'Описание: ',
+  WORKSPASE_DESCRIPTION_PLACEHOLDER = 'Добавить описание',
+  BUTTON_OK = 'Сохранить',
+  BUTTON_NO = 'Отмена',
+  CHECK_FAVORITE_CHECK = 'избранная',
+  CHECK_PRIVATE = 'личная',
+  CHECK_CLOSE = 'закрыть',
+  DELETE_BOARD = 'Вы уверены, что хотите удалить доску?',
+  BUTTON_DELETE = 'Удалить',
 }
 
 enum WorkspaceContentEn {
@@ -109,6 +122,19 @@ enum WorkspaceContentEn {
   WORKSPACE_CREATE = 'Create Workspace',
   WORKSPACE_NAME = 'Workspace Name',
   WORKSPACE_COLOR = 'Board colour',
+  UPDATE_WORKSPASE_TITLE = 'Settings Workspace ',
+  UPDATE_WORKSPASE = 'Name',
+  UPDATE_WORKSPASE_NAME = 'New name of Workspace',
+  CHECK_FAVORITE = 'favorite',
+  WORKSPASE_DESCRIPTION = 'Description: ',
+  WORKSPASE_DESCRIPTION_PLACEHOLDER = 'Add description',
+  BUTTON_OK = 'Save',
+  BUTTON_NO = 'Cancel',
+  CHECK_FAVORITE_CHECK = 'favorite',
+  CHECK_PRIVATE = 'private',
+  CHECK_CLOSE = 'close board',
+  DELETE_BOARD = 'You are sure you want to remove the board?',
+  BUTTON_DELETE = 'Delete',
 }
 
 enum MeSettingsContentRu {
@@ -188,11 +214,12 @@ enum CardEditRu {
   COLOR = 'Выбрать цвет обложки',
   COMMENTS_TITLE = 'Комментарии',
   COMMENT = 'Оставить комментарий',
-  COMMENT_PLACEHOLDER ='Напишите комментарий ...',
+  COMMENT_PLACEHOLDER = 'Напишите комментарий ...',
   DELETE = 'Удалить карточку',
   CHECKED = 'Выполнено',
   DATE_TO_COMPLETE = 'Выполнить до:'
 }
+
 
 enum CardEditEn {
   CREATE_DATA = 'Created',

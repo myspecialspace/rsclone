@@ -1,7 +1,7 @@
-import { Card, Typography } from "antd";
-import { Board as IBoard } from "../../types/board";
+import { Card, Typography } from 'antd';
+import { Board as IBoard } from '../../types/board';
 import styles from './Workspace.module.scss';
-import { StarOutlined, LockOutlined } from '@ant-design/icons';
+import { StarOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
 
 interface Props {
   board: IBoard;
@@ -15,10 +15,21 @@ const Board = ({ board, className }: Props) => {
       style={{ backgroundColor: board.backgroundColor }}
     >
       <Typography className={styles.title_board}>{board.name}</Typography>
-      <div className={styles.status}><LockOutlined className={styles.lock}/></div>
-      <button className={styles.favorites}><StarOutlined className={styles.star}/></button>
+      <Typography className={styles.description_board}>
+        {board.description}
+      </Typography>
+      <div className={styles.status}>
+        {board.isPrivate ? (
+          <LockOutlined className={styles.lock} />
+        ) : (
+          <UnlockOutlined className={styles.lock} />
+        )}
+      </div>
+      <div className={styles.favorites}>
+        {board.isFavorite ? <StarOutlined className={styles.star} /> : <></>}
+      </div>
     </Card>
-  )
+  );
 };
 
 export default Board;

@@ -18,7 +18,7 @@
   width: 256px;
   height: 100%;
   background-color: #516270;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
   z-index: 5;
 }
 
@@ -67,7 +67,7 @@
   align-items: center;
 }
 
-.logoLink { 
+.logoLink {
   display: flex;
   text-decoration: none;
   align-items: center;
@@ -99,4 +99,9 @@
     width: 100%;
     padding-left: 40px;
   }
+}
+.inner {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
 }
