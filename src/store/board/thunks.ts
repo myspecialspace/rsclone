@@ -13,7 +13,7 @@ export const fetchBoard = createAsyncThunk<Board, number>(
       const response = await api
         .getInstance()
         .get<strapi.SingleResponse<Board>>(
-          `boards/${boardId}?populate=workspace,lists.tasks,members,owner`
+          `boards/${boardId}?populate=workspace,lists.tasks,members,owner,lists.tasks.comments`
         );
       const data = getMappedResponse(response.data);
       //   console.log(data);
@@ -72,9 +72,9 @@ export const editListOrder = createAsyncThunk<List, EditListOrderData>(
 
 export interface EditTaskOrderData {
   taskId: number;
-  listId: number;
   patch: {
     order: number;
+    list: number;
   }
 }
 
@@ -89,3 +89,23 @@ export const editTaskOrder = createAsyncThunk<Task, EditTaskOrderData>(
     }
   }
 );
+
+export interface UpdateListData {
+  listId: number;
+  patch: {
+    tasks: number[];
+  }
+}
+
+export const updateList = createAsyncThunk<List, UpdateListData>(
+  "lists/update",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await api.getInstance().put<strapi.SingleResponse<List>>(`lists/${data.listId}`, { data: data.patch });
+      return getMappedResponse(response.data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+

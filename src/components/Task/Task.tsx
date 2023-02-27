@@ -5,12 +5,16 @@ import { Button, Typography, Modal, Checkbox } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, AppState } from '../../store';
 import { useBoard } from '../../store/board/hooks';
 import * as taskThunks from '../../store/tasks/thunks';
 import { CardEdit } from '../Constants/constant';
 import DateToComplete from './Date-and-time';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import Comment from './Comment';
+import * as commentsThunks from '../../store/comments/thunks';
+import { useSelector } from 'react-redux';
+import { useTasks } from '../../store/tasks/hooks';
 
 
 interface TaskProps {
@@ -21,12 +25,15 @@ interface TaskProps {
 export default function Task({ task }: TaskProps) {
 
   const dispatch = useAppDispatch();
+  const boardId = useSelector((state: AppState) => state.board.id);
   const $board = useBoard();
+  const $task = useTasks(boardId);
+  const userId = useSelector((state: AppState) => state.auth.userId);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [taskBgColor, setTaskBgColor] = useState(task.backgroundColor);
   const [taskName, setTaskName] = useState(task.name);
   const [description, setDescription] = useState(task.description);
-  const [comment, setComment] = useState(' '); //исправить ошибку в консоли
+  const [comment, setComment] = useState('');
   const [isCompleted, setIsCompleted] = useState(task.isCompleted);
 
   const handleOnChange = (e: React.ChangeEvent) => {
@@ -57,11 +64,23 @@ export default function Task({ task }: TaskProps) {
     $board.refetch();
   }
 
-const onCheckChange = (e: CheckboxChangeEvent) => {
-  setIsCompleted(e.target.checked)
-};
+  const onCommentCreate = async () => {
+    await dispatch(
+      commentsThunks.fetchCreate({
+        task: task.id,
+        content: comment,
+        owner: userId,
+    }));
+    console.log(comment, task.id)
+    setIsModalOpen(true)
+    $task.refetch();
+  }
 
-  let date = task.createdAt.slice(0, 4) +' '+  task.createdAt.slice(5, 7) + ' ' + task.createdAt.slice(8, 10);
+  const onCheckChange = (e: CheckboxChangeEvent) => {
+    setIsCompleted(e.target.checked)
+  };
+
+  let date = task.createdAt.slice(0, 4) +'.'+  task.createdAt.slice(5, 7) + '.' + task.createdAt.slice(8, 10);
 
   return (
     <div>
@@ -84,7 +103,7 @@ const onCheckChange = (e: CheckboxChangeEvent) => {
         value={taskName}/>
         <div className={styles.change__check}>
           <p className={styles.date}>{CardEdit.CREATE_DATA}: {date}</p>
-          <Checkbox onChange={onCheckChange}>Выполнено</Checkbox>
+          <Checkbox checked={isCompleted} onChange={onCheckChange}>Выполнено</Checkbox>
         </div>
         <div className={styles.change__title}>{CardEdit.DESCRIPTION}</div>
         <TextArea
@@ -97,15 +116,24 @@ const onCheckChange = (e: CheckboxChangeEvent) => {
         />
         <div className={styles.change__title}>{CardEdit.COLOR}</div>
         <input className={styles.color} type="color" value={taskBgColor} onChange={(e) => setTaskBgColor(e.target.value)} />
-        <div className={styles.change__title}>{CardEdit.COMMENT}</div>
-        <TextArea
-          className={styles.comment}
-          placeholder={CardEdit.COMMENT_PLACEHOLDER}
-          value={comment}
-          autoSize={{ minRows: 2}}
-          autoFocus
-          onChange={(e) => setComment(e.target.value)}
-        />
+        <div>
+        <div className={styles.change__title}>{CardEdit.COMMENTS_TITLE}</div>
+          <div>
+            {task.comments.map((comment) => (
+              <Comment key={comment.id} comment={comment} taskId={task.id} />
+            ))}
+          </div>
+          <div className={styles.change__title}>{CardEdit.COMMENT}</div>
+          <TextArea
+            className={styles.comment}
+            placeholder={CardEdit.COMMENT_PLACEHOLDER}
+            value={comment}
+            autoSize={{ minRows: 2}}
+            autoFocus
+            onChange={(e) => setComment(e.target.value)}
+            onBlur={onCommentCreate}
+          />
+        </div>
         <p className={styles.change__title}>Выполнить до:</p>
         <DateToComplete />
         <Button type="text" danger onClick={onTaskDelete}>{CardEdit.DELETE}</Button>
