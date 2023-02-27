@@ -28,6 +28,10 @@ interface CreateBoardData {
   backgroundColor: string;
   members: number[];
   owner: number;
+  description: string;
+  isFavorite: boolean;
+  isPrivate: boolean;
+  isClosed: boolean;
 }
 
 export const fetchCreateBoard = createAsyncThunk<Board, CreateBoardData>(

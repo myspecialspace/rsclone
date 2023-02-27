@@ -43,6 +43,10 @@ export default function WorkspacePage() {
         workspace: workspace.id,
         members: [userId],
         owner: userId,
+        description: '',
+        isFavorite: false,
+        isPrivate: false,
+        isClosed: false,
       })
     );
     setIsModalOpen(false);
@@ -118,7 +122,6 @@ export default function WorkspacePage() {
             </Modal>
           </div>
         </div>
-
         <div className={styles.block}>
           <h2 className={styles.title}>{WorkspaceContent.MEMBERS_TITLE}</h2>
           <div>
