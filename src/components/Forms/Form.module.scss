@@ -31,8 +31,6 @@
     0px 2px 3px rgba(206, 127, 214, 0.16);
   border-radius: 5px;
   border: 1px solid #cfd3e2;
-  @extend %font-prim;
-  @include font($size: 1.6rem, $height: 2.6rem, $weight: 400);
   margin-bottom: 4px;
   padding: 6px;
 }

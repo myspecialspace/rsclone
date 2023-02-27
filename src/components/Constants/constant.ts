@@ -190,6 +190,8 @@ enum CardEditRu {
   COMMENT = 'Оставить комментарий',
   COMMENT_PLACEHOLDER ='Напишите комментарий ...',
   DELETE = 'Удалить карточку',
+  CHECKED = 'Выполнено',
+  DATE_TO_COMPLETE = 'Выполнить до:'
 }
 
 enum CardEditEn {
@@ -201,6 +203,8 @@ enum CardEditEn {
   COMMENT = 'Leave a comment',
   COMMENT_PLACEHOLDER ='Input comments ...',
   DELETE = 'Delete card',
+  CHECKED = 'Done',
+  DATE_TO_COMPLETE = 'Do before:'
 }
 
 
