@@ -59,6 +59,7 @@ export default function MeLayout() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalsOpen, setIsModalsOpen] = useState(false);
   const [workspaceName, setWorkspaceName] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [workspaceBgColor, setWorkspaceBgColor] = useState(WORKSPACE_BG_COLOR);
@@ -125,7 +126,7 @@ export default function MeLayout() {
         <Button
           type='ghost'
           rel='noopener noreferrer'
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsModalsOpen(true)}
         >
           {WorkspaceContent.BOARD_CREATE}
         </Button>
@@ -204,7 +205,7 @@ export default function MeLayout() {
         isClosed: boardNew.isClosed,
       })
     );
-    setIsModalOpen(false);
+    setIsModalsOpen(false);
     setBoardNew({
       name: '',
       description: '',
@@ -314,12 +315,11 @@ export default function MeLayout() {
         >
           {WorkspaceContent.BOARD_CREATE}
         </div>
-
         <Modal
           title={WorkspaceContent.BOARD_CREATE}
-          open={isModalOpen}
+          open={isModalsOpen}
           onOk={onCreateBoard}
-          onCancel={() => setIsModalOpen(false)}
+          onCancel={() => setIsModalsOpen(false)}
         >
           <Input
             placeholder={WorkspaceContent.BOARD_NAME}
