@@ -21,7 +21,6 @@ export default function AboutPage() {
               <h2 className={styles.about__title}>{mainPageContent.TITLE}</h2>
               <p className={styles.about__text}>{mainPageContent.TEXT}</p>
               <form action="#!" className={styles.sign__form}>
-                <input type="email" name="email" className={styles.sign__field} placeholder="Email" />
                 <Link to="/registration" className={styles.link}>
                   <div className={styles.sign__submit}>{mainPageContent.SIGN_UP_BUTTON}</div>
                 </Link>
