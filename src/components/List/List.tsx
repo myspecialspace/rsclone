@@ -46,7 +46,7 @@ export default function List({
   };
 
   const getListStyle = (isDraggingOver: boolean) => ({
-    background: isDraggingOver ? 'lightblue' : '#eff8ff',
+    background: isDraggingOver ? 'lightblue' : '#ebecf0',
     // display: 'flex',
     // padding: 8,
     overflow: 'auto',
@@ -55,11 +55,11 @@ export default function List({
   const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
-    padding: `0 ${8 * 2}px`,
+    //padding: `0 ${8 * 2}px`,
     // margin: `0 ${8}px 0 0`,
 
     // change background colour if dragging
-    background: isDragging ? 'lightgreen' : '#eff8ff',
+    background: isDragging ? 'lightgreen' : '#ebecf0',
 
     // styles we need to apply on draggables
     ...draggableStyle,
