@@ -102,6 +102,8 @@ enum WorkspaceContentRu {
   CHECK_FAVORITE_CHECK = 'избранная',
   CHECK_PRIVATE = 'личная',
   CHECK_CLOSE = 'закрыть',
+  DELETE_BOARD = 'Вы уверены, что хотите удалить доску?',
+  BUTTON_DELETE = 'Удалить',
 }
 
 enum WorkspaceContentEn {
@@ -130,6 +132,8 @@ enum WorkspaceContentEn {
   CHECK_FAVORITE_CHECK = 'favorite',
   CHECK_PRIVATE = 'private',
   CHECK_CLOSE = 'close board',
+  DELETE_BOARD = 'You are sure you want to remove the board?',
+  BUTTON_DELETE = 'Delete',
 }
 
 enum MeSettingsContentRu {

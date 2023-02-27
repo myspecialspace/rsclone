@@ -1,6 +1,10 @@
 import styles from './Workspace.module.scss';
 import { WorkspaceContent } from '../../components/Constants/constant';
-import { StarOutlined, UserAddOutlined } from '@ant-design/icons';
+import {
+  StarOutlined,
+  UserAddOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import { Button, Input, Modal, Space, Spin } from 'antd';
 import { useWorkspace } from '../../store/workspace/hooks';
 import { Link } from 'react-router-dom';
@@ -14,12 +18,19 @@ import { BOARD_BG_COLOR } from '../../helpers/defaults';
 import * as routerPaths from '../../router/paths';
 import { useSelector } from 'react-redux';
 import { authSelectors } from '../../store/auth/selectors';
+import * as boardThunks from '../../store/board/thunks';
+import { useBoard } from '../../store/board/hooks';
+import { DeleteBoard } from '../../store/board/types';
 
 export default function WorkspacePage() {
   const dispatch = useAppDispatch();
   const $workspace = useWorkspace();
   const workspace = $workspace.data;
+  const $board = useBoard();
+  const board = $board?.data || '';
+  const boardId = board.id;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteBoard, setIsDeleteBoard] = useState(false);
   const [boardName, setBoardName] = useState('');
   const [boardBgColor, setBoardBgColor] = useState(BOARD_BG_COLOR);
   const userId = useSelector(authSelectors.userId);
@@ -49,7 +60,17 @@ export default function WorkspacePage() {
     setIsModalOpen(false);
     $workspace.refetch();
   };
-
+  const onClick = () => {
+    setIsDeleteBoard(true);
+  };
+  const upDateBoard = () => {
+    onDeleteBoard({ boardId });
+    setIsDeleteBoard(false);
+  };
+  const onDeleteBoard = async (data: DeleteBoard) => {
+    await dispatch(boardThunks.deleteBoard({ boardId }));
+    $workspace.refetch();
+  };
   return (
     <div className={styles.main}>
       <div className={styles.main__content}>
@@ -64,7 +85,6 @@ export default function WorkspacePage() {
               )}
             </span>
           </h2>
-
           <Space align='center'>
             <Button type='primary' icon={<UserAddOutlined />}>
               {WorkspaceContent.WORKSPACE_INVITE}
@@ -92,12 +112,22 @@ export default function WorkspacePage() {
               {WorkspaceContent.BOARD_CREATE}
             </div>
             {workspace.boards.map((board) => (
-              <Link
-                to={routerPaths.workspaceBoard(workspace.id, board.id)}
-                key={board.id}
-              >
-                <Board board={board} className={styles.board} />
-              </Link>
+              <div className={styles.board_link} key={board.id}>
+                <Link to={routerPaths.workspaceBoard(workspace.id, board.id)}>
+                  <Board board={board} className={styles.board} />
+                </Link>
+                <button className={styles.delete} onClick={onClick}>
+                  <DeleteOutlined />
+                </button>
+                <Modal
+                  title={WorkspaceContent.DELETE_BOARD}
+                  open={isDeleteBoard}
+                  onOk={upDateBoard}
+                  onCancel={() => setIsDeleteBoard(false)}
+                  okText={WorkspaceContent.BUTTON_DELETE}
+                  cancelText={WorkspaceContent.BUTTON_NO}
+                ></Modal>
+              </div>
             ))}
             <Modal
               title={WorkspaceContent.BOARD_CREATE}
